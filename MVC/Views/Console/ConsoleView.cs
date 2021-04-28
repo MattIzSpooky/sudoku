@@ -77,6 +77,17 @@ namespace MVC.Views.Console
             }
         }
 
+        public override void Draw()
+        {
+            ClearBuffer();
+
+            FillBuffer();
+
+            WriteBuffer();
+        }
+
+        protected abstract void FillBuffer();
+
         /// <summary>
         /// Writes a string based on the current StringCursor.
         /// </summary>

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain
 {
-    public class Cell
+    public class Cell : IValidate
     {
         public int Value
         {

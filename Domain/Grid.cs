@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain
 {
-    public class Grid : IValidate
+    public class Grid
     {
         private List<Quadrant> quadrants;
     }

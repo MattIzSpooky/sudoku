@@ -9,14 +9,10 @@ namespace Frontend.Views
         {
         }
 
-        public override void Draw()
+        protected override void FillBuffer()
         {
-            ClearBuffer();
-            
             WriteWelcome();
             WriteInstructions();
-            
-            WriteBuffer();
         }
 
         private void WriteWelcome()
