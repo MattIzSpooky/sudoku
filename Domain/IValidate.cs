@@ -5,8 +5,19 @@ using System.Text;
 
 namespace Domain
 {
-    public interface IValidate
+    public interface ICell
     {
-        void Validate();
+        bool IsEditable { get; protected set; }
+
+        void ToggleEditable()
+        {
+            this.IsEditable = !this.IsEditable;
+        }
+        bool IsComposite();
+        bool IsValid();
+        void Accept(IVisitor visitor)
+        {
+            visitor.VisitCell(this);
+        }
     }
 }

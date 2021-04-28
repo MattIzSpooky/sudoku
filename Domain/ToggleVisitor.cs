@@ -5,8 +5,7 @@ using System.Text;
 
 namespace Domain
 {
-    public class Sudoku
+    public class ToggleVisitor : IVisitor
     {
-        private System.Collections.Generic.List<Domain.Quadrant> components;
     }
 }

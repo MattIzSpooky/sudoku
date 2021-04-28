@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Comment CommentText="Grid = Composite&#xD;&#xA;Cell = Leaf">
-    <Position X="0.5" Y="4.927" Height="0.75" Width="1.7" />
+    <Position X="0.51" Y="1.719" Height="0.75" Width="1.7" />
   </Comment>
   <Class Name="Domain.Cell">
-    <Position X="2.5" Y="3" Width="2.5" />
+    <Position X="2" Y="4.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAAAAAgAAAAAAAAAAAAAAAAgQAAAAAA=</HashCode>
       <FileName>Cell.cs</FileName>
@@ -12,36 +12,36 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.Quadrant">
-    <Position X="5.25" Y="3" Width="1.5" />
+    <Position X="4.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Quadrant.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Domain.Grid">
-    <Position X="7.25" Y="3" Width="2.25" />
+  <Class Name="Domain.Sudoku">
+    <Position X="3.25" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Grid.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.SudokuReader">
-    <Position X="0.5" Y="7.75" Width="2" />
+    <Position X="0.5" Y="7.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SudokuReader.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.SudokuParserFactory">
-    <Position X="3" Y="7.5" Width="3" />
+    <Position X="2.75" Y="7.5" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
       <FileName>SudokuParserFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.NormalSudokuParser">
-    <Position X="6.75" Y="7.75" Width="1.75" />
+    <Position X="6.75" Y="8.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>NormalSudokuParser.cs</FileName>
@@ -49,7 +49,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.SamuraiSudokuParser">
-    <Position X="8.75" Y="8" Width="1.75" />
+    <Position X="8.75" Y="8.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SamuraiSudokuParser.cs</FileName>
@@ -57,31 +57,52 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.JigsawSudokuParser">
-    <Position X="10.75" Y="7.75" Width="1.75" />
+    <Position X="10.75" Y="8.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>JigsawSudokuParser.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
+  <Class Name="Domain.ToggleVisitor">
+    <Position X="8.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ToggleVisitor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.IVisitor">
+    <Position X="7.75" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IVisitor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.ValidatorVisitor">
+    <Position X="7" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ValidatorVisitor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="Domain.Coordinate">
-    <Position X="10.5" Y="4.25" Width="2" />
+    <Position X="11.25" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
       <FileName>Coordinate.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Interface Name="Domain.ISudokuParser">
-    <Position X="8.75" Y="6.25" Width="1.5" />
+    <Position X="8.75" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ISudokuParser.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Domain.IValidate">
-    <Position X="3.75" Y="1.5" Width="1.5" />
+  <Interface Name="Domain.ICell">
+    <Position X="3.25" Y="1.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AIAAAAAAAAAAAAAAAAgAIAAAAACAAAAAAAAAAAACAAA=</HashCode>
       <FileName>IValidate.cs</FileName>
     </TypeIdentifier>
   </Interface>

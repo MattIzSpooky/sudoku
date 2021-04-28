@@ -5,8 +5,7 @@ using System.Text;
 
 namespace Domain
 {
-    public class Sudoku
+    public interface IValidator
     {
-        private System.Collections.Generic.List<Domain.Quadrant> components;
     }
 }
