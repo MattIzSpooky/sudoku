@@ -5,7 +5,11 @@ using System.Text;
 
 namespace Domain
 {
-    public class AuxiliaryState : IState
+    public class AuxiliaryState : State
     {
+        public override void Handle()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

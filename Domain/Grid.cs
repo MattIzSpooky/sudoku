@@ -7,11 +7,6 @@ namespace Domain
 {
     public class Sudoku
     {
-        private System.Collections.Generic.List<Domain.Quadrant> components;
-
-        public void setState(IState state)
-        {
-            throw new System.NotImplementedException();
-        }
+        private List<Quadrant> components;
     }
 }

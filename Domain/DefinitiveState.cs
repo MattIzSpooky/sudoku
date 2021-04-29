@@ -5,7 +5,11 @@ using System.Text;
 
 namespace Domain
 {
-    public class DefinitiveState : IState
+    public class DefinitiveState : State
     {
+        public override void Handle()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

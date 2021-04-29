@@ -7,36 +7,30 @@ namespace Domain
 {
     public class Cell : ICell
     {
-        public int Value
+        public int Value {get;set;}
+        public int HelpNumber { get; set; }
+        public int IsValid { get; set; }
+        public Coordinate Coordinate { get; set; }
+        bool ICell.IsEditable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public bool IsComposite()
         {
-            get => default;
-            set
-            {
-            }
+            throw new NotImplementedException();
         }
 
-        public bool IsValid
+        public void SetState(State state)
         {
-            get => default;
-            set
-            {
-            }
+            throw new System.NotImplementedException();
         }
 
-        public Coordinate Coordinate
+        bool ICell.IsComposite()
         {
-            get => default;
-            set
-            {
-            }
+            throw new NotImplementedException();
         }
 
-        public int HelpNumber
+        bool ICell.IsValid()
         {
-            get => default;
-            set
-            {
-            }
+            throw new NotImplementedException();
         }
     }
 }
