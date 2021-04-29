@@ -7,5 +7,9 @@ namespace Domain
 {
     public class JigsawSudokuParser : ISudokuParser
     {
+        public void Parse()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

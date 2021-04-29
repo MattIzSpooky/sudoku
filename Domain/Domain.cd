@@ -27,39 +27,39 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.SudokuReader">
-    <Position X="0.5" Y="7.5" Width="2" />
+    <Position X="5" Y="11.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SudokuReader.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Domain.SudokuParserFactory">
-    <Position X="2.75" Y="7.5" Width="3" />
+  <Class Name="Domain.SudokuFactory">
+    <Position X="4.5" Y="9.5" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
-      <FileName>SudokuParserFactory.cs</FileName>
+      <HashCode>AACIAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SudokuFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.NormalSudokuParser">
-    <Position X="6.75" Y="8.5" Width="1.75" />
+    <Position X="8.25" Y="11.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>NormalSudokuParser.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.SamuraiSudokuParser">
-    <Position X="8.75" Y="8.75" Width="1.75" />
+    <Position X="10.5" Y="11.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SamuraiSudokuParser.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.JigsawSudokuParser">
-    <Position X="10.75" Y="8.5" Width="1.75" />
+    <Position X="13" Y="11.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>JigsawSudokuParser.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -106,15 +106,55 @@
       <FileName>State.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Domain.NormalSudokuFactory">
+    <Position X="8" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>NormalSudokuFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Domain.SamuraiSudokuFactory">
+    <Position X="10.25" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>SamuraiSudokuFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Domain.JigsawSudokuFactory">
+    <Position X="12.75" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>JigsawSudokuFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Domain.BackTrackingSolver">
+    <Position X="5" Y="7.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BackTrackingSolver.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Domain.BruteForceSolver">
+    <Position X="7.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BruteForceSolver.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
   <Struct Name="Domain.Coordinate">
-    <Position X="16" Y="6.75" Width="2" />
+    <Position X="7" Y="3.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
       <FileName>Coordinate.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Interface Name="Domain.ISudokuParser">
-    <Position X="8.75" Y="7" Width="1.5" />
+    <Position X="15" Y="11" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ISudokuParser.cs</FileName>
@@ -125,6 +165,20 @@
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAAAgAIAAAAACAAAAAAAAAAAACAAA=</HashCode>
       <FileName>ICell.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Domain.ISudokuParserFactory">
+    <Position X="10" Y="8.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>ISudokuParserFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Domain.ISolverStrategy">
+    <Position X="6" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ISolverStrategy.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
