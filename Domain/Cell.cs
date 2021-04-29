@@ -5,13 +5,18 @@ using System.Text;
 
 namespace Domain
 {
-    public class Cell : ICell
+    public class Cell : ICell, IClone<Cell>
     {
         public int Value {get;set;}
         public int HelpNumber { get; set; }
         public int IsValid { get; set; }
         public Coordinate Coordinate { get; set; }
         bool ICell.IsEditable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public Cell Clone()
+        {
+            throw new NotImplementedException();
+        }
 
         public bool IsComposite()
         {

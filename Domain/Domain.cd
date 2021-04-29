@@ -1,47 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Comment CommentText="Grid = Composite&#xD;&#xA;Cell = Leaf">
-    <Position X="0.51" Y="1.719" Height="0.75" Width="1.7" />
-  </Comment>
   <Class Name="Domain.Cell">
-    <Position X="2" Y="4.25" Width="2.5" />
+    <Position X="0.5" Y="4.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>gAAgBAAAAAAABAAAAAgAAAAAAACAAAAACAAgQAAAAAA=</HashCode>
+      <HashCode>gAAgBAAAAAAABAAAAAgAAAAAAACAAAAACAAgQAAAABA=</HashCode>
       <FileName>Cell.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.Quadrant">
-    <Position X="4.75" Y="4.25" Width="1.5" />
+    <Position X="3.25" Y="4.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>gAAgAAAAAAAAAAAAAAgAAAACAACAAAAACAAAAAAAABA=</HashCode>
       <FileName>Quadrant.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.Sudoku">
-    <Position X="3.25" Y="0.5" Width="2.25" />
+    <Position X="1.75" Y="0.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Grid.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.SudokuReader">
-    <Position X="5" Y="11.5" Width="2" />
+    <Position X="1.25" Y="10.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SudokuReader.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.SudokuFactory">
-    <Position X="4.5" Y="9.5" Width="3" />
+    <Position X="0.75" Y="8.75" Width="3" />
     <TypeIdentifier>
       <HashCode>AACIAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SudokuFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.NormalSudokuParser">
-    <Position X="8.25" Y="11.5" Width="1.75" />
+    <Position X="4.5" Y="10.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>NormalSudokuParser.cs</FileName>
@@ -49,7 +46,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.SamuraiSudokuParser">
-    <Position X="10.5" Y="11.5" Width="1.75" />
+    <Position X="6.75" Y="10.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SamuraiSudokuParser.cs</FileName>
@@ -57,7 +54,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.JigsawSudokuParser">
-    <Position X="13" Y="11.5" Width="1.75" />
+    <Position X="9.25" Y="10.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>JigsawSudokuParser.cs</FileName>
@@ -107,7 +104,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.NormalSudokuFactory">
-    <Position X="8" Y="9.75" Width="2" />
+    <Position X="4.25" Y="9" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
       <FileName>NormalSudokuFactory.cs</FileName>
@@ -115,7 +112,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.SamuraiSudokuFactory">
-    <Position X="10.25" Y="9.75" Width="2" />
+    <Position X="6.5" Y="9" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
       <FileName>SamuraiSudokuFactory.cs</FileName>
@@ -123,7 +120,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.JigsawSudokuFactory">
-    <Position X="12.75" Y="9.75" Width="2" />
+    <Position X="9" Y="9" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
       <FileName>JigsawSudokuFactory.cs</FileName>
@@ -131,7 +128,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.BackTrackingSolver">
-    <Position X="5" Y="7.75" Width="1.75" />
+    <Position X="13.25" Y="8.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>BackTrackingSolver.cs</FileName>
@@ -139,7 +136,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.BruteForceSolver">
-    <Position X="7.25" Y="7.75" Width="1.5" />
+    <Position X="15.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>BruteForceSolver.cs</FileName>
@@ -147,38 +144,45 @@
     <Lollipop Position="0.2" />
   </Class>
   <Struct Name="Domain.Coordinate">
-    <Position X="7" Y="3.75" Width="2" />
+    <Position X="6.25" Y="4" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
       <FileName>Coordinate.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Interface Name="Domain.ISudokuParser">
-    <Position X="15" Y="11" Width="1.5" />
+    <Position X="11.25" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ISudokuParser.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Domain.ICell">
-    <Position X="3.25" Y="1.75" Width="2.25" />
+    <Position X="1.75" Y="1.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAAAgAIAAAAACAAAAAAAAAAAACAAA=</HashCode>
       <FileName>ICell.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Domain.ISudokuParserFactory">
-    <Position X="10" Y="8.25" Width="2.25" />
+    <Position X="6.25" Y="7.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
       <FileName>ISudokuParserFactory.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Domain.ISolverStrategy">
-    <Position X="6" Y="6.25" Width="2" />
+    <Position X="14.25" Y="6.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ISolverStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Domain.IClone&lt;T&gt;">
+    <Position X="4.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>IClone.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
