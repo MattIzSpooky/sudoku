@@ -6,7 +6,7 @@ using Sudoku.Domain.Board.Visitors;
 
 namespace Sudoku.Domain.Board
 {
-    public interface ICell
+    public interface ISudokuComponent
     {
         bool IsEditable { get; protected set; }
 

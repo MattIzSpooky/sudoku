@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sudoku.Domain.Parsers.Factories
 {
-    public class SamuraiSudokuFactory : ISudokuParserFactory
+    public class SamuraiSudokuParserFactory : ISudokuParserFactory
     {
         public ISudokuParser CreateParser()
         {

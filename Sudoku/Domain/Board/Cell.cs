@@ -6,13 +6,13 @@ using Sudoku.Domain.Board.States;
 
 namespace Sudoku.Domain.Board
 {
-    public class Cell : ICell, IClone<Cell>
+    public class Cell : ISudokuComponent, IClone<Cell>
     {
         public int Value {get;set;}
         public int HelpNumber { get; set; }
         public int IsValid { get; set; }
         public Coordinate Coordinate { get; set; }
-        bool ICell.IsEditable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        bool ISudokuComponent.IsEditable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Cell Clone()
         {
@@ -29,12 +29,12 @@ namespace Sudoku.Domain.Board
             throw new System.NotImplementedException();
         }
 
-        bool ICell.IsComposite()
+        bool ISudokuComponent.IsComposite()
         {
             throw new NotImplementedException();
         }
 
-        bool ICell.IsValid()
+        bool ISudokuComponent.IsValid()
         {
             throw new NotImplementedException();
         }

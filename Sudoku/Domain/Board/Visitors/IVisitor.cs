@@ -5,11 +5,8 @@ using System.Text;
 
 namespace Sudoku.Domain.Board.Visitors
 {
-    public class IVisitor
+    public interface IVisitor
     {
-        public void VisitCell(ICell cell)
-        {
-            throw new System.NotImplementedException();
-        }
+        void VisitCell(ISudokuComponent cell);
     }
 }

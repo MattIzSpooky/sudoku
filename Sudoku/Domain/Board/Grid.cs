@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sudoku.Domain.Board
 {
-    public class Sudoku
+    public class Grid
     {
         private List<Quadrant> components;
     }

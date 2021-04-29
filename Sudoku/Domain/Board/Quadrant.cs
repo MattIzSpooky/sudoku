@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Sudoku.Domain.Board
 {
-    public class Quadrant : ICell, IClone<Quadrant>
+    public class Quadrant : ISudokuComponent, IClone<Quadrant>
     {
         private List<Cell> cells;
-        bool ICell.IsEditable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        bool ISudokuComponent.IsEditable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Quadrant Clone()
         {
@@ -25,12 +25,12 @@ namespace Sudoku.Domain.Board
             throw new NotImplementedException();
         }
 
-        bool ICell.IsComposite()
+        bool ISudokuComponent.IsComposite()
         {
             throw new NotImplementedException();
         }
 
-        bool ICell.IsValid()
+        bool ISudokuComponent.IsValid()
         {
             throw new NotImplementedException();
         }
