@@ -8,5 +8,13 @@ namespace Sudoku.Domain.Board
     public class Grid
     {
         private List<Quadrant> components;
+
+        public List<Sudoku.Domain.Board.Quadrant> Quadrant
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

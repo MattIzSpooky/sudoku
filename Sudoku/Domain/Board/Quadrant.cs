@@ -15,11 +15,6 @@ namespace Sudoku.Domain.Board
             throw new NotImplementedException();
         }
 
-        public bool IsComposite()
-        {
-            throw new NotImplementedException();
-        }
-
         public bool IsValid()
         {
             throw new NotImplementedException();

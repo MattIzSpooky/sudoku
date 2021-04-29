@@ -10,7 +10,7 @@ namespace Sudoku.Domain.Board
     {
         public int Value {get;set;}
         public int HelpNumber { get; set; }
-        public int IsValid { get; set; }
+        public bool _isValid = false;
         public Coordinate Coordinate { get; set; }
         bool ISudokuComponent.IsEditable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
@@ -24,11 +24,6 @@ namespace Sudoku.Domain.Board
             throw new NotImplementedException();
         }
 
-        public void SetState(State state)
-        {
-            throw new System.NotImplementedException();
-        }
-
         bool ISudokuComponent.IsComposite()
         {
             throw new NotImplementedException();
@@ -36,7 +31,7 @@ namespace Sudoku.Domain.Board
 
         bool ISudokuComponent.IsValid()
         {
-            throw new NotImplementedException();
+            return _isValid;
         }
     }
 }
