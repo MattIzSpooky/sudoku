@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Comment CommentText="README:&#xD;&#xA;&#xD;&#xA;Associatie lijnen met betrekking tot lijsten worden niet getekend. Deze worden alleen aangegeven via een field in een klasse. Visual Studio ondersteund dit helaas niet.&#xD;&#xA;&#xD;&#xA;Visual studio ondersteund ook geen associate lijntjes met fields, alleen met properties.">
+  <Comment CommentText="README:&#xD;&#xA;&#xD;&#xA;Associatie lijnen met betrekking tot lijsten worden niet getekend. Deze worden alleen aangegeven via een field in een klasse. Visual Studio ondersteund dit helaas niet.&#xD;&#xA;&#xD;&#xA;Visual studio ondersteund ook geen associate lijntjes met fields, alleen met properties.&#xD;&#xA;&#xD;&#xA;Gemaakt door: &#xD;&#xA;Haydar Pehlivan 2152143&#xD;&#xA;Matthijs Kropholler 2152460">
     <Position X="19.24" Y="7.042" Height="4.469" Width="4.117" />
   </Comment>
   <Comment CommentText="ChangeCell can throw a validation error">

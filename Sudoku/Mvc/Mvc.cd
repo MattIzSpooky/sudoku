@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Comment CommentText="README:&#xD;&#xA;Field associaties worden niet aangegeven in Visual Studio.">
-    <Position X="18.646" Y="1.875" Height="1.052" Width="1.7" />
+  <Comment CommentText="README:&#xD;&#xA;Field associaties worden niet aangegeven in Visual Studio.&#xD;&#xA;&#xD;&#xA;Gemaakt door: &#xD;&#xA;Haydar Pehlivan 2152143&#xD;&#xA;Matthijs Kropholler 2152460">
+    <Position X="16.823" Y="1.135" Height="1.854" Width="2.94" />
   </Comment>
   <Class Name="Sudoku.Mvc.Views.Console.ConsoleView">
     <Position X="23.25" Y="4.5" Width="3" />
