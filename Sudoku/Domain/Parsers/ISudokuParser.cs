@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Sudoku.Domain.Board;
 
 namespace Sudoku.Domain.Parsers
 {
     public interface ISudokuParser
     {
-        void Parse();
+        public Grid Parse(string content);
     }
 }

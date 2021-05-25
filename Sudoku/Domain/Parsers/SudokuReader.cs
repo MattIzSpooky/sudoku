@@ -21,10 +21,12 @@ namespace Sudoku.Domain.Parsers
                 throw new ArgumentException("File doesn't exists");
 
             var content = File.ReadAllText(path);
-            var factory = _sudokuFactory.CreateFactory(Path.GetExtension(path));
+            var parserFactory = _sudokuFactory.CreateFactory(Path.GetExtension(path));
+            var parser = parserFactory.CreateParser();
             
+            var grid = parser.Parse(content);
 
-            return new Game();
+            return new Game(grid);
         }
 
         private void RegisterSudokuTypes()

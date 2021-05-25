@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Sudoku.Domain.Board;
 
 namespace Sudoku.Domain.Parsers
 {
     public class NormalSudokuParser : ISudokuParser
     {
-        public void Parse()
+        public Grid Parse(string content)
         {
-            throw new NotImplementedException();
+            
+            return new();
         }
     }
 }
