@@ -7,6 +7,11 @@ namespace Sudoku.Domain.Board
 {
     public class Grid
     {
-        private List<Quadrant> components;
+        private readonly List<Quadrant> _quadrants;
+
+        public Grid(List<Quadrant> quadrants)
+        {
+            _quadrants = quadrants;
+        }
     }
 }

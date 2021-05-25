@@ -7,9 +7,14 @@ namespace Sudoku.Domain.Board
 {
     public class Quadrant : ISudokuComponent, IClone<Quadrant>
     {
-        private List<Cell> cells;
+        private readonly List<Cell> _cells;
         bool ISudokuComponent.IsEditable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
+        public Quadrant(List<Cell> cells)
+        {
+            _cells = cells;
+        }
+        
         public Quadrant Clone()
         {
             throw new NotImplementedException();
