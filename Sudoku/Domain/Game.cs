@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sudoku.Domain
 {
-    class Game
+    public class Game
     {
     }
 }
