@@ -26,7 +26,16 @@ namespace Sudoku.Domain.Parsers
                     counter--;
                 }
             }
-           
+
+
+            var quadrantHeight = (int) Math.Floor(Math.Sqrt(rowLength));
+            var quadrantWidth = rowLength / quadrantHeight;
+
+            foreach (var cell in cells)
+            {
+                
+            }
+
             quadrants.Add(new Quadrant(cells));
             return new Grid(quadrants);
         }
