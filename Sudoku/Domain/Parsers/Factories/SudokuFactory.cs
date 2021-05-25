@@ -16,6 +16,9 @@ namespace Sudoku.Domain.Parsers.Factories
 
         public ISudokuParserFactory CreateFactory(string type)
         {
+            if (!_factories.ContainsKey(type))
+                return null;
+            
             return (ISudokuParserFactory) Activator.CreateInstance(_factories[type]);
         }
     }
