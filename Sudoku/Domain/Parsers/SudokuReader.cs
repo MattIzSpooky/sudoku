@@ -1,16 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
+using Sudoku.Domain.Parsers.Factories;
 
 namespace Sudoku.Domain.Parsers
 {
     public class SudokuReader
     {
-
-        public void Read(string path)
+        private readonly SudokuFactory _sudokuFactory = new();
+        public Game Read(string path)
         {
-            throw new System.NotImplementedException();
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("Path was null or empty.");
+            
+            if(!File.Exists(path))
+                throw new ArgumentException("File doesn't exists");
+
+            var content = File.ReadAllText(path);
+
+            return new Game();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Sudoku.Domain.Parsers.Factories
 {
     public class SudokuFactory
     {
-        private Dictionary<string, Type> _factories;
+        private readonly Dictionary<string, Type> _factories = new();
 
         public void RegisterType(string name, Type type)
         {

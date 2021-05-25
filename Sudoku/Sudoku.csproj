@@ -10,4 +10,52 @@
     <PackageReference Include="Colorful.Console" Version="1.2.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Frontend\Levels\puzzle.4x4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Frontend\Levels\puzzle.6x6">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Frontend\Levels\puzzle.9x9">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Frontend\Levels\puzzle.jigsaw">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Frontend\Levels\puzzle.samurai">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Frontend\Levels\puzzle2.4x4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Frontend\Levels\puzzle2.6x6.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Frontend\Levels\puzzle2.9x9.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Frontend\Levels\puzzle2.jigsaw.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Frontend\Levels\puzzle2.samurai.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Frontend\Levels\puzzle3.4x4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Frontend\Levels\puzzle3.6x6.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Frontend\Levels\puzzle3.9x9.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Frontend\Levels\puzzle3.jigsaw.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Frontend\Levels\puzzle3.samurai.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
