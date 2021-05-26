@@ -31,13 +31,6 @@ namespace Sudoku.Domain.Parsers
             var quadrantHeight = (int) Math.Floor(Math.Sqrt(rowLength));
             var quadrantWidth = rowLength / quadrantHeight;
             var rowQuadrantsCount = rowLength / quadrantWidth;
-            //
-            // var verticalQuadrantsCount = rowLength / quadrantWidth;
-            // var horizontalQuadrantsCount = rowLength / quadrantHeight;
-            // var totalQuadrants = (rowLength / quadrantWidth)
-            // Begin index 0 
-            // Je weet de spring factor -> quadrantWidth
-            // Pak de cellen tot een quadrantWidth (nu ben je bij de buur quandrant)
 
             var quadrantCounter = 0;
             var minX = 0;
@@ -57,10 +50,7 @@ namespace Sudoku.Domain.Parsers
                     where cell.Coordinate.Y >= minY
                     where cell.Coordinate.Y < maxY
                     select cell;
-                    
-                // var quadrantCells = cells.FindAll(c =>
-                //     c.Coordinate.X >= minX && c.Coordinate.X <= maxX && c.Coordinate.Y >= minY &&
-                //     c.Coordinate.Y <= maxY).ToList();
+                
                 quadrants.Add(new Quadrant(quadrantCells.ToList()));
                 
                 quadrantCounter++;
