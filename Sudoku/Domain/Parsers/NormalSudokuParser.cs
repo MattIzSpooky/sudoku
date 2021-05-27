@@ -44,47 +44,46 @@ namespace Sudoku.Domain.Parsers
             var quadrantWidth = squareValue / quadrantHeight;
             var rowQuadrantsCount = squareValue / quadrantWidth;
 
-            CreateQuadrants(squareValue, quadrantWidth, quadrantHeight, rowQuadrantsCount);
+            var gridSize = new BoardValues
+            {
+                SquareValue = squareValue,
+                QuadrantHeight = quadrantHeight,
+                QuadrantWidth = quadrantWidth,
+                RowQuadrantsCount = rowQuadrantsCount
+            };
+
+            CreateQuadrants(gridSize);
         }
 
-        private void CreateQuadrants(int squareValue, int quadrantWidth, int quadrantHeight, int rowQuadrantsCount)
+        private void CreateQuadrants(BoardValues boardValues)
         {
             var quadrantCounter = 0;
-            var maxX = quadrantWidth;
-            var maxY = quadrantHeight;
+            var maxX = boardValues.QuadrantWidth;
+            var maxY = boardValues.QuadrantHeight;
 
-            for (var i = 0; i < squareValue; i++)
+            for (var i = 0; i < boardValues.SquareValue; i++)
             {
-                var minX = maxX - quadrantWidth;
-                var minY = maxY - quadrantHeight;
+                var minX = maxX - boardValues.QuadrantWidth;
+                var minY = maxY - boardValues.QuadrantHeight;
 
                 _quadrants.Add(new Quadrant(GetSpecifiedQuadrantCells(_cells, minX, maxX, minY, maxY)));
 
                 quadrantCounter++;
 
-                if (CheckRowOverflow(
-                    quadrantWidth, 
-                    quadrantHeight, 
-                    rowQuadrantsCount,
-                    ref quadrantCounter, ref maxX, ref maxY)
-                )
+                if (CheckRowOverflow(boardValues, ref quadrantCounter, ref maxX, ref maxY))
                     continue;
 
-                maxX += quadrantWidth;
+                maxX += boardValues.QuadrantWidth;
             }
         }
 
-        private bool CheckRowOverflow(
-            int quadrantWidth, 
-            int quadrantHeight, 
-            int rowQuadrantsCount,
-            ref int quadrantCounter, ref int maxX, ref int maxY)
+        private bool CheckRowOverflow(BoardValues boardValues, ref int quadrantCounter, ref int maxX, ref int maxY)
         {
-            if (quadrantCounter != rowQuadrantsCount)
+            if (quadrantCounter != boardValues.RowQuadrantsCount)
                 return false;
 
-            maxX = quadrantWidth;
-            maxY += quadrantHeight;
+            maxX = boardValues.QuadrantWidth;
+            maxY += boardValues.QuadrantHeight;
             quadrantCounter = 0;
 
             return true;
@@ -99,6 +98,14 @@ namespace Sudoku.Domain.Parsers
                     where cell.Coordinate.Y >= minY
                     where cell.Coordinate.Y < maxY
                     select cell).ToList();
+        }
+
+        private struct BoardValues
+        {
+            public int SquareValue { get; set; }
+            public int QuadrantWidth { get; set; }
+            public int QuadrantHeight { get; set; }
+            public int RowQuadrantsCount { get; set; }
         }
     }
 }
