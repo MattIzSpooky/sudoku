@@ -7,21 +7,19 @@ namespace Sudoku.Domain.Parsers
 {
     public class NormalSudokuParser : ISudokuParser
     {
-        private readonly List<Quadrant> _quadrants = new();
-        private readonly List<Cell> _cells = new();
-
         public Grid Parse(string content)
         {
             var squareValue = (int) Math.Round(Math.Sqrt(content.Trim().Length));
 
-            CreateCells(content, squareValue);
-            ComposeQuadrants(squareValue);
+            var cells = CreateCells(content, squareValue);
+            var quadrants = ComposeQuadrants(cells, squareValue);
 
-            return new Grid(_quadrants);
+            return new Grid(quadrants);
         }
 
-        private void CreateCells(string content, int squareValue)
+        private List<Cell> CreateCells(string content, int squareValue)
         {
+            var cells = new List<Cell>();
             var counter = content.Length;
 
             for (var y = 0; y < squareValue; y++)
@@ -30,21 +28,23 @@ namespace Sudoku.Domain.Parsers
                 {
                     var index = content.Length - counter;
 
-                    _cells.Add(new Cell(new Coordinate(x, y),
+                    cells.Add(new Cell(new Coordinate(x, y),
                         (int) char.GetNumericValue(content[index..].First())));
 
                     counter--;
                 }
             }
+
+            return cells;
         }
 
-        private void ComposeQuadrants(int squareValue)
+        private List<Quadrant> ComposeQuadrants(List<Cell> cells, int squareValue)
         {
             var quadrantHeight = (int) Math.Floor(Math.Sqrt(squareValue));
             var quadrantWidth = squareValue / quadrantHeight;
             var rowQuadrantsCount = squareValue / quadrantWidth;
 
-            var gridSize = new BoardValues
+            var boardValues = new BoardValues
             {
                 SquareValue = squareValue,
                 QuadrantHeight = quadrantHeight,
@@ -52,11 +52,13 @@ namespace Sudoku.Domain.Parsers
                 RowQuadrantsCount = rowQuadrantsCount
             };
 
-            CreateQuadrants(gridSize);
+            return CreateQuadrants(cells, boardValues);
         }
 
-        private void CreateQuadrants(BoardValues boardValues)
+        private List<Quadrant> CreateQuadrants(List<Cell> cells, BoardValues boardValues)
         {
+            var quadrants = new List<Quadrant>();
+
             var quadrantCounter = 0;
             var maxX = boardValues.QuadrantWidth;
             var maxY = boardValues.QuadrantHeight;
@@ -66,7 +68,7 @@ namespace Sudoku.Domain.Parsers
                 var minX = maxX - boardValues.QuadrantWidth;
                 var minY = maxY - boardValues.QuadrantHeight;
 
-                _quadrants.Add(new Quadrant(GetSpecifiedQuadrantCells(_cells, minX, maxX, minY, maxY)));
+                quadrants.Add(new Quadrant(GetSpecifiedQuadrantCells(cells, minX, maxX, minY, maxY)));
 
                 quadrantCounter++;
 
@@ -75,6 +77,8 @@ namespace Sudoku.Domain.Parsers
 
                 maxX += boardValues.QuadrantWidth;
             }
+
+            return quadrants;
         }
 
         private bool CheckRowOverflow(BoardValues boardValues, ref int quadrantCounter, ref int maxX, ref int maxY)
@@ -89,16 +93,11 @@ namespace Sudoku.Domain.Parsers
             return true;
         }
 
-        private List<Cell> GetSpecifiedQuadrantCells(IEnumerable<Cell> cells, int minX, int maxX, int minY, int maxY)
-        {
-            return
-                (from cell in cells
-                    where cell.Coordinate.X >= minX
-                    where cell.Coordinate.X < maxX
-                    where cell.Coordinate.Y >= minY
-                    where cell.Coordinate.Y < maxY
-                    select cell).ToList();
-        }
+        private List<Cell> GetSpecifiedQuadrantCells(IEnumerable<Cell> cells, int minX, int maxX, int minY, int maxY) =>
+            cells.Where(cell => cell.Coordinate.X >= minX)
+                .Where(cell => cell.Coordinate.X < maxX)
+                .Where(cell => cell.Coordinate.Y >= minY)
+                .Where(cell => cell.Coordinate.Y < maxY).ToList();
 
         private struct BoardValues
         {
