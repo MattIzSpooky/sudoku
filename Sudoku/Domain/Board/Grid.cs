@@ -7,14 +7,11 @@ namespace Sudoku.Domain.Board
 {
     public class Grid
     {
-        private List<Quadrant> components;
+        private readonly List<Quadrant> _quadrants;
 
-        public List<Sudoku.Domain.Board.Quadrant> Quadrant
+        public Grid(List<Quadrant> quadrants)
         {
-            get => default;
-            set
-            {
-            }
+            _quadrants = quadrants;
         }
     }
 }

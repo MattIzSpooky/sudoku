@@ -16,13 +16,13 @@ namespace Sudoku.Frontend.Controllers
         {
             var view = new StartView();
 
-            // view.MapInput(new Input<ConsoleKey>(ConsoleKey.Spacebar, Start));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.Spacebar, Start));
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.Escape, Quit));
 
             return view;
         }
 
-        // private void Start() => Root.OpenController<GameController, GameView, ConsoleKey>();
+        private void Start() => Root.OpenController<GameController, GameView, ConsoleKey>();
         private void Quit() => Root.Stop();
     }
 }

@@ -1,26 +1,18 @@
-﻿using Sudoku.Domain.Board;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sudoku.Domain.Board;
 
 namespace Sudoku.Domain
 {
     public class Game
     {
-        public Board.Grid Grid
+        private Grid _grid;
+        public Game(Grid grid)
         {
-            get => default;
-            set
-            {
-            }
-        }
-
-        /// <summary></summary>
-        public void ChangeCell(Coordinate coordinate, int value)
-        {
-            throw new System.NotImplementedException();
+            _grid = grid;
         }
     }
 }

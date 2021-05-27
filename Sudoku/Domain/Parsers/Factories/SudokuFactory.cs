@@ -7,7 +7,7 @@ namespace Sudoku.Domain.Parsers.Factories
 {
     public class SudokuFactory
     {
-        private Dictionary<string, Type> _factories;
+        private readonly Dictionary<string, Type> _factories = new();
 
         public void RegisterType(string name, Type type)
         {
@@ -16,6 +16,9 @@ namespace Sudoku.Domain.Parsers.Factories
 
         public ISudokuParserFactory CreateFactory(string type)
         {
+            if (!_factories.ContainsKey(type))
+                return null;
+            
             return (ISudokuParserFactory) Activator.CreateInstance(_factories[type]);
         }
     }

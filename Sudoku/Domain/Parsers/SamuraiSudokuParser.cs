@@ -1,14 +1,11 @@
-﻿using Sudoku.Domain.Board;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
+using Sudoku.Domain.Board;
 
 namespace Sudoku.Domain.Parsers
 {
     public class SamuraiSudokuParser : ISudokuParser
     {
-        public Grid Parse(string fileContent)
+        public Grid Parse(string content)
         {
             throw new NotImplementedException();
         }

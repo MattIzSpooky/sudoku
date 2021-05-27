@@ -14,6 +14,12 @@ namespace Sudoku.Domain.Board
         public Coordinate Coordinate { get; set; }
         bool ISudokuComponent.IsEditable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
+        public Cell(Coordinate coordinate, int value)
+        {
+            Value = value;
+            Coordinate = coordinate;
+        }
+        
         public Cell Clone()
         {
             throw new NotImplementedException();
