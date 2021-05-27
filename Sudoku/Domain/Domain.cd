@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Comment CommentText="README:&#xD;&#xA;&#xD;&#xA;Associatie lijnen met betrekking tot lijsten worden niet getekend. Deze worden alleen aangegeven via een field in een klasse. Visual Studio ondersteund dit helaas niet.&#xD;&#xA;&#xD;&#xA;Visual studio ondersteund ook geen associate lijntjes met fields, alleen met properties.&#xD;&#xA;&#xD;&#xA;Gemaakt door: &#xD;&#xA;Haydar Pehlivan 2152143&#xD;&#xA;Matthijs Kropholler 2152460">
+    <Position X="19.24" Y="7.042" Height="4.469" Width="4.117" />
+  </Comment>
+  <Comment CommentText="ChangeCell can throw a validation error">
+    <Position X="5.687" Y="7.948" Height="0.75" Width="1.7" />
+  </Comment>
   <Class Name="Sudoku.Domain.Parsers.Factories.JigsawSudokuParserFactory" BaseTypeListCollapsed="true">
     <Position X="16.75" Y="2" Width="2.75" />
     <TypeIdentifier>
@@ -22,17 +28,17 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
       <FileName>Domain\Parsers\Factories\SamuraiSudokuParserFactory.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.Parsers.Factories.SudokuFactory">
-    <Position X="14.75" Y="3.25" Width="1.5" />
+    <Position X="14.5" Y="3.25" Width="4" />
     <TypeIdentifier>
       <HashCode>AACIAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Parsers\Factories\SudokuFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Sudoku.Domain.Parsers.JigsawSudokuParser" BaseTypeListCollapsed="true">
-    <Position X="17" Y="5.5" Width="2.5" />
+    <Position X="17.75" Y="5.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Parsers\JigsawSudokuParser.cs</FileName>
@@ -40,7 +46,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.Parsers.NormalSudokuParser" BaseTypeListCollapsed="true">
-    <Position X="14.5" Y="5.5" Width="2" />
+    <Position X="14.5" Y="5.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Parsers\NormalSudokuParser.cs</FileName>
@@ -56,9 +62,9 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.Parsers.SudokuReader">
-    <Position X="16.5" Y="3.75" Width="1.5" />
+    <Position X="19.25" Y="3.5" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Parsers\SudokuReader.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -77,14 +83,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Sudoku.Domain.Board.States.State">
-    <Position X="7.75" Y="2.75" Width="1.5" />
+    <Position X="7" Y="2.75" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgIABAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Board\States\State.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Sudoku.Domain.Board.Visitors.ValidatorVisitor">
-    <Position X="0.5" Y="7.75" Width="3.25" />
+    <Position X="0.5" Y="7.5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Board\Visitors\ValidatorVisitor.cs</FileName>
@@ -92,30 +98,30 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.Board.Cell" BaseTypeListCollapsed="true">
-    <Position X="10.5" Y="10.5" Width="3.5" />
+    <Position X="9.5" Y="10.5" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAAEBAAAAAiAAAAAAACACAAAAAAgQAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAAAEBAAAAACAAAAAAACACAAAAEAgQAAAABA=</HashCode>
       <FileName>Domain\Board\Cell.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.Board.Grid">
-    <Position X="7.5" Y="10.5" Width="2.75" />
+    <Position X="6" Y="10.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAABAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Board\Grid.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Sudoku.Domain.Board.Quadrant" BaseTypeListCollapsed="true">
-    <Position X="14.25" Y="10.5" Width="3.75" />
+    <Position X="13.5" Y="10.5" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAEAAAAAAiAAAACAACACAAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAAAEAAAAAAiAAAACAAAACAAAAAAAAAAAABA=</HashCode>
       <FileName>Domain\Board\Quadrant.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.Solvers.BackTrackingSolver" BaseTypeListCollapsed="true">
-    <Position X="2.5" Y="4.25" Width="1.75" />
+    <Position X="0.5" Y="2.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Solvers\BackTrackingSolver.cs</FileName>
@@ -123,7 +129,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.Solvers.BruteForceSolver" BaseTypeListCollapsed="true">
-    <Position X="4.5" Y="4.25" Width="1.5" />
+    <Position X="2.5" Y="2.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Solvers\BruteForceSolver.cs</FileName>
@@ -131,7 +137,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.Board.Visitors.ToggleVisitor">
-    <Position X="4" Y="7.75" Width="3" />
+    <Position X="0.5" Y="6" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Board\Visitors\ToggleVisitor.cs</FileName>
@@ -139,14 +145,17 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.Game">
-    <Position X="9.25" Y="7.75" Width="1.5" />
+    <Position X="7.75" Y="7.75" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAEAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Game.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Grid" />
+    </ShowAsAssociation>
   </Class>
   <Struct Name="Sudoku.Domain.Board.Coordinate">
-    <Position X="18.25" Y="7.5" Width="1.5" />
+    <Position X="6" Y="12.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
       <FileName>Domain\Board\Coordinate.cs</FileName>
@@ -160,35 +169,35 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Sudoku.Domain.Parsers.ISudokuParser">
-    <Position X="12.75" Y="4" Width="1.5" />
+    <Position X="11.5" Y="3.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Parsers\ISudokuParser.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Sudoku.Domain.Board.ISudokuComponent">
-    <Position X="11.75" Y="7.5" Width="3" />
+    <Position X="12" Y="7.75" Width="3" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAAAgAIAAAAACAAAAAAAAAAAACAAA=</HashCode>
       <FileName>Domain\Board\ISudokuComponent.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Sudoku.Domain.Board.IClone&lt;T&gt;">
-    <Position X="15.5" Y="8" Width="1.5" />
+    <Position X="17.5" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>Domain\Board\IClone.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Sudoku.Domain.Solvers.ISolverStrategy">
-    <Position X="3.5" Y="2.75" Width="1.5" />
+    <Position X="1.5" Y="1.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Solvers\ISolverStrategy.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Sudoku.Domain.Board.Visitors.IVisitor">
-    <Position X="1.75" Y="6.25" Width="2.75" />
+    <Position X="0.5" Y="4.5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Board\Visitors\IVisitor.cs</FileName>
