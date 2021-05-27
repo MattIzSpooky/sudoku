@@ -22,9 +22,9 @@ namespace Sudoku.Domain.Parsers
 
             var content = File.ReadAllText(path);
             var parserFactory = _sudokuFactory.CreateFactory(Path.GetExtension(path));
-            var parser = parserFactory.CreateParser();
+            var parser = parserFactory?.CreateParser();
             
-            var grid = parser.Parse(content);
+            var grid = parser?.Parse(content);
 
             return new Game(grid);
         }
