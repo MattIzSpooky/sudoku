@@ -72,25 +72,18 @@ namespace Sudoku.Domain.Parsers
 
                 quadrantCounter++;
 
-                if (CheckRowOverflow(boardValues, ref quadrantCounter, ref maxX, ref maxY))
+                if (quadrantCounter == boardValues.RowQuadrantsCount)
+                {
+                    maxX = boardValues.QuadrantWidth;
+                    maxY += boardValues.QuadrantHeight;
+                    quadrantCounter = 0;
                     continue;
-
+                }
+                
                 maxX += boardValues.QuadrantWidth;
             }
 
             return quadrants;
-        }
-
-        private bool CheckRowOverflow(BoardValues boardValues, ref int quadrantCounter, ref int maxX, ref int maxY)
-        {
-            if (quadrantCounter != boardValues.RowQuadrantsCount)
-                return false;
-
-            maxX = boardValues.QuadrantWidth;
-            maxY += boardValues.QuadrantHeight;
-            quadrantCounter = 0;
-
-            return true;
         }
 
         private List<Cell> GetSpecifiedQuadrantCells(IEnumerable<Cell> cells, int minX, int maxX, int minY, int maxY) =>
