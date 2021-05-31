@@ -4,6 +4,6 @@ namespace Sudoku.Domain.Parsers
 {
     public interface ISudokuParser
     {
-        public Grid Parse(string content);
+        public Grid[] Parse(string content);
     }
 }

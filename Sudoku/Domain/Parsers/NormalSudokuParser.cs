@@ -7,14 +7,14 @@ namespace Sudoku.Domain.Parsers
 {
     public class NormalSudokuParser : ISudokuParser
     {
-        public Grid Parse(string content)
+        public virtual Grid[] Parse(string content)
         {
             var squareValue = (int) Math.Round(Math.Sqrt(content.Trim().Length));
 
             var cells = CreateCells(content, squareValue);
             var quadrants = ComposeQuadrants(cells, squareValue);
 
-            return new Grid(quadrants);
+            return new Grid[] {new(quadrants)};
         }
 
         private List<Cell> CreateCells(string content, int squareValue)
@@ -79,7 +79,7 @@ namespace Sudoku.Domain.Parsers
                     quadrantCounter = 0;
                     continue;
                 }
-                
+
                 maxX += boardValues.QuadrantWidth;
             }
 
@@ -87,11 +87,11 @@ namespace Sudoku.Domain.Parsers
         }
 
         private List<Cell> GetSpecifiedQuadrantCells(IEnumerable<Cell> cells, int minX, int maxX, int minY, int maxY) =>
-            cells.Where(cell => cell.Coordinate.X >= minX)
-                .Where(cell => cell.Coordinate.X < maxX)
-                .Where(cell => cell.Coordinate.Y >= minY)
-                .Where(cell => cell.Coordinate.Y < maxY).ToList();
-
+            cells.Where(cell => cell.Coordinate.X >= minX &&
+                                cell.Coordinate.X < maxX &&
+                                cell.Coordinate.Y >= minY &&
+                                cell.Coordinate.Y < maxY).ToList();
+        
         private struct BoardValues
         {
             public int SquareValue { get; set; }

@@ -8,15 +8,15 @@ namespace Sudoku.Domain.Board
 {
     public class Cell : ISudokuComponent, IClone<Cell>
     {
-        public int Value {get;set;}
-        public int HelpNumber { get; set; }
+        public CellValue Value {get; set; }
+    
         public bool _isValid = false;
         public Coordinate Coordinate { get; set; }
         bool ISudokuComponent.IsEditable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public Cell(Coordinate coordinate, int value)
         {
-            Value = value;
+            Value = new CellValue(value);
             Coordinate = coordinate;
         }
         

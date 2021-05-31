@@ -9,6 +9,8 @@ namespace Sudoku.Domain.Board
     {
         private readonly List<Quadrant> _quadrants;
 
+        public IReadOnlyList<Quadrant> Quadrants => _quadrants;
+
         public Grid(List<Quadrant> quadrants)
         {
             _quadrants = quadrants;
