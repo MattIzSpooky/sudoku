@@ -12,7 +12,10 @@ namespace Sudoku.Domain.Board
 
         public Quadrant(List<Cell> cells)
         {
-            _cells = cells;
+            if(cells != null)
+                _cells = cells;
+
+            _cells = new List<Cell>();
         }
         
         public Quadrant Clone()
@@ -34,5 +37,7 @@ namespace Sudoku.Domain.Board
         {
             throw new NotImplementedException();
         }
+
+        public void AddCell(Cell cell) => _cells.Add(cell);
     }
 }
