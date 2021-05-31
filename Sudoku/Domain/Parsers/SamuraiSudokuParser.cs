@@ -19,12 +19,28 @@ namespace Sudoku.Domain.Parsers
                 .Select(i => cleanedContent.Substring(i * amountOfCellsPerSubSudoku, amountOfCellsPerSubSudoku))
                 .SelectMany(subSudokuContent => base.Parse(subSudokuContent))
                 .ToArray();
+
             
-            MergeOverflowingCells(grids[0].Quadrants[8].Cells, grids[2].Quadrants[0].Cells);
-            MergeOverflowingCells(grids[1].Quadrants[6].Cells, grids[2].Quadrants[2].Cells);
-            MergeOverflowingCells(grids[3].Quadrants[2].Cells, grids[2].Quadrants[6].Cells);
-            MergeOverflowingCells(grids[4].Quadrants[0].Cells, grids[2].Quadrants[8].Cells);
-         
+            var centerQuadrant = 0;
+            var centerGrid = grids.Length / 2;
+            var leftQuadrant = (int) Math.Sqrt(amountOfCellsPerSubSudoku) - 1;
+            
+            for (var i = 0; i < grids.Length; i++)
+            {
+                if (i != centerGrid)
+                    MergeOverflowingCells(grids[i].Quadrants[leftQuadrant].Cells,
+                        grids[centerGrid].Quadrants[centerQuadrant].Cells);
+
+                leftQuadrant -= 2;
+                centerQuadrant += 2;
+            }
+
+
+            // MergeOverflowingCells(grids[0].Quadrants[8].Cells, grids[2].Quadrants[0].Cells);
+            // MergeOverflowingCells(grids[1].Quadrants[6].Cells, grids[2].Quadrants[2].Cells);
+            // MergeOverflowingCells(grids[3].Quadrants[2].Cells, grids[2].Quadrants[6].Cells);
+            // MergeOverflowingCells(grids[4].Quadrants[0].Cells, grids[2].Quadrants[8].Cells);
+
             return grids;
         }
 
