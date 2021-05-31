@@ -7,37 +7,26 @@ namespace Sudoku.Domain.Parsers
 {
     public class SamuraiSudokuParser : NormalSudokuParser
     {
-        private const int AmountOfSubSudokus = 5;
+        private const int AmountOfSubSudoku = 5;
 
         public override Grid[] Parse(string content)
         {
-            // TODO: Create cells like normal 9x9
-            // Create 5 "sub" Sudoku's, work with a min X and max Y for the sub Sudoku's
-            // Each row = 81 characters = 1 sudoku
-            // Add an offset for each sub sudoku
-            // Combine them
-
             var cleanedContent = content.Replace(Environment.NewLine, string.Empty).Trim();
-            var amountOfCellsPerSubSudoku = cleanedContent.Length / AmountOfSubSudokus;
-            var squareValue = (int) Math.Round(Math.Sqrt(amountOfCellsPerSubSudoku));
+            var amountOfCellsPerSubSudoku = cleanedContent.Length / AmountOfSubSudoku;
 
-            var subSudokuCells = Enumerable
-                .Range(0, AmountOfSubSudokus)
+            var grids = Enumerable
+                .Range(0, AmountOfSubSudoku)
                 .Select(i => cleanedContent.Substring(i * amountOfCellsPerSubSudoku, amountOfCellsPerSubSudoku))
-                //.Select(subSudokuContent => CreateCells(subSudokuContent, squareValue))
+                .SelectMany(subSudokuContent => base.Parse(subSudokuContent))
                 .ToArray();
 
-            // var quadrants = new List<Quadrant>();
-            // foreach (var cells in subSudokuCells) 
-            //     quadrants.AddRange(ComposeQuadrants(cells, squareValue));
-
-
-            // .Select(cells => new Grid(ComposeQuadrants(cells, squareValue)))
-
-
             // TODO: Add the overlapping of cells
+            
+            // Extract all the overflowed quadrants
+            // 
+            
 
-            throw new NotImplementedException();
+            return grids;
         }
     }
 }
