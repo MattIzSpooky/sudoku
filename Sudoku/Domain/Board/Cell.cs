@@ -8,7 +8,7 @@ namespace Sudoku.Domain.Board
 {
     public class Cell : ISudokuComponent, IClone<Cell>
     {
-        public CellValue Value {get;}
+        public CellValue Value {get; set; }
     
         public bool _isValid = false;
         public Coordinate Coordinate { get; set; }
