@@ -20,31 +20,37 @@ namespace Sudoku.Domain.Parsers
                 .SelectMany(subSudokuContent => base.Parse(subSudokuContent))
                 .ToArray();
 
-            
-            var centerQuadrant = 0;
-            var centerGrid = grids.Length / 2;
-            var leftQuadrant = (int) Math.Sqrt(amountOfCellsPerSubSudoku) - 1;
-            
-            for (var i = 0; i < grids.Length; i++)
-            {
-                if (i != centerGrid)
-                    MergeOverflowingCells(grids[i].Quadrants[leftQuadrant].Cells,
-                        grids[centerGrid].Quadrants[centerQuadrant].Cells);
 
-                leftQuadrant -= 2;
-                centerQuadrant += 2;
-            }
-
-
-            // MergeOverflowingCells(grids[0].Quadrants[8].Cells, grids[2].Quadrants[0].Cells);
-            // MergeOverflowingCells(grids[1].Quadrants[6].Cells, grids[2].Quadrants[2].Cells);
-            // MergeOverflowingCells(grids[3].Quadrants[2].Cells, grids[2].Quadrants[6].Cells);
-            // MergeOverflowingCells(grids[4].Quadrants[0].Cells, grids[2].Quadrants[8].Cells);
+            MergeOverflowingQuadrants(grids, amountOfCellsPerSubSudoku);
 
             return grids;
         }
 
-        private void MergeOverflowingCells(IReadOnlyList<Cell> firstCells, IReadOnlyList<Cell> secondCells)
+        private void MergeOverflowingQuadrants(IReadOnlyList<Grid> grids, int amountOfCellsPerSubSudoku)
+        {
+            const int quadrantFactor = 2;
+            
+            var centerQuadrant = 0;
+            var centerGrid = grids.Count / quadrantFactor;
+            var leftQuadrant = (int) Math.Sqrt(amountOfCellsPerSubSudoku) - 1;
+            
+            for (var i = 0; i < grids.Count; i++)
+            {
+                if (i != centerGrid)
+                {
+                    var firstQuadrant = grids[i].Quadrants[leftQuadrant].Cells;
+                    var secondQuadrant = grids[centerGrid].Quadrants[centerQuadrant].Cells;
+
+                    MergeOverflowingCells(firstQuadrant, secondQuadrant);
+                }
+
+
+                leftQuadrant -= quadrantFactor;
+                centerQuadrant += quadrantFactor;
+            }
+        }
+
+        private static void MergeOverflowingCells(IReadOnlyList<Cell> firstCells, IReadOnlyList<Cell> secondCells)
         {
             for (var i = 0; i < firstCells.Count; i++)
                 firstCells[i].Value = secondCells[i].Value;
