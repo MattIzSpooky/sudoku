@@ -12,10 +12,7 @@ namespace Sudoku.Domain.Board
 
         public Quadrant(List<Cell> cells)
         {
-            if(cells != null)
-                _cells = cells;
-
-            _cells = new List<Cell>();
+            _cells = cells ?? new List<Cell>();
         }
         
         public Quadrant Clone()
