@@ -16,7 +16,7 @@ namespace Sudoku.Frontend.Controllers
             var reader = new SudokuReader();
 
             // Try catch handle
-            _game = reader.Read(@"./Frontend/Levels/puzzle.samurai");
+            _game = reader.Read(@"./Frontend/Levels/puzzle.9x9");
         }
 
         public override GameView CreateView()

@@ -7,7 +7,7 @@ namespace Sudoku.Domain.Parsers
 {
     public class NormalSudokuParser : ISudokuParser
     {
-        public Grid[] Parse(string content)
+        public virtual Grid[] Parse(string content)
         {
             var squareValue = (int) Math.Round(Math.Sqrt(content.Trim().Length));
 
@@ -17,7 +17,7 @@ namespace Sudoku.Domain.Parsers
             return new Grid[] {new(quadrants)};
         }
 
-        private List<Cell> CreateCells(string content, int squareValue)
+        protected List<Cell> CreateCells(string content, int squareValue)
         {
             var cells = new List<Cell>();
             var counter = content.Length;
@@ -38,7 +38,7 @@ namespace Sudoku.Domain.Parsers
             return cells;
         }
 
-        private List<Quadrant> ComposeQuadrants(List<Cell> cells, int squareValue)
+        protected List<Quadrant> ComposeQuadrants(List<Cell> cells, int squareValue)
         {
             var quadrantHeight = (int) Math.Floor(Math.Sqrt(squareValue));
             var quadrantWidth = squareValue / quadrantHeight;
@@ -62,7 +62,7 @@ namespace Sudoku.Domain.Parsers
             var quadrantCounter = 0;
             var maxX = boardValues.QuadrantWidth;
             var maxY = boardValues.QuadrantHeight;
-
+            
             for (var i = 0; i < boardValues.SquareValue; i++)
             {
                 var minX = maxX - boardValues.QuadrantWidth;
@@ -86,11 +86,16 @@ namespace Sudoku.Domain.Parsers
             return quadrants;
         }
 
-        private List<Cell> GetSpecifiedQuadrantCells(IEnumerable<Cell> cells, int minX, int maxX, int minY, int maxY) =>
-            cells.Where(cell => cell.Coordinate.X >= minX)
-                .Where(cell => cell.Coordinate.X < maxX)
-                .Where(cell => cell.Coordinate.Y >= minY)
-                .Where(cell => cell.Coordinate.Y < maxY).ToList();
+        private List<Cell> GetSpecifiedQuadrantCells(IEnumerable<Cell> cells, int minX, int maxX, int minY, int maxY)
+        {
+            return
+                (from cell in cells
+                    where cell.Coordinate.X >= minX
+                    where cell.Coordinate.X < maxX
+                    where cell.Coordinate.Y >= minY
+                    where cell.Coordinate.Y < maxY
+                    select cell).ToList();
+        }
 
         private struct BoardValues
         {
