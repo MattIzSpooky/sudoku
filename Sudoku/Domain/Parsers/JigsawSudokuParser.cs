@@ -7,12 +7,12 @@ namespace Sudoku.Domain.Parsers
 {
     public class JigsawSudokuParser : ISudokuParser
     {
-        public Grid Parse(string content)
+        public Grid[] Parse(string content)
         {
             var items = content.Split('=').Skip(1).ToArray();
             var squareValue = (int) Math.Round(Math.Sqrt(items.Length));
-
-            return new Grid(CreateCells(squareValue, items));
+            
+            return new Grid[] {new(CreateCells(squareValue, items))};
         }
         
         private Quadrant[] CreateQuadrants(int squareValue)

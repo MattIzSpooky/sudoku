@@ -9,7 +9,7 @@ namespace Sudoku.Domain.Parsers
     {
         private const int AmountOfSubSudokus = 5;
 
-        public Grid Parse(string content)
+        public Grid[] Parse(string content)
         {
             // TODO: Create cells like normal 9x9
             // Create 5 "sub" Sudoku's, work with a min X and max Y for the sub Sudoku's

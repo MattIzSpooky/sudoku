@@ -7,14 +7,14 @@ namespace Sudoku.Domain.Parsers
 {
     public class NormalSudokuParser : ISudokuParser
     {
-        public Grid Parse(string content)
+        public Grid[] Parse(string content)
         {
             var squareValue = (int) Math.Round(Math.Sqrt(content.Trim().Length));
 
             var cells = CreateCells(content, squareValue);
             var quadrants = ComposeQuadrants(cells, squareValue);
 
-            return new Grid(quadrants);
+            return new Grid[] {new(quadrants)};
         }
 
         private List<Cell> CreateCells(string content, int squareValue)
@@ -79,7 +79,7 @@ namespace Sudoku.Domain.Parsers
                     quadrantCounter = 0;
                     continue;
                 }
-                
+
                 maxX += boardValues.QuadrantWidth;
             }
 
