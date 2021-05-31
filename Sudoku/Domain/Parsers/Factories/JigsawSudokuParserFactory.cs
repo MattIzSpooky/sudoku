@@ -9,7 +9,7 @@ namespace Sudoku.Domain.Parsers.Factories
     {
         public ISudokuParser CreateParser()
         {
-            throw new NotImplementedException();
+            return new JigsawSudokuParser();
         }
     }
 }
