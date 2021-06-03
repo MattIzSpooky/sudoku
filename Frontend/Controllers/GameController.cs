@@ -25,39 +25,41 @@ namespace Sudoku.Frontend.Controllers
             var view = new GameView {Grids = _game.Grids, Cursor = _game.Cursor};
 
             // Map arrow keys
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.UpArrow, MoveUp));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.LeftArrow, MoveLeft));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.RightArrow, MoveRight));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.DownArrow, MoveDown));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.UpArrow, () => Move(0, -1)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.LeftArrow, () => Move(-1, 0)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.RightArrow, () => Move(1, 0)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.DownArrow, () => Move(0, 1)));
+            
+            // Map digit keys
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D1, () => EnterNumber(1)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D2, () => EnterNumber(2)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D3, () => EnterNumber(3)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D4, () => EnterNumber(4)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D5, () => EnterNumber(5)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D6, () => EnterNumber(6)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D7, () => EnterNumber(7)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D8, () => EnterNumber(8)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D9, () => EnterNumber(9)));
 
+            // Other keys
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.Spacebar, () => throw new NotImplementedException()));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.S, () => throw new NotImplementedException()));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.C, () => throw new NotImplementedException()));
+            
             return view;
         }
 
-        private void MoveDown()
+        private void EnterNumber(int number)
         {
-            _game.MoveCursor(0, 1);
+            _game.EnterValue(number);
             
             Redraw();
         }
-
-        private void MoveRight()
+        
+        private void Move(int x, int y)
         {
-            _game.MoveCursor(1, 0);
+            _game.MoveCursor(x, y);
             
-            Redraw();
-        }
-
-        private void MoveUp()
-        {
-            _game.MoveCursor(0, -1);
-            
-            Redraw();
-        }
-
-        private void MoveLeft()
-        {
-            _game.MoveCursor(-1, 0);
-
             Redraw();
         }
 

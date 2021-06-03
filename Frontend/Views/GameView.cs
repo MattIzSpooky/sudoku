@@ -29,7 +29,12 @@ namespace Sudoku.Frontend.Views
             }
             Buffer[Cursor.Y][Cursor.X] = CreateChar('X', Color.Lime);
 
-            StringCursor = Height - 2;
+            StringCursor = Height - 6;
+            
+            // WriteString("Controls", Color.Crimson);
+            // WriteString("Space bar -> Switch between modes", Color.Lime);
+            // WriteString("S -> Let computer solve the Sudoku", Color.Purple);
+            // WriteString("C -> Validate the puzzle", Color.Blue);
             
             WriteString($"Cursor PositionX: {Cursor.X}", Color.Gold);
             WriteString($"Cursor PositionY: {Cursor.Y}", Color.Gold);

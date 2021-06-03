@@ -16,6 +16,7 @@ namespace Sudoku.Domain
         public Coordinate Cursor => _cursor;
 
         private readonly Coordinate _maxCords;
+        private readonly int _maxValue;
 
         public Game(Board.Sudoku[]? grids)
         {
@@ -27,7 +28,15 @@ namespace Sudoku.Domain
             
             Grids = _context.Construct();
             
-            _maxCords = GetMaxDimensions();
+            _maxCords = GetMaxCoordinates();
+            _maxValue = _context.Sudoku?[0].MaxValue ?? 0;
+        }
+
+        public void EnterValue(int value)
+        {
+            if (value > _maxValue) return;
+            
+            // TODO: Set number
         }
 
         public void MoveCursor(int x, int y)
@@ -39,7 +48,7 @@ namespace Sudoku.Domain
             _cursor = newCords;
         }
 
-        private Coordinate GetMaxDimensions()
+        private Coordinate GetMaxCoordinates()
         {
             var last = Grids.Last();
             var count = (int) Math.Sqrt(last.GridItems.Count);

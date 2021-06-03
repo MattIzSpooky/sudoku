@@ -14,7 +14,7 @@ namespace Sudoku.Domain.Parsers
             var cells = CreateCells(content, squareValue);
             var quadrants = ComposeQuadrants(cells, squareValue);
 
-            return new Board.Sudoku[] {new(quadrants, offsetX, offsetY)};
+            return new Board.Sudoku[] {new(quadrants, squareValue, offsetX, offsetY)};
         }
 
         private List<CellLeaf> CreateCells(string content, int squareValue)

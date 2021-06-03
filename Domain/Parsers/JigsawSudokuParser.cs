@@ -12,7 +12,7 @@ namespace Sudoku.Domain.Parsers
             var items = content.Split('=').Skip(1).ToArray();
             var squareValue = (int) Math.Round(Math.Sqrt(items.Length));
             
-            return new Board.Sudoku[] {new(CreateCells(squareValue, items))};
+            return new Board.Sudoku[] {new(CreateCells(squareValue, items), squareValue)};
         }
         
         private QuadrantComposite[] CreateQuadrants(int squareValue)

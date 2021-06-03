@@ -13,6 +13,7 @@ namespace Sudoku.Domain.Board
 
         public int OffsetX { get; }
         public int OffsetY { get; }
+        public int MaxValue { get; }
 
         public IReadOnlyList<QuadrantComposite> Quadrants => _quadrants;
 
@@ -59,12 +60,14 @@ namespace Sudoku.Domain.Board
         }
         
         
-        public Sudoku(List<QuadrantComposite> quadrants, int offsetX = 0, int offsetY = 0)
+        public Sudoku(List<QuadrantComposite> quadrants, int maxValue, int offsetX = 0, int offsetY = 0)
         {
             _quadrants = quadrants;
 
             OffsetX = offsetX;
             OffsetY = offsetY;
+
+            MaxValue = maxValue;
         }
     }
 }
