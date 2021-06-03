@@ -1,4 +1,5 @@
-﻿using Sudoku.Domain.Board.GridItems;
+﻿using Sudoku.Domain.Board;
+using Sudoku.Domain.Board.GridItems;
 using Sudoku.Domain.Visitors;
 using Sudoku.Mvc.Views.Console;
 
@@ -8,6 +9,7 @@ namespace Sudoku.Frontend.Visitors
     {
         public int OffsetX { get; set; }
         public int OffsetY { get; set; }
+        public Coordinate Cursor { get; set; }
         
         private int _x;
         private int _y;
@@ -22,7 +24,8 @@ namespace Sudoku.Frontend.Visitors
 
         public void Visit(ColoredChar[][] param, Cell cell)
         {
-            var character = char.Parse(cell.CellLeaf.Value.Value.ToString());
+            var value = cell.CellLeaf.Value.Value;
+            var character = value == 0 ? ' ' : char.Parse(value.ToString());
             
             param[_y + OffsetY][_x + OffsetX] =  new ColoredChar()
             {
