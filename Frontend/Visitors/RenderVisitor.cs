@@ -1,30 +1,46 @@
-﻿using System.Text;
-using Sudoku.Domain.Board.GridItems;
+﻿using Sudoku.Domain.Board.GridItems;
 using Sudoku.Domain.Visitors;
+using Sudoku.Mvc.Views.Console;
 
 namespace Sudoku.Frontend.Visitors
 {
-    public class RenderVisitor : IGridItemVisitor<StringBuilder>
+    public class RenderVisitor : IGridItemVisitor<ColoredChar[][]>
     {
-        public void Visit(StringBuilder param, Wall wall)
+        private int _x;
+        private int _y;
+        public void Visit(ColoredChar[][] param, Wall wall)
         {
-            param.Append(wall.Horizontal ? "-" : "|");
+            param[_y][_x] =  new ColoredChar()
+            {
+                Character = wall.Horizontal ? '-' : '|'
+            };
+            _x++;
         }
 
-        public void Visit(StringBuilder param, Cell cell)
+        public void Visit(ColoredChar[][] param, Cell cell)
         {
-            var text = $"{cell.CellLeaf.Value.Value}";
-            param.Append(text);
+            var character = char.Parse(cell.CellLeaf.Value.Value.ToString());
+            
+            param[_y][_x] =  new ColoredChar()
+            {
+                Character = character
+            };
+            _x++;
         }
 
-        public void Visit(StringBuilder param, Row row)
+        public void Visit(ColoredChar[][] param, Row row)
         {
-            param.AppendLine();
+            _y++;
+            _x = 0;
         }
 
-        public void Visit(StringBuilder param, EmptySpace emptySpace)
+        public void Visit(ColoredChar[][] param, EmptySpace emptySpace)
         {
-            param.Append(' ');
+            param[_y][_x] = new ColoredChar()
+            {
+                Character = ' '
+            };
+            _x++;
         }
     }
 }

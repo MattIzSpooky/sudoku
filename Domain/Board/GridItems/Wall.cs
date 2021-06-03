@@ -1,5 +1,5 @@
-﻿using System.Text;
-using Sudoku.Domain.Visitors;
+﻿using Sudoku.Domain.Visitors;
+using Sudoku.Mvc.Views.Console;
 
 namespace Sudoku.Domain.Board.GridItems
 {
@@ -12,7 +12,7 @@ namespace Sudoku.Domain.Board.GridItems
             Horizontal = horizontal;
         }
         
-        public void Accept(StringBuilder param, IGridItemVisitor<StringBuilder> visitor)
+        public void Accept(ColoredChar[][] param, IGridItemVisitor<ColoredChar[][]> visitor)
         {
             visitor.Visit(param, this);
         }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Sudoku.Domain.Board.GridItems;
 using Sudoku.Frontend.Visitors;
 using Sudoku.Mvc.Views.Console;
@@ -17,25 +15,11 @@ namespace Sudoku.Frontend.Views
 
         protected override void FillBuffer()
         {
-            var builder = new StringBuilder();
             var visitor = new RenderVisitor();
 
             foreach (var part in GridItems)
             {
-                part.Accept(builder, visitor);
-            }
-
-            var rows = builder.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-
-            var y = 0;
-            foreach (var row in rows)
-            {
-                for (var x = 0; x < row.Length; x++)
-                {
-                    Buffer[y][x] = CreateChar(row[x]);
-                }
-
-                y++;
+                part.Accept(Buffer, visitor);
             }
         }
     }

@@ -15,7 +15,7 @@ namespace Sudoku.Domain.Visitors
             
             var totalWidth = cellsInOrder.Max(cellLeaf => cellLeaf.Coordinate.X) + 1;
             
-            var quadrantSize = sudoku.Quadrants[0].Children.Count;
+            var quadrantSize = sudoku.Quadrants.First().Children.Count;
             var nextHorizontal = Convert.ToInt32(Math.Floor(Math.Sqrt(quadrantSize)));
             var nextVertical = Convert.ToInt32(Math.Ceiling(Math.Sqrt(quadrantSize)));
             
