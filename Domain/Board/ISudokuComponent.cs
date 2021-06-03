@@ -20,5 +20,7 @@ namespace Sudoku.Domain.Board
         {
             visitor.VisitCell(this);
         }
+        
+        public IEnumerable<ISudokuComponent> GetChildren();
     }
 }

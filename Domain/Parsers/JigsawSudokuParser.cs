@@ -7,25 +7,25 @@ namespace Sudoku.Domain.Parsers
 {
     public class JigsawSudokuParser : ISudokuParser
     {
-        public Grid[] Parse(string content)
+        public Board.Sudoku[] Parse(string content)
         {
             var items = content.Split('=').Skip(1).ToArray();
             var squareValue = (int) Math.Round(Math.Sqrt(items.Length));
             
-            return new Grid[] {new(CreateCells(squareValue, items))};
+            return new Board.Sudoku[] {new(CreateCells(squareValue, items))};
         }
         
-        private Quadrant[] CreateQuadrants(int squareValue)
+        private QuadrantComposite[] CreateQuadrants(int squareValue)
         {
-            var quadrants = new Quadrant[squareValue];
+            var quadrants = new QuadrantComposite[squareValue];
             
             for (var i = 0; i < squareValue; i++)
-                quadrants[i] = new Quadrant(null);
+                quadrants[i] = new QuadrantComposite(null);
 
             return quadrants;
         }
 
-        private List<Quadrant> CreateCells(int squareValue,IEnumerable<string> items)
+        private List<QuadrantComposite> CreateCells(int squareValue,IEnumerable<string> items)
         {
             var quadrants = CreateQuadrants(squareValue);
             
@@ -38,7 +38,7 @@ namespace Sudoku.Domain.Parsers
                    !int.TryParse(rawCell[1], out var quadrantIndex))
                     break;
                 
-                quadrants[quadrantIndex].AddCell(new Cell(new Coordinate(x, y), cellValue));
+                quadrants[quadrantIndex].AddCell(new CellLeaf(new Coordinate(x, y), cellValue));
 
                 if (x == squareValue)
                 {

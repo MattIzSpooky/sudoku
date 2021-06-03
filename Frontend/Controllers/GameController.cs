@@ -9,8 +9,8 @@ namespace Sudoku.Frontend.Controllers
 {
     public class GameController : Controller<GameView, ConsoleKey>
     {
-        private Game _game;
-        
+        private readonly Game _game;
+
         public GameController(MvcContext root) : base(root)
         {
             var reader = new SudokuReader();
@@ -21,9 +21,9 @@ namespace Sudoku.Frontend.Controllers
 
         public override GameView CreateView()
         {
-            var view = new GameView();
-            View = view;
-            
+            var view = new GameView {GridItems = _game.Grid.GridItems};
+
+
             return view;
         }
     }

@@ -7,19 +7,19 @@ namespace Sudoku.Domain.Parsers
 {
     public class NormalSudokuParser : ISudokuParser
     {
-        public virtual Grid[] Parse(string content)
+        public virtual Board.Sudoku[] Parse(string content)
         {
             var squareValue = (int) Math.Round(Math.Sqrt(content.Trim().Length));
 
             var cells = CreateCells(content, squareValue);
             var quadrants = ComposeQuadrants(cells, squareValue);
 
-            return new Grid[] {new(quadrants)};
+            return new Board.Sudoku[] {new(quadrants)};
         }
 
-        private List<Cell> CreateCells(string content, int squareValue)
+        private List<CellLeaf> CreateCells(string content, int squareValue)
         {
-            var cells = new List<Cell>();
+            var cells = new List<CellLeaf>();
             var counter = content.Length;
 
             for (var y = 0; y < squareValue; y++)
@@ -28,7 +28,7 @@ namespace Sudoku.Domain.Parsers
                 {
                     var index = content.Length - counter;
 
-                    cells.Add(new Cell(new Coordinate(x, y),
+                    cells.Add(new CellLeaf(new Coordinate(x, y),
                         (int) char.GetNumericValue(content[index..].First())));
 
                     counter--;
@@ -38,7 +38,7 @@ namespace Sudoku.Domain.Parsers
             return cells;
         }
 
-        private List<Quadrant> ComposeQuadrants(List<Cell> cells, int squareValue)
+        private List<QuadrantComposite> ComposeQuadrants(List<CellLeaf> cells, int squareValue)
         {
             var quadrantHeight = (int) Math.Floor(Math.Sqrt(squareValue));
             var quadrantWidth = squareValue / quadrantHeight;
@@ -55,9 +55,9 @@ namespace Sudoku.Domain.Parsers
             return CreateQuadrants(cells, boardValues);
         }
 
-        private List<Quadrant> CreateQuadrants(List<Cell> cells, BoardValues boardValues)
+        private List<QuadrantComposite> CreateQuadrants(List<CellLeaf> cells, BoardValues boardValues)
         {
-            var quadrants = new List<Quadrant>();
+            var quadrants = new List<QuadrantComposite>();
 
             var quadrantCounter = 0;
             var maxX = boardValues.QuadrantWidth;
@@ -68,7 +68,7 @@ namespace Sudoku.Domain.Parsers
                 var minX = maxX - boardValues.QuadrantWidth;
                 var minY = maxY - boardValues.QuadrantHeight;
 
-                quadrants.Add(new Quadrant(GetSpecifiedQuadrantCells(cells, minX, maxX, minY, maxY)));
+                quadrants.Add(new QuadrantComposite(GetSpecifiedQuadrantCells(cells, minX, maxX, minY, maxY)));
 
                 quadrantCounter++;
 
@@ -86,7 +86,7 @@ namespace Sudoku.Domain.Parsers
             return quadrants;
         }
 
-        private List<Cell> GetSpecifiedQuadrantCells(IEnumerable<Cell> cells, int minX, int maxX, int minY, int maxY) =>
+        private List<CellLeaf> GetSpecifiedQuadrantCells(IEnumerable<CellLeaf> cells, int minX, int maxX, int minY, int maxY) =>
             cells.Where(cell => cell.Coordinate.X >= minX &&
                                 cell.Coordinate.X < maxX &&
                                 cell.Coordinate.Y >= minY &&

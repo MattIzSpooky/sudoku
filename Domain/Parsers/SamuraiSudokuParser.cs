@@ -9,7 +9,7 @@ namespace Sudoku.Domain.Parsers
     {
         private const int AmountOfSubSudoku = 5;
 
-        public override Grid[] Parse(string content)
+        public override Board.Sudoku[] Parse(string content)
         {
             var cleanedContent = content.Replace(Environment.NewLine, string.Empty).Trim();
             var amountOfCellsPerSubSudoku = cleanedContent.Length / AmountOfSubSudoku;
@@ -26,7 +26,7 @@ namespace Sudoku.Domain.Parsers
             return grids;
         }
 
-        private void MergeOverflowingQuadrants(IReadOnlyList<Grid> grids, int amountOfCellsPerSubSudoku)
+        private void MergeOverflowingQuadrants(IReadOnlyList<Board.Sudoku> grids, int amountOfCellsPerSubSudoku)
         {
             const int quadrantFactor = 2;
             
@@ -38,8 +38,8 @@ namespace Sudoku.Domain.Parsers
             {
                 if (i != centerGrid)
                 {
-                    var firstQuadrant = grids[i].Quadrants[leftQuadrant].Cells;
-                    var secondQuadrant = grids[centerGrid].Quadrants[centerQuadrant].Cells;
+                    var firstQuadrant = grids[i].Quadrants[leftQuadrant].Children;
+                    var secondQuadrant = grids[centerGrid].Quadrants[centerQuadrant].Children;
 
                     MergeOverflowingCells(firstQuadrant, secondQuadrant);
                 }
@@ -50,7 +50,7 @@ namespace Sudoku.Domain.Parsers
             }
         }
 
-        private static void MergeOverflowingCells(IReadOnlyList<Cell> firstCells, IReadOnlyList<Cell> secondCells)
+        private static void MergeOverflowingCells(IReadOnlyList<CellLeaf> firstCells, IReadOnlyList<CellLeaf> secondCells)
         {
             for (var i = 0; i < firstCells.Count; i++)
                 firstCells[i].Value = secondCells[i].Value;
