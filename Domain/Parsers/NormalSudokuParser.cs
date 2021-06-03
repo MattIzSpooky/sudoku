@@ -7,14 +7,14 @@ namespace Sudoku.Domain.Parsers
 {
     public class NormalSudokuParser : ISudokuParser
     {
-        public virtual Board.Sudoku[] Parse(string content)
+        public virtual Board.Sudoku[] Parse(string content, int offsetX = 0, int offsetY = 0)
         {
             var squareValue = (int) Math.Round(Math.Sqrt(content.Trim().Length));
 
             var cells = CreateCells(content, squareValue);
             var quadrants = ComposeQuadrants(cells, squareValue);
 
-            return new Board.Sudoku[] {new(quadrants)};
+            return new Board.Sudoku[] {new(quadrants, offsetX, offsetY)};
         }
 
         private List<CellLeaf> CreateCells(string content, int squareValue)

@@ -26,7 +26,7 @@ namespace Sudoku.Domain.Parsers
             
             var grids = parser?.Parse(content);
 
-            return new Game(grids[0]);
+            return new Game(grids);
         }
 
         private void RegisterSudokuTypes()

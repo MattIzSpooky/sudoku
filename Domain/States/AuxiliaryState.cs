@@ -10,7 +10,7 @@ namespace Sudoku.Domain.States
             throw new NotImplementedException();
         }
 
-        public override Grid? CreateGrid()
+        public override Grid[]? CreateGrid()
         {
             throw new NotImplementedException();
         }

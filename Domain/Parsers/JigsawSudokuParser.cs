@@ -7,7 +7,7 @@ namespace Sudoku.Domain.Parsers
 {
     public class JigsawSudokuParser : ISudokuParser
     {
-        public Board.Sudoku[] Parse(string content)
+        public Board.Sudoku[] Parse(string content, int x, int y)
         {
             var items = content.Split('=').Skip(1).ToArray();
             var squareValue = (int) Math.Round(Math.Sqrt(items.Length));

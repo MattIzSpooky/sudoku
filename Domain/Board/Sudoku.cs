@@ -11,6 +11,9 @@ namespace Sudoku.Domain.Board
         private readonly List<QuadrantComposite> _quadrants;
         private bool _isEditable;
 
+        public int OffsetX { get; }
+        public int OffsetY { get; }
+
         public IReadOnlyList<QuadrantComposite> Quadrants => _quadrants;
 
         public List<CellLeaf> GetOrderedCells()
@@ -56,9 +59,12 @@ namespace Sudoku.Domain.Board
         }
         
         
-        public Sudoku(List<QuadrantComposite> quadrants)
+        public Sudoku(List<QuadrantComposite> quadrants, int offsetX = 0, int offsetY = 0)
         {
             _quadrants = quadrants;
+
+            OffsetX = offsetX;
+            OffsetY = offsetY;
         }
     }
 }

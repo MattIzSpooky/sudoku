@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using Sudoku.Domain.Board.GridItems;
+using System.Linq;
+using Sudoku.Domain.Board;
 using Sudoku.Frontend.Visitors;
 using Sudoku.Mvc.Views.Console;
 
@@ -7,7 +8,8 @@ namespace Sudoku.Frontend.Views
 {
     public class GameView : ConsoleView
     {
-        public IEnumerable<IGridItem> GridItems { private get; set; }
+        public Grid[] Grids { private get; set; }
+
 
         public GameView() : base(30, 30, "Sudoku")
         {
@@ -15,11 +17,14 @@ namespace Sudoku.Frontend.Views
 
         protected override void FillBuffer()
         {
-            var visitor = new RenderVisitor();
-
-            foreach (var part in GridItems)
+            foreach (var grid in Grids)
             {
-                part.Accept(Buffer, visitor);
+                var visitor = new RenderVisitor {OffsetX = grid.OffsetX, OffsetY = grid.OffsetY};
+
+                foreach (var item in grid.GridItems)
+                {
+                    item.Accept(Buffer, visitor);
+                }
             }
         }
     }

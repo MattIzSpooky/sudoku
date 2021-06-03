@@ -6,11 +6,14 @@ namespace Sudoku.Frontend.Visitors
 {
     public class RenderVisitor : IGridItemVisitor<ColoredChar[][]>
     {
+        public int OffsetX { get; set; }
+        public int OffsetY { get; set; }
+        
         private int _x;
         private int _y;
         public void Visit(ColoredChar[][] param, Wall wall)
         {
-            param[_y][_x] =  new ColoredChar()
+            param[_y + OffsetY][_x + OffsetX] =  new ColoredChar()
             {
                 Character = wall.Horizontal ? '-' : '|'
             };
@@ -21,7 +24,7 @@ namespace Sudoku.Frontend.Visitors
         {
             var character = char.Parse(cell.CellLeaf.Value.Value.ToString());
             
-            param[_y][_x] =  new ColoredChar()
+            param[_y + OffsetY][_x + OffsetX] =  new ColoredChar()
             {
                 Character = character
             };
@@ -36,7 +39,7 @@ namespace Sudoku.Frontend.Visitors
 
         public void Visit(ColoredChar[][] param, EmptySpace emptySpace)
         {
-            param[_y][_x] = new ColoredChar()
+            param[_y + OffsetY][_x + OffsetX] = new ColoredChar()
             {
                 Character = ' '
             };

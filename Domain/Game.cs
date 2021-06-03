@@ -7,17 +7,17 @@ namespace Sudoku.Domain
     public class Game
     {
         private readonly Context _context;
-        public Grid Grid { get; }
+        public Grid[] Grids { get; }
 
-        public Game(Board.Sudoku grid)
+        public Game(Board.Sudoku[]? grids)
         {
             _context = new Context();
 
-            _context.SetSudoku(grid);
+            _context.SetSudoku(grids);
             _context.TransitionTo(new DefinitiveState());
             _context.SetStrategy(new BackTrackingSolver());
 
-            Grid = _context.Construct();
+            Grids = _context.Construct();
         }
     }
 }

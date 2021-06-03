@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Sudoku.Domain.Board;
 using Sudoku.Domain.Visitors;
 
@@ -11,9 +12,9 @@ namespace Sudoku.Domain.States
             throw new NotImplementedException();
         }
 
-        public override Grid? CreateGrid()
+        public override Grid[]? CreateGrid()
         {
-            return Context?.Sudoku?.Accept(new SudokuVisitor());
+            return Context?.Sudoku?.Select(sdk => sdk.Accept(new SudokuVisitor())).ToArray();
         }
     }
 }

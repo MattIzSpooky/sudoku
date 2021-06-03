@@ -11,11 +11,13 @@ namespace Sudoku.Domain.Visitors
         
         public Grid Visit(Board.Sudoku sudoku)
         {
-            var cellsInOrder = sudoku.GetOrderedCells();
+            _gridBuilder.SetOffsetX(sudoku.OffsetX);
+            _gridBuilder.SetOffsetY(sudoku.OffsetY);
             
+            var cellsInOrder = sudoku.GetOrderedCells();
             var totalWidth = cellsInOrder.Max(cellLeaf => cellLeaf.Coordinate.X) + 1;
             
-            var quadrantSize = sudoku.Quadrants.First().Children.Count;
+            var quadrantSize = sudoku.Quadrants[0].Children.Count;
             var nextHorizontal = Convert.ToInt32(Math.Floor(Math.Sqrt(quadrantSize)));
             var nextVertical = Convert.ToInt32(Math.Ceiling(Math.Sqrt(quadrantSize)));
             

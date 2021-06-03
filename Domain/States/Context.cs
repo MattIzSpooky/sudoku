@@ -9,9 +9,9 @@ namespace Sudoku.Domain.States
         private State? _state;
         private State? State => _state;
         private ISolverStrategy? _strategy;
-        public Board.Sudoku? Sudoku { get; private set; }
+        public Board.Sudoku[]? Sudoku { get; private set; }
         
-        public void SetSudoku(Board.Sudoku? sudoku)
+        public void SetSudoku(Board.Sudoku[]? sudoku)
         {
             Sudoku = sudoku;
         }
@@ -32,9 +32,9 @@ namespace Sudoku.Domain.States
             _state?.Handle();
         }
         
-        public Grid Construct()
+        public Grid[] Construct()
         {
-            return _state?.CreateGrid() ?? new Grid();
+            return _state?.CreateGrid() ?? Array.Empty<Grid>();
         }
     }
 }

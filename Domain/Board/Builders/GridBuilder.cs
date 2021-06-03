@@ -26,6 +26,16 @@ namespace Sudoku.Domain.Board.Builders
             _grid.Add(new Row());
         }
         
+        public void SetOffsetX(int x)
+        {
+           _grid.SetOffsetX(x);
+        }
+        
+        public void SetOffsetY(int y)
+        {
+            _grid.SetOffsetY(y);
+        }
+        
         public Grid GetResult()
         {
             return _grid;

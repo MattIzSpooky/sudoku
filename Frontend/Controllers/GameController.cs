@@ -16,12 +16,12 @@ namespace Sudoku.Frontend.Controllers
             var reader = new SudokuReader();
 
             // Try catch handle
-            _game = reader.Read(@"./Frontend/Levels/puzzle.6x6");
+            _game = reader.Read(@"./Frontend/Levels/puzzle.samurai");
         }
 
         public override GameView CreateView()
         {
-            var view = new GameView {GridItems = _game.Grid.GridItems};
+            var view = new GameView {Grids = _game.Grids};
 
 
             return view;
