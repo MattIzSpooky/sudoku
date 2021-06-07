@@ -28,8 +28,9 @@ namespace Sudoku.Domain.Parsers
                 {
                     var index = content.Length - counter;
 
-                    cells.Add(new CellLeaf(new Coordinate(x, y),
-                        (int) char.GetNumericValue(content[index..].First())));
+                    var cellValue = (int) char.GetNumericValue(content[index..].First());
+                    var isLocked = cellValue != 0;
+                    cells.Add(new CellLeaf(new Coordinate(x, y), cellValue, isLocked));
 
                     counter--;
                 }
