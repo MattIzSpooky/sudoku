@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Sudoku.Domain.Visitors;
+﻿using Sudoku.Domain.Visitors;
 using Sudoku.Mvc.Views.Console;
 
 namespace Sudoku.Domain.Board.GridItems

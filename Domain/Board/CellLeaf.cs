@@ -10,6 +10,8 @@ namespace Sudoku.Domain.Board
 
         public bool _isValid = false;
         public Coordinate Coordinate { get; set; }
+        
+        public bool IsLocked { get; private set; }
 
         bool ISudokuComponent.IsEditable
         {
@@ -17,10 +19,12 @@ namespace Sudoku.Domain.Board
             set => throw new NotImplementedException();
         }
 
-        public CellLeaf(Coordinate coordinate, int value)
+        public CellLeaf(Coordinate coordinate, int value, bool locked = false)
         {
             Value = new CellValue(value);
             Coordinate = coordinate;
+
+            IsLocked = locked;
         }
 
         public CellLeaf Clone()
@@ -33,6 +37,12 @@ namespace Sudoku.Domain.Board
         bool ISudokuComponent.IsValid()
         {
             return _isValid;
+        }
+
+        public void EnterValue(int value)
+        {
+            // TODO: Set Definitive value or Help value based on state.
+            Value.Value = value;
         }
 
         public IEnumerable<ISudokuComponent> GetChildren() =>

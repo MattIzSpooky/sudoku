@@ -31,10 +31,10 @@ namespace Sudoku.Frontend.Views
 
             StringCursor = Height - 6;
             
-            // WriteString("Controls", Color.Crimson);
-            // WriteString("Space bar -> Switch between modes", Color.Lime);
-            // WriteString("S -> Let computer solve the Sudoku", Color.Purple);
-            // WriteString("C -> Validate the puzzle", Color.Blue);
+            WriteString("Controls", Color.White);
+            WriteString("Space bar -> Switch between modes", Color.White);
+            WriteString("S -> Let computer solve the Sudoku", Color.White);
+            WriteString("C -> Validate the puzzle", Color.White);
             
             WriteString($"Cursor PositionX: {Cursor.X}", Color.Gold);
             WriteString($"Cursor PositionY: {Cursor.Y}", Color.Gold);

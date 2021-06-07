@@ -57,14 +57,8 @@ namespace Sudoku.Domain.Board.Builders
             _x++;
         }
 
-        public void BuildRow()
+        public void InsertRow()
         {
-            _grid.Add(new Row()
-            {
-                X = _x,
-                Y = _y
-            });
-
             _x = _offsetX;
             _y++;
         }
