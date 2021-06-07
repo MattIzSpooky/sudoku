@@ -20,7 +20,7 @@ namespace Sudoku.Frontend.Views
         {
             foreach (var grid in Grids)
             {
-                var visitor = new RenderVisitor {OffsetX = grid.OffsetX, OffsetY = grid.OffsetY, Cursor = Cursor};
+                var visitor = new RenderVisitor {Cursor = Cursor};
 
                 foreach (var item in grid.GridItems)
                 {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Domain.Board;
 using Sudoku.Domain.Board.GridItems;
@@ -35,8 +36,15 @@ namespace Sudoku.Domain
         public void EnterValue(int value)
         {
             if (value > _maxValue) return;
-            
-            // TODO: Set number
+
+            var selectedCell = Grids
+                .SelectMany(g => g.GridItems.OfType<Cell>())
+                .FirstOrDefault(g => g.X == _cursor.X && g.Y == _cursor.Y);
+
+            if (selectedCell != null)
+            {
+                selectedCell.CellLeaf.Value.Value = value;
+            }
         }
 
         public void MoveCursor(int x, int y)
