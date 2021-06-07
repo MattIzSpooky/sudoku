@@ -5,9 +5,14 @@ namespace Sudoku.Domain.States
 {
     public class AuxiliaryState : State
     {
-        public override void Handle()
+        public override void Handle(CellLeaf cellLeaf)
         {
-            throw new NotImplementedException();
+            
+        }
+
+        public override void ChangeState()
+        {
+            Context?.TransitionTo(new DefinitiveState());
         }
 
         public override Grid[]? CreateGrid()

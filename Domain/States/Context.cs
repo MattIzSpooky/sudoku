@@ -27,9 +27,9 @@ namespace Sudoku.Domain.States
             _strategy = newStrategy;
         }
         
-        public void Handle()
+        public void Handle(CellLeaf cellLeaf)
         {
-            _state?.Handle();
+            _state?.Handle(cellLeaf);
         }
         
         public Grid[] Construct()

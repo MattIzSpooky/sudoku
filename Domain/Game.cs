@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Domain.Board;
 using Sudoku.Domain.Board.GridItems;
@@ -61,6 +60,11 @@ namespace Sudoku.Domain
             var last = Grids.Last();
             var count = (int) Math.Sqrt(last.GridItems.Count);
             return new Coordinate(last.OffsetX + count - 1, last.OffsetY + count - 1);
+        }
+
+        public void SwitchState()
+        {
+            _context.Handle();
         }
     }
 }
