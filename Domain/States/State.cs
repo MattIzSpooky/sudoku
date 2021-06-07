@@ -6,7 +6,7 @@ namespace Sudoku.Domain.States
     {
         protected Context? Context;
         
-        public abstract void Handle(CellLeaf cellLeaf);
+        public abstract void Handle(CellLeaf cellLeaf, int value);
         public abstract void ChangeState();
         public abstract Grid[]? CreateGrid();
 

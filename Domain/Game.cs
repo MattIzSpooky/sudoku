@@ -40,10 +40,8 @@ namespace Sudoku.Domain
                 .SelectMany(g => g.GridItems.OfType<Cell>())
                 .FirstOrDefault(g => g.X == _cursor.X && g.Y == _cursor.Y);
             
-            if (selectedCell != null && !selectedCell.CellLeaf.IsLocked)
-            {
-                selectedCell.CellLeaf.EnterValue(value);
-            }
+            if (selectedCell != null && !selectedCell.CellLeaf.IsLocked) 
+                _context.Handle(selectedCell.CellLeaf, value);
         }
 
         public void MoveCursor(int x, int y)
@@ -64,7 +62,7 @@ namespace Sudoku.Domain
 
         public void SwitchState()
         {
-            _context.Handle();
+            _context.ChangeState();
         }
     }
 }
