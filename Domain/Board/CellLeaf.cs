@@ -39,12 +39,6 @@ namespace Sudoku.Domain.Board
             return _isValid;
         }
 
-        public void EnterValue(int value)
-        {
-            // TODO: Set Definitive value or Help value based on state.
-            Value.Value = value;
-        }
-
         public IEnumerable<ISudokuComponent> GetChildren() =>
             new ReadOnlyCollection<ISudokuComponent>(new List<ISudokuComponent>());
     }

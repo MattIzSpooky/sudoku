@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Domain.Board;
 using Sudoku.Domain.Board.GridItems;
@@ -41,10 +40,8 @@ namespace Sudoku.Domain
                 .SelectMany(g => g.GridItems.OfType<Cell>())
                 .FirstOrDefault(g => g.X == _cursor.X && g.Y == _cursor.Y);
             
-            if (selectedCell != null && !selectedCell.CellLeaf.IsLocked)
-            {
-                selectedCell.CellLeaf.EnterValue(value);
-            }
+            if (selectedCell != null && !selectedCell.CellLeaf.IsLocked) 
+                _context.Handle(selectedCell.CellLeaf, value);
         }
 
         public void MoveCursor(int x, int y)
@@ -61,6 +58,11 @@ namespace Sudoku.Domain
             var last = Grids.Last();
             var count = (int) Math.Sqrt(last.GridItems.Count);
             return new Coordinate(last.OffsetX + count - 1, last.OffsetY + count - 1);
+        }
+
+        public void SwitchState()
+        {
+            _context.ChangeState();
         }
     }
 }

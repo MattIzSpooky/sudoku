@@ -7,9 +7,14 @@ namespace Sudoku.Domain.States
 {
     public class DefinitiveState : State
     {
-        public override void Handle()
+        public override void Handle(CellLeaf cellLeaf, int value)
         {
-            throw new NotImplementedException();
+            cellLeaf.Value.Value = cellLeaf.Value.Value == value ? 0 : value;
+        }
+
+        public override void ChangeState()
+        {
+            Context?.TransitionTo(new AuxiliaryState());
         }
 
         public override Grid[]? CreateGrid()
