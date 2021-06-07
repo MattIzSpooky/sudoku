@@ -31,7 +31,7 @@ namespace Sudoku.Domain
             _maxCords = GetMaxCoordinates();
             _maxValue = _context.Sudoku?[0].MaxValue ?? 0;
         }
-
+        
         public void EnterValue(int value)
         {
             if (value > _maxValue) return;
@@ -39,10 +39,10 @@ namespace Sudoku.Domain
             var selectedCell = Grids
                 .SelectMany(g => g.GridItems.OfType<Cell>())
                 .FirstOrDefault(g => g.X == _cursor.X && g.Y == _cursor.Y);
-
-            if (selectedCell != null)
+            
+            if (selectedCell != null && !selectedCell.CellLeaf.IsLocked)
             {
-                selectedCell.CellLeaf.Value.Value = value;
+                selectedCell.CellLeaf.EnterValue(value);
             }
         }
 

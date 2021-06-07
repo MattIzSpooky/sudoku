@@ -17,7 +17,7 @@ namespace Sudoku.Frontend.Controllers
             var reader = new SudokuReader();
 
             // Try catch handle
-            _game = reader.Read(@"./Frontend/Levels/puzzle.4x4");
+            _game = reader.Read(@"./Frontend/Levels/puzzle.samurai");
         }
 
         public override GameView CreateView()
@@ -31,6 +31,7 @@ namespace Sudoku.Frontend.Controllers
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.DownArrow, () => Move(0, 1)));
             
             // Map digit keys
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D0, () => EnterNumber(0)));
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.D1, () => EnterNumber(1)));
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.D2, () => EnterNumber(2)));
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.D3, () => EnterNumber(3)));
@@ -45,6 +46,8 @@ namespace Sudoku.Frontend.Controllers
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.Spacebar, SwitchState));
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.S, () => throw new NotImplementedException()));
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.C, () => throw new NotImplementedException()));
+            
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.Delete, () => throw new NotImplementedException()));
             
             return view;
         }

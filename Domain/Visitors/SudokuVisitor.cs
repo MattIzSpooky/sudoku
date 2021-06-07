@@ -35,7 +35,7 @@ namespace Sudoku.Domain.Visitors
 
                 if (nextLeaf?.Coordinate.Y == leaf.Coordinate.Y) continue;
                 
-                gridBuilder.BuildRow();
+                gridBuilder.InsertRow();
                 
                 if ((leaf.Coordinate.Y + 1) % nextHorizontal != 0 || downLeaf == null) continue;
 
@@ -45,7 +45,7 @@ namespace Sudoku.Domain.Visitors
                     if ((wall + 1) % nextVertical == 0) gridBuilder.BuildEmptySpace();
                 }
                 
-                gridBuilder.BuildRow();
+                gridBuilder.InsertRow();
             }
             
             var result = gridBuilder.GetResult();
