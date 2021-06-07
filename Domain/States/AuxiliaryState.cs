@@ -1,13 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Sudoku.Domain.Board;
 
-namespace Sudoku.Domain.Board.States
+namespace Sudoku.Domain.States
 {
     public class AuxiliaryState : State
     {
         public override void Handle()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Grid[]? CreateGrid()
         {
             throw new NotImplementedException();
         }

@@ -8,7 +8,7 @@ namespace Sudoku.Domain.Solvers
 {
     public class BruteForceSolver : ISolverStrategy
     {
-        public void Solve(Grid grid)
+        public void Solve(Board.Sudoku sudoku)
         {
             throw new NotImplementedException();
         }

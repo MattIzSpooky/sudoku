@@ -4,27 +4,69 @@ using Sudoku.Domain.Parsers;
 using Sudoku.Frontend.Views;
 using Sudoku.Mvc;
 using Sudoku.Mvc.Contexts;
+using Sudoku.Mvc.Views;
 
 namespace Sudoku.Frontend.Controllers
 {
     public class GameController : Controller<GameView, ConsoleKey>
     {
-        private Game _game;
-        
+        private readonly Game _game;
+
         public GameController(MvcContext root) : base(root)
         {
             var reader = new SudokuReader();
 
             // Try catch handle
-            _game = reader.Read(@"./Frontend/Levels/puzzle.9x9");
+            _game = reader.Read(@"./Frontend/Levels/puzzle.4x4");
         }
 
         public override GameView CreateView()
         {
-            var view = new GameView();
-            View = view;
+            var view = new GameView {Grids = _game.Grids, Cursor = _game.Cursor};
+
+            // Map arrow keys
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.UpArrow, () => Move(0, -1)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.LeftArrow, () => Move(-1, 0)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.RightArrow, () => Move(1, 0)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.DownArrow, () => Move(0, 1)));
+            
+            // Map digit keys
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D1, () => EnterNumber(1)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D2, () => EnterNumber(2)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D3, () => EnterNumber(3)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D4, () => EnterNumber(4)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D5, () => EnterNumber(5)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D6, () => EnterNumber(6)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D7, () => EnterNumber(7)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D8, () => EnterNumber(8)));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D9, () => EnterNumber(9)));
+
+            // Other keys
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.Spacebar, () => throw new NotImplementedException()));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.S, () => throw new NotImplementedException()));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.C, () => throw new NotImplementedException()));
             
             return view;
+        }
+
+        private void EnterNumber(int number)
+        {
+            _game.EnterValue(number);
+            
+            Redraw();
+        }
+        
+        private void Move(int x, int y)
+        {
+            _game.MoveCursor(x, y);
+            
+            Redraw();
+        }
+
+        private void Redraw()
+        {
+            View.Grids = _game.Grids;
+            View.Cursor = _game.Cursor;
         }
     }
 }

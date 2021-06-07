@@ -5,18 +5,18 @@ using System.Text;
 
 namespace Sudoku.Domain.Board
 {
-    public class Quadrant : ISudokuComponent, IClone<Quadrant>
+    public class QuadrantComposite : ISudokuComponent, IClone<QuadrantComposite>
     {
-        private readonly List<Cell> _cells;
-        public IReadOnlyList<Cell> Cells => _cells;
+        private readonly List<CellLeaf> _children;
+        public IReadOnlyList<CellLeaf> Children => _children;
         bool ISudokuComponent.IsEditable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public Quadrant(List<Cell> cells)
+        public QuadrantComposite(List<CellLeaf> cells)
         {
-            _cells = cells ?? new List<Cell>();
+            _children = cells ?? new List<CellLeaf>();
         }
         
-        public Quadrant Clone()
+        public QuadrantComposite Clone()
         {
             throw new NotImplementedException();
         }
@@ -26,9 +26,11 @@ namespace Sudoku.Domain.Board
             throw new NotImplementedException();
         }
 
+        public IEnumerable<ISudokuComponent> GetChildren() => Children;
+
         bool ISudokuComponent.IsComposite()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         bool ISudokuComponent.IsValid()
@@ -36,6 +38,6 @@ namespace Sudoku.Domain.Board
             throw new NotImplementedException();
         }
 
-        public void AddCell(Cell cell) => _cells.Add(cell);
+        public void AddCell(CellLeaf cellLeaf) => _children.Add(cellLeaf);
     }
 }

@@ -8,7 +8,7 @@ namespace Sudoku.Domain.Solvers
 {
     public class BackTrackingSolver : ISolverStrategy
     {
-        public void Solve(Grid grid)
+        public void Solve(Board.Sudoku sudoku)
         {
             throw new NotImplementedException();
         }
