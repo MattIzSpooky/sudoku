@@ -28,10 +28,6 @@ namespace Sudoku.Frontend.Visitors
             };
         }
 
-        public void Visit(ColoredChar[][] param, Row row)
-        {
-        }
-
         public void Visit(ColoredChar[][] param, EmptySpace emptySpace)
         {
             param[emptySpace.Y][emptySpace.X] = new ColoredChar()
