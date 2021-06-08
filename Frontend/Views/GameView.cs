@@ -20,11 +20,11 @@ namespace Sudoku.Frontend.Views
         {
             foreach (var grid in Grids)
             {
-                var visitor = new RenderVisitor {Cursor = Cursor};
+                var visitor = new RenderVisitor(Buffer) {Cursor = Cursor};
 
                 foreach (var item in grid.GridItems)
                 {
-                    item.Accept(Buffer, visitor);
+                    item.Accept(visitor);
                 }
             }
             Buffer[Cursor.Y][Cursor.X] = CreateChar('X', Color.Lime);
