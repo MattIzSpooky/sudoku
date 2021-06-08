@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Sudoku.Domain.Board.GridItems;
+using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain.Board
 {
@@ -24,6 +25,14 @@ namespace Sudoku.Domain.Board
         public void SetOffsetY(int y)
         {
             OffsetY = y;
+        }
+
+        public void Accept(IGridItemVisitor visitor)
+        {
+            foreach (var gridItem in _gridItems)
+            {
+                gridItem.Accept(visitor);
+            }
         }
     }
 }
