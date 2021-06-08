@@ -14,12 +14,12 @@ namespace Sudoku.Domain.States
 
         public override void ChangeState()
         {
-            Context?.TransitionTo(new AuxiliaryState());
+            Game?.TransitionTo(new AuxiliaryState());
         }
 
         public override Grid[]? CreateGrid()
         {
-            return Context?.Sudoku?.Select(sdk => sdk.Accept(new SudokuVisitor())).ToArray();
+            return Game?.Fields.Select(sdk => sdk.Accept(new SudokuVisitor())).ToArray();
         }
     }
 }

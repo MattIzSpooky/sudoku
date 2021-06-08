@@ -8,6 +8,6 @@ namespace Sudoku.Domain.Solvers
 {
     public interface ISolverStrategy
     {
-        void Solve(Board.Sudoku sudoku);
+        bool Solve(Board.Field field);
     }
 }

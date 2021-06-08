@@ -8,9 +8,23 @@ namespace Sudoku.Domain.Solvers
 {
     public class BackTrackingSolver : ISolverStrategy
     {
-        public void Solve(Board.Sudoku sudoku)
+        public bool Solve(Board.Field field)
         {
-            throw new NotImplementedException();
+            var emptyCell = field.GetOrderedCells().FirstOrDefault(c => c.Value.Value == 0 && !c.IsLocked);
+            var maxValue = field.MaxValue;
+
+            if (emptyCell == null) return true;
+
+            for (var i = 1; i <= maxValue; ++i)
+            {
+                emptyCell.Value.Value = i;
+
+                //if (sudoku.Validate() && Solve(sudoku)) return true;
+
+                emptyCell.Value.Value = 0;
+            }
+
+            return false;
         }
     }
 }

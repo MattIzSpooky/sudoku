@@ -19,7 +19,7 @@ namespace Sudoku.Domain.Parsers
             0, 0, 8, 16, 16
         };
 
-        public override Board.Sudoku[] Parse(string content, int offsetX = 0, int offsetY = 0)
+        public override Board.Field[] Parse(string content, int offsetX = 0, int offsetY = 0)
         {
             var cleanedContent = content.Replace(Environment.NewLine, string.Empty).Trim();
             var amountOfCellsPerSubSudoku = cleanedContent.Length / AmountOfSubSudoku;
@@ -36,7 +36,7 @@ namespace Sudoku.Domain.Parsers
             return grids;
         }
 
-        private void MergeOverflowingQuadrants(IReadOnlyList<Board.Sudoku> grids, int amountOfCellsPerSubSudoku)
+        private void MergeOverflowingQuadrants(IReadOnlyList<Board.Field> grids, int amountOfCellsPerSubSudoku)
         {
             const int quadrantFactor = 2;
             

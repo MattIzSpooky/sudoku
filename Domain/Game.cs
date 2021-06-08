@@ -9,8 +9,10 @@ namespace Sudoku.Domain
 {
     public class Game
     {
-        private readonly Context _context;
+        private State? _state;
+        private ISolverStrategy? _strategy;
         public Grid[] Grids { get; }
+        public Field[] Fields { get; }
 
         private Coordinate _cursor;
         public Coordinate Cursor => _cursor;
@@ -18,18 +20,17 @@ namespace Sudoku.Domain
         private readonly Coordinate _maxCords;
         private readonly int _maxValue;
 
-        public Game(Board.Sudoku[]? grids)
+        public Game(Board.Field[]? grids)
         {
-            _context = new Context();
-
-            _context.SetSudoku(grids);
-            _context.TransitionTo(new DefinitiveState());
-            _context.SetStrategy(new BackTrackingSolver());
+            Fields = grids ?? Array.Empty<Field>();
             
-            Grids = _context.Construct();
+            _strategy = new BackTrackingSolver();
+            TransitionTo(new DefinitiveState());
+            
+            Grids = _state?.CreateGrid() ?? Array.Empty<Grid>();
             
             _maxCords = GetMaxCoordinates();
-            _maxValue = _context.Sudoku?[0].MaxValue ?? 0;
+            _maxValue = Fields?[0].MaxValue ?? 0;
         }
         
         public void EnterValue(int value)
@@ -41,7 +42,7 @@ namespace Sudoku.Domain
                 .FirstOrDefault(g => g.X == _cursor.X && g.Y == _cursor.Y);
             
             if (selectedCell != null && !selectedCell.CellLeaf.IsLocked) 
-                _context.Handle(selectedCell.CellLeaf, value);
+                _state?.Handle(selectedCell.CellLeaf, value);
         }
 
         public void MoveCursor(int x, int y)
@@ -62,12 +63,21 @@ namespace Sudoku.Domain
 
         public void SwitchState()
         {
-            _context.ChangeState();
+            _state?.ChangeState();
         }
 
         public void ValidateNumbers()
         {
-            _context.Validate();
+            foreach (var field in Fields)
+            {
+                field.Validate();
+            }
+        }
+        
+        public void TransitionTo(State newState)
+        {
+            _state = newState;
+            _state.SetGame(this);
         }
     }
 }

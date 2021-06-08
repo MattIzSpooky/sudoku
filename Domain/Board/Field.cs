@@ -6,7 +6,7 @@ using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain.Board
 {
-    public class Sudoku : ISudokuComponent
+    public class Field : ISudokuComponent
     {
         private readonly List<QuadrantComposite> _quadrants;
         private bool _isEditable;
@@ -60,7 +60,7 @@ namespace Sudoku.Domain.Board
         }
         
         
-        public Sudoku(List<QuadrantComposite> quadrants, int maxValue, int offsetX = 0, int offsetY = 0)
+        public Field(List<QuadrantComposite> quadrants, int maxValue, int offsetX = 0, int offsetY = 0)
         {
             _quadrants = quadrants;
 
@@ -68,6 +68,30 @@ namespace Sudoku.Domain.Board
             OffsetY = offsetY;
 
             MaxValue = maxValue;
+        }
+        
+        public void Validate()
+        {
+            var cells = GetChildren().SelectMany(q => q.GetChildren()).Cast<CellLeaf>().ToList();
+                
+            foreach (var cell in cells)
+            {
+                cell.IsValid = true;
+                    
+                if (cell.IsLocked || cell.Value.Value == 0) continue;
+
+                var rowColumn = cells
+                    .Where(c => (c.Coordinate.Y == cell.Coordinate.Y || c.Coordinate.X == cell.Coordinate.X) &&
+                                c != cell)
+                    .FirstOrDefault(c => c.Value.Value == cell.Value.Value);
+
+                if (rowColumn != null) cell.IsValid = false;
+
+                var quadrant = Find(c => c.GetChildren().Contains(cell)).First();
+
+                if (quadrant.GetChildren().Cast<CellLeaf>()
+                    .FirstOrDefault(c => c.Value.Value == cell.Value.Value && c != cell) != null) cell.IsValid = false;
+            }
         }
     }
 }
