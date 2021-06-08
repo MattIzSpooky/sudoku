@@ -1,29 +1,33 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
+using Sudoku.Domain.Selector;
 using Sudoku.Mvc.Views.Console;
 
 namespace Sudoku.Frontend.Views
 {
     public class StartView : ConsoleView
     {
-        public StartView() : base(30, 30, "Sudoku")
+        public IReadOnlyList<SudokuFile> SudokuFiles { private get; set; } = new List<SudokuFile>();
+        public StartView() : base(70, 40, "Sudoku")
         {
         }
 
         protected override void FillBuffer()
         {
-            WriteWelcome();
-            WriteInstructions();
-        }
+            foreach (var sudokuFile in SudokuFiles)
+            {
+                var selectedChar = sudokuFile.IsSelected ? 'X' : ' ';
+                
+                WriteString($"[{selectedChar}]: {sudokuFile.Name}", Color.Lime);
+            }
 
-        private void WriteWelcome()
-        {
-            WriteString("Welcome to the Temple of Doom!", Color.OrangeRed);
-            StringCursor++;
+            WriteInstructions();
         }
 
         private void WriteInstructions()
         {
-            WriteString("Press Space to continue..", Color.MediumVioletRed);
+            StringCursor++;
+            WriteString("Press Space to start..", Color.Goldenrod);
             WriteString("Press Esc to exit..", Color.Goldenrod);
         }
     }

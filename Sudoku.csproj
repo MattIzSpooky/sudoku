@@ -30,31 +30,31 @@
     <None Update="Frontend\Levels\puzzle2.4x4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Frontend\Levels\puzzle2.6x6.txt">
+    <None Update="Frontend\Levels\puzzle2.6x6">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Frontend\Levels\puzzle2.9x9.txt">
+    <None Update="Frontend\Levels\puzzle2.9x9">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Frontend\Levels\puzzle2.jigsaw.txt">
+    <None Update="Frontend\Levels\puzzle2.jigsaw">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Frontend\Levels\puzzle2.samurai.txt">
+    <None Update="Frontend\Levels\puzzle2.samurai">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Frontend\Levels\puzzle3.4x4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Frontend\Levels\puzzle3.6x6.txt">
+    <None Update="Frontend\Levels\puzzle3.6x6">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Frontend\Levels\puzzle3.9x9.txt">
+    <None Update="Frontend\Levels\puzzle3.9x9">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Frontend\Levels\puzzle3.jigsaw.txt">
+    <None Update="Frontend\Levels\puzzle3.jigsaw">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Frontend\Levels\puzzle3.samurai.txt">
+    <None Update="Frontend\Levels\puzzle3.samurai">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
