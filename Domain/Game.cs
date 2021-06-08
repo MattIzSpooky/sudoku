@@ -57,7 +57,7 @@ namespace Sudoku.Domain
         {
             var last = Grids.Last();
             var count = (int) Math.Sqrt(last.GridItems.Count);
-            return new Coordinate(last.OffsetX + count - 1, last.OffsetY + count - 1);
+            return new Coordinate(last.OffsetX + count, last.OffsetY + count);
         }
 
         public void SwitchState()

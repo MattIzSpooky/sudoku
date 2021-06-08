@@ -1,6 +1,7 @@
 ﻿using System;
 using Sudoku.Domain;
 using Sudoku.Domain.Parsers;
+using Sudoku.Domain.Selector;
 using Sudoku.Frontend.Views;
 using Sudoku.Mvc;
 using Sudoku.Mvc.Contexts;
@@ -12,12 +13,12 @@ namespace Sudoku.Frontend.Controllers
     {
         private readonly Game _game;
 
-        public GameController(MvcContext root) : base(root)
+        public GameController(MvcContext root, SudokuFile sudokuFile) : base(root)
         {
             var reader = new SudokuReader();
 
             // Try catch handle
-            _game = reader.Read(@"./Frontend/Levels/puzzle.samurai");
+            _game = reader.Read(sudokuFile.Path);
         }
 
         public override GameView CreateView()

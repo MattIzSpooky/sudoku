@@ -109,7 +109,7 @@ namespace Sudoku.Mvc.Views.Console
         {
             var render = new ColoredChar[Height][];
 
-            for (var y = 0; y < Width; ++y)
+            for (var y = 0; y < Height; ++y)
                 render[y] = new ColoredChar[Width];
 
             return render;
