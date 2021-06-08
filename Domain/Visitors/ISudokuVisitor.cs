@@ -4,6 +4,6 @@ namespace Sudoku.Domain.Visitors
 {
     public interface ISudokuVisitor
     {
-        public Grid Visit(Board.Sudoku sudoku);
+        public Grid Visit(Board.Field field);
     }
 }

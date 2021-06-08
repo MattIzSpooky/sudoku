@@ -7,8 +7,8 @@ namespace Sudoku.Domain.Board
     public class CellLeaf : ISudokuComponent, IClone<CellLeaf>
     {
         public CellValue Value { get; set; }
-
-        public bool _isValid = false;
+        
+        public bool IsValid { get; set; }
         public Coordinate Coordinate { get; set; }
         
         public bool IsLocked { get; private set; }
@@ -23,7 +23,7 @@ namespace Sudoku.Domain.Board
         {
             Value = new CellValue(value);
             Coordinate = coordinate;
-
+            IsValid = true;
             IsLocked = locked;
         }
 
@@ -36,7 +36,7 @@ namespace Sudoku.Domain.Board
 
         bool ISudokuComponent.IsValid()
         {
-            return _isValid;
+            return IsValid;
         }
 
         public IEnumerable<ISudokuComponent> GetChildren() =>

@@ -45,14 +45,27 @@ namespace Sudoku.Frontend.Controllers
 
             // Other keys
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.Spacebar, SwitchState));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.S, () => throw new NotImplementedException()));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.C, () => throw new NotImplementedException()));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.S, Solve));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.C, ValidateInput));
             
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.Delete, () => throw new NotImplementedException()));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.Delete, () => EnterNumber(0)));
             
             return view;
         }
 
+        private void Solve()
+        {
+            _game.Solve();
+            
+            Redraw();
+        }
+        
+        private void ValidateInput()
+        {
+            _game.ValidateNumbers();
+            
+            Redraw();
+        }
         private void SwitchState()
         {
             _game.SwitchState();
