@@ -41,6 +41,8 @@ namespace Sudoku.Frontend.Visitors
             {
                 character = definitiveValue == 0 ? ' ' : char.Parse(definitiveValue.ToString());
             }
+            
+            if(!cell.CellLeaf.IsValid) color = Color.Red;
 
             _buffer[cell.Y][cell.X] = new ColoredChar()
             {

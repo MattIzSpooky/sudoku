@@ -15,7 +15,7 @@ namespace Sudoku.Domain.States
 
         public override void ChangeState()
         {
-            Context?.TransitionTo(new DefinitiveState());
+            Game?.TransitionTo(new DefinitiveState());
         }
 
         public override Grid[]? CreateGrid()

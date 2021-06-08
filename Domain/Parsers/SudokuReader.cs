@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Sudoku.Domain.Board;
 using Sudoku.Domain.Parsers.Factories;
 
 namespace Sudoku.Domain.Parsers
@@ -22,11 +23,11 @@ namespace Sudoku.Domain.Parsers
 
             var content = File.ReadAllText(path);
             var parserFactory = _sudokuFactory.CreateFactory(Path.GetExtension(path));
-            var parser = parserFactory?.CreateParser();
+            var parser = parserFactory.CreateParser();
             
-            var grids = parser?.Parse(content);
+            var fields = parser.Parse(content);
 
-            return new Game(grids);
+            return new Game(fields);
         }
 
         private void RegisterSudokuTypes()

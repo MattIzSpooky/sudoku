@@ -23,7 +23,7 @@ namespace Sudoku.Frontend.Views
 
             Buffer[Cursor.Y][Cursor.X] = CreateChar('X', Color.Lime);
 
-            StringCursor = Height - 6;
+            StringCursor = Height - 15;
 
             WriteString("Controls", Color.White);
             WriteString("Space bar -> Switch between modes", Color.White);

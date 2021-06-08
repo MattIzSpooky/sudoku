@@ -7,15 +7,15 @@ namespace Sudoku.Domain.Visitors
 {
     public class SudokuVisitor : ISudokuVisitor
     {
-        public Grid Visit(Board.Sudoku sudoku)
+        public Grid Visit(Board.Field field)
         {
-            var gridBuilder = new GridBuilder(sudoku.OffsetX, sudoku.OffsetY);
+            var gridBuilder = new GridBuilder(field.OffsetX, field.OffsetY);
 
             
-            var cellsInOrder = sudoku.GetOrderedCells();
+            var cellsInOrder = field.GetOrderedCells();
             var totalWidth = cellsInOrder.Max(cellLeaf => cellLeaf.Coordinate.X) + 1;
             
-            var quadrantSize = sudoku.Quadrants[0].Children.Count;
+            var quadrantSize = field.Quadrants[0].Children.Count;
             var nextHorizontal = Convert.ToInt32(Math.Floor(Math.Sqrt(quadrantSize)));
             var nextVertical = Convert.ToInt32(Math.Ceiling(Math.Sqrt(quadrantSize)));
 
@@ -24,7 +24,7 @@ namespace Sudoku.Domain.Visitors
                 var leaf = cellsInOrder[i];
                 var nextLeaf = i + 1 > cellsInOrder.Count - 1 ? null : cellsInOrder[i + 1];
                 var downLeaf = cellsInOrder.FirstOrDefault(cellLeaf => cellLeaf.Coordinate.Y == leaf.Coordinate.Y + 1 && cellLeaf.Coordinate.X == leaf.Coordinate.X);
-                var quadrant = sudoku.Quadrants.First(q => q.Children.Contains(leaf));
+                var quadrant = field.Quadrants.First(q => q.Children.Contains(leaf));
                 
                 gridBuilder.BuildCell(leaf);
 
