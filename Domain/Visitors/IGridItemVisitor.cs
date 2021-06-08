@@ -2,10 +2,10 @@
 
 namespace Sudoku.Domain.Visitors
 {
-    public interface IGridItemVisitor<in T>
+    public interface IGridItemVisitor
     {
-        public void Visit(T param, Wall wall);
-        public void Visit(T param, Cell cell);
-        public void Visit(T param, EmptySpace emptySpace);
+        public void Visit(Wall wall);
+        public void Visit(Cell cell);
+        public void Visit(EmptySpace emptySpace);
     }
 }

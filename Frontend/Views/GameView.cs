@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using System.Drawing;
 using Sudoku.Domain.Board;
 using Sudoku.Frontend.Visitors;
 using Sudoku.Mvc.Views.Console;
@@ -20,22 +18,18 @@ namespace Sudoku.Frontend.Views
         {
             foreach (var grid in Grids)
             {
-                var visitor = new RenderVisitor {Cursor = Cursor};
-
-                foreach (var item in grid.GridItems)
-                {
-                    item.Accept(Buffer, visitor);
-                }
+                grid.Accept(new RenderVisitor(Buffer) {Cursor = Cursor});
             }
+
             Buffer[Cursor.Y][Cursor.X] = CreateChar('X', Color.Lime);
 
             StringCursor = Height - 6;
-            
+
             WriteString("Controls", Color.White);
             WriteString("Space bar -> Switch between modes", Color.White);
             WriteString("S -> Let computer solve the Sudoku", Color.White);
             WriteString("C -> Validate the puzzle", Color.White);
-            
+
             WriteString($"Cursor PositionX: {Cursor.X}", Color.Gold);
             WriteString($"Cursor PositionY: {Cursor.Y}", Color.Gold);
         }
