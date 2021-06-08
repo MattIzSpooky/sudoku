@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Sudoku.Domain.Board;
 using Sudoku.Domain.Solvers;
 
@@ -40,6 +41,35 @@ namespace Sudoku.Domain.States
         public Grid[] Construct()
         {
             return _state?.CreateGrid() ?? Array.Empty<Grid>();
+        }
+        
+        public void Validate()
+        {
+            if (Sudoku == null) return;
+            
+            foreach (var sudoku in Sudoku)
+            {
+                var cells = sudoku.GetChildren().SelectMany(q => q.GetChildren()).Cast<CellLeaf>().ToList();
+                
+                foreach (var cell in cells)
+                {
+                    cell.IsValid = true;
+                    
+                    if (cell.IsLocked || cell.Value.Value == 0) continue;
+
+                    var rowColumn = cells
+                        .Where(c => (c.Coordinate.Y == cell.Coordinate.Y || c.Coordinate.X == cell.Coordinate.X) &&
+                                    c != cell)
+                        .FirstOrDefault(c => c.Value.Value == cell.Value.Value);
+
+                    if (rowColumn != null) cell.IsValid = false;
+
+                    var quadrant = sudoku.Find(c => c.GetChildren().Contains(cell)).First();
+
+                    if (quadrant.GetChildren().Cast<CellLeaf>()
+                        .FirstOrDefault(c => c.Value.Value == cell.Value.Value && c != cell) != null) cell.IsValid = false;
+                }
+            }
         }
     }
 }

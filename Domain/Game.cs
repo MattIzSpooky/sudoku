@@ -64,5 +64,10 @@ namespace Sudoku.Domain
         {
             _context.ChangeState();
         }
+
+        public void ValidateNumbers()
+        {
+            _context.Validate();
+        }
     }
 }
