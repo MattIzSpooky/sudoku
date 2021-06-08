@@ -9,20 +9,20 @@ namespace Sudoku.Domain
 {
     public class Game
     {
-        private State? _state;
-        private ISolverStrategy? _strategy;
+        private readonly ISolverStrategy _strategy;
         public Grid[] Grids { get; }
         public Field[] Fields { get; }
-
+        private State? _state;
+        
         private Coordinate _cursor;
         public Coordinate Cursor => _cursor;
 
         private readonly Coordinate _maxCords;
         private readonly int _maxValue;
 
-        public Game(Board.Field[]? grids)
+        public Game(Field[] fields)
         {
-            Fields = grids ?? Array.Empty<Field>();
+            Fields = fields;
             
             _strategy = new BackTrackingSolver();
             TransitionTo(new DefinitiveState());
@@ -30,7 +30,7 @@ namespace Sudoku.Domain
             Grids = _state?.CreateGrid() ?? Array.Empty<Grid>();
             
             _maxCords = GetMaxCoordinates();
-            _maxValue = Fields?[0].MaxValue ?? 0;
+            _maxValue = Fields[0].MaxValue;
         }
         
         public void EnterValue(int value)
@@ -78,6 +78,14 @@ namespace Sudoku.Domain
         {
             _state = newState;
             _state.SetGame(this);
+        }
+
+        public void Solve()
+        {
+            foreach (var field in Fields)
+            {
+                _strategy.Solve(field);
+            }
         }
     }
 }

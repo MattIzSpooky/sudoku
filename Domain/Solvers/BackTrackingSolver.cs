@@ -1,14 +1,11 @@
 ﻿using Sudoku.Domain.Board;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Sudoku.Domain.Solvers
 {
     public class BackTrackingSolver : ISolverStrategy
     {
-        public bool Solve(Board.Field field)
+        public bool Solve(Field field)
         {
             var emptyCell = field.GetOrderedCells().FirstOrDefault(c => c.Value.Value == 0 && !c.IsLocked);
             var maxValue = field.MaxValue;
@@ -19,7 +16,7 @@ namespace Sudoku.Domain.Solvers
             {
                 emptyCell.Value.Value = i;
 
-                //if (sudoku.Validate() && Solve(sudoku)) return true;
+                if (field.Validate() && Solve(field)) return true;
 
                 emptyCell.Value.Value = 0;
             }

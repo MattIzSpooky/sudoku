@@ -70,7 +70,7 @@ namespace Sudoku.Domain.Board
             MaxValue = maxValue;
         }
         
-        public void Validate()
+        public bool Validate()
         {
             var cells = GetChildren().SelectMany(q => q.GetChildren()).Cast<CellLeaf>().ToList();
                 
@@ -85,13 +85,23 @@ namespace Sudoku.Domain.Board
                                 c != cell)
                     .FirstOrDefault(c => c.Value.Value == cell.Value.Value);
 
-                if (rowColumn != null) cell.IsValid = false;
+                if (rowColumn != null)
+                {
+                    cell.IsValid = false;
+                    return false;
+                }
 
                 var quadrant = Find(c => c.GetChildren().Contains(cell)).First();
 
                 if (quadrant.GetChildren().Cast<CellLeaf>()
-                    .FirstOrDefault(c => c.Value.Value == cell.Value.Value && c != cell) != null) cell.IsValid = false;
+                    .FirstOrDefault(c => c.Value.Value == cell.Value.Value && c != cell) != null)
+                {
+                    cell.IsValid = false;
+                    return false;
+                }
             }
+
+            return true;
         }
     }
 }

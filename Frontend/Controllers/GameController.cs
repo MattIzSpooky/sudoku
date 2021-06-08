@@ -17,7 +17,7 @@ namespace Sudoku.Frontend.Controllers
             var reader = new SudokuReader();
 
             // Try catch handle
-            _game = reader.Read(@"./Frontend/Levels/puzzle.9x9");
+            _game = reader.Read(@"./Frontend/Levels/puzzle.samurai");
         }
 
         public override GameView CreateView()
@@ -44,7 +44,7 @@ namespace Sudoku.Frontend.Controllers
 
             // Other keys
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.Spacebar, SwitchState));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.S, () => throw new NotImplementedException()));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.S, Solve));
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.C, ValidateInput));
             
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.Delete, () => EnterNumber(0)));
@@ -52,6 +52,13 @@ namespace Sudoku.Frontend.Controllers
             return view;
         }
 
+        private void Solve()
+        {
+            _game.Solve();
+            
+            Redraw();
+        }
+        
         private void ValidateInput()
         {
             _game.ValidateNumbers();
