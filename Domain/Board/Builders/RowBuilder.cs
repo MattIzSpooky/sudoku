@@ -7,7 +7,7 @@ namespace Sudoku.Domain.Board.Builders
 {
     public class RowBuilder : IBuilder<Row>
     {
-        private Row _quadrant = new();
+        private Row _items = new();
 
         private int _x;
         private int _y;
@@ -26,7 +26,7 @@ namespace Sudoku.Domain.Board.Builders
         
         public void BuildWall(bool isHorizontal = false)
         {
-            _quadrant.Add(new Wall(isHorizontal)
+            _items.Add(new Wall(isHorizontal)
             {
                 Coordinate = new Coordinate(_x, _y)
             });
@@ -38,14 +38,14 @@ namespace Sudoku.Domain.Board.Builders
         {
             var clone = cellLeaf.Clone();
             clone.Coordinate = new Coordinate(_x, _y);
-            _quadrant.Add(clone);
+            _items.Add(clone);
             
             _x++;
         }
         
         public void BuildEmptySpace()
         {
-            _quadrant.Add(new EmptySpace()
+            _items.Add(new EmptySpace()
             {
                 Coordinate = new Coordinate(_x, _y)
             });
@@ -61,12 +61,12 @@ namespace Sudoku.Domain.Board.Builders
         
         public Row GetResult()
         {
-            return _quadrant;
+            return _items;
         }
 
         public void Reset()
         {
-            _quadrant = new Row();
+            _items = new Row();
             
             _x = _offsetX;
             _y = _offsetY;
