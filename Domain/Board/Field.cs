@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sudoku.Domain.Board.Leaves;
 using Sudoku.Domain.Extensions;
 using Sudoku.Domain.Solvers;
 using Sudoku.Domain.Visitors;
@@ -11,13 +12,18 @@ namespace Sudoku.Domain.Board
     {
         private readonly List<QuadrantComposite> _quadrants;
 
-        public int OffsetX { get; }
-        public int OffsetY { get; }
-        public int MaxValue { get; }
+        public int OffsetX { get; set; }
+        public int OffsetY { get; set; }
+        public int MaxValue { get; set; }
         
         public ISolverStrategy SolverStrategy { get; set; }
 
         public IReadOnlyList<QuadrantComposite> Quadrants => _quadrants;
+        
+        public Field(List<QuadrantComposite> quadrants)
+        {
+            _quadrants = quadrants;
+        }
 
         public List<CellLeaf> GetOrderedCells()
         {
@@ -28,37 +34,25 @@ namespace Sudoku.Domain.Board
                 .ToList();
         }
 
-        public IEnumerable<ISudokuComponent> Find(Func<ISudokuComponent, bool> finder)
+        private IEnumerable<ISudokuComponent> Find(Func<ISudokuComponent, bool> finder)
         {
             return GetChildren().Descendants(i => i.GetChildren()).Where(finder);
         }
 
         public bool IsComposite() => true;
-
-        public bool IsValid()
-        {
-            throw new NotImplementedException();
-        }
+        public Coordinate Coordinate { get; set; }
 
         public IEnumerable<ISudokuComponent> GetChildren()
         {
             return _quadrants;
         }
 
-        public Grid Accept(ISudokuVisitor visitor)
+        public void Accept(ISudokuComponentVisitor visitor)
         {
-            return visitor.Visit(this);
-        }
-        
-        
-        public Field(List<QuadrantComposite> quadrants, int maxValue, int offsetX = 0, int offsetY = 0)
-        {
-            _quadrants = quadrants;
-
-            OffsetX = offsetX;
-            OffsetY = offsetY;
-
-            MaxValue = maxValue;
+            foreach (var quadrant in _quadrants)
+            {
+                quadrant.Accept(visitor);
+            }
         }
 
         public void Solve() => SolverStrategy.Solve(this);

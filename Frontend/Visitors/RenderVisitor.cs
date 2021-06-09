@@ -6,7 +6,7 @@ using Sudoku.Mvc.Views.Console;
 
 namespace Sudoku.Frontend.Visitors
 {
-    public class RenderVisitor : IGridItemVisitor
+    public class RenderVisitor : ISudokuComponentVisitor
     {
         public Coordinate Cursor { get; set; }
 
@@ -19,15 +19,15 @@ namespace Sudoku.Frontend.Visitors
         
         public void Visit(Wall wall)
         {
-            _buffer[wall.Y][wall.X] = new ColoredChar()
+            _buffer[wall.Coordinate.Y][wall.Coordinate.X] = new ColoredChar()
             {
                 Character = wall.Horizontal ? '-' : '|'
             };
         }
 
-        public void Visit(Cell cell)
+        public void Visit(CellLeaf cell)
         {
-            var cellLeafValue = cell.CellLeaf.Value;
+            var cellLeafValue = cell.Value;
             var definitiveValue = cellLeafValue.DefinitiveValue;
             var character = ' ';
             var color = Color.White;
@@ -42,9 +42,9 @@ namespace Sudoku.Frontend.Visitors
                 character = definitiveValue == 0 ? ' ' : char.Parse(definitiveValue.ToString());
             }
             
-            if(!cell.CellLeaf.IsValid) color = Color.Red;
+            if(!cell.IsValid) color = Color.Red;
 
-            _buffer[cell.Y][cell.X] = new ColoredChar()
+            _buffer[cell.Coordinate.Y][cell.Coordinate.X] = new ColoredChar()
             {
                 Character = character,
                 Color = color
@@ -53,7 +53,7 @@ namespace Sudoku.Frontend.Visitors
 
         public void Visit(EmptySpace emptySpace)
         {
-            _buffer[emptySpace.Y][emptySpace.X] = new ColoredChar()
+            _buffer[emptySpace.Coordinate.Y][emptySpace.Coordinate.X] = new ColoredChar()
             {
                 Character = ' '
             };

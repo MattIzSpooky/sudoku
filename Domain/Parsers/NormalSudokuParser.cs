@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Domain.Board;
+using Sudoku.Domain.Board.Leaves;
 using Sudoku.Domain.Solvers;
 
 namespace Sudoku.Domain.Parsers
@@ -15,8 +16,8 @@ namespace Sudoku.Domain.Parsers
             var cells = CreateCells(content, squareValue);
             var quadrants = ComposeQuadrants(cells, squareValue);
 
-            var field =  new Field(quadrants, squareValue, offsetX, offsetY) {SolverStrategy = new BackTrackingSolver()};
-            
+            var field = new Field(quadrants, squareValue, offsetX, offsetY) {SolverStrategy = new BackTrackingSolver()};
+
             return new[] {field};
         }
 
@@ -32,8 +33,7 @@ namespace Sudoku.Domain.Parsers
                     var index = content.Length - counter;
 
                     var cellValue = (int) char.GetNumericValue(content[index..].First());
-                    var isLocked = cellValue != 0;
-                    cells.Add(new CellLeaf(new Coordinate(x, y), cellValue, isLocked));
+                    cells.Add(new CellLeaf(new Coordinate(x, y), cellValue) {IsLocked = cellValue != 0});
 
                     counter--;
                 }
@@ -72,7 +72,13 @@ namespace Sudoku.Domain.Parsers
                 var minX = maxX - boardValues.QuadrantWidth;
                 var minY = maxY - boardValues.QuadrantHeight;
 
-                quadrants.Add(new QuadrantComposite(GetSpecifiedQuadrantCells(cells, minX, maxX, minY, maxY)));
+                var quadrant = new QuadrantComposite();
+                foreach (var cell in GetSpecifiedQuadrantCells(cells, minX, maxX, minY, maxY))
+                {
+                    quadrant.AddComponent(cell);
+                }
+                
+                quadrants.Add(quadrant);
 
                 quadrantCounter++;
 
@@ -90,12 +96,13 @@ namespace Sudoku.Domain.Parsers
             return quadrants;
         }
 
-        private List<CellLeaf> GetSpecifiedQuadrantCells(IEnumerable<CellLeaf> cells, int minX, int maxX, int minY, int maxY) =>
+        private IEnumerable<CellLeaf> GetSpecifiedQuadrantCells(IEnumerable<CellLeaf> cells, int minX, int maxX, int minY,
+            int maxY) =>
             cells.Where(cell => cell.Coordinate.X >= minX &&
                                 cell.Coordinate.X < maxX &&
                                 cell.Coordinate.Y >= minY &&
                                 cell.Coordinate.Y < maxY).ToList();
-        
+
         private struct BoardValues
         {
             public int SquareValue { get; set; }

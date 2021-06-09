@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Sudoku.Domain.Board.Visitors;
+﻿using System.Collections.Generic;
+using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain.Board
 {
     public interface ISudokuComponent
     {
         bool IsComposite();
-        bool IsValid();
-        void Accept(IVisitor visitor)
-        {
-            visitor.VisitCell(this);
-        }
+        public Coordinate Coordinate { get; set; }
+        void Accept(ISudokuComponentVisitor visitor);
         
         public IEnumerable<ISudokuComponent> GetChildren();
     }

@@ -9,7 +9,7 @@ namespace Sudoku.Domain.Visitors
     {
         public Grid Visit(Board.Field field)
         {
-            var gridBuilder = new GridBuilder(field.OffsetX, field.OffsetY);
+            var gridBuilder = new QuadrantCompositeBuilder(field.OffsetX, field.OffsetY);
 
             
             var cellsInOrder = field.GetOrderedCells();

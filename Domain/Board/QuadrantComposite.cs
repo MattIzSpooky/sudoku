@@ -1,27 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain.Board
 {
     public class QuadrantComposite : ISudokuComponent
     {
-        private readonly List<CellLeaf> _children;
-        public IReadOnlyList<CellLeaf> Children => _children;
+        private readonly List<ISudokuComponent> _children = new();
+        public IReadOnlyList<ISudokuComponent> Children => _children;
 
-        public QuadrantComposite(List<CellLeaf>? cells)
+        public void AddComponent(ISudokuComponent component)
         {
-            _children = cells ?? new List<CellLeaf>();
+            _children.Add(component);
         }
 
-        public bool IsValid()
+        public void Accept(ISudokuComponentVisitor visitor)
         {
-            throw new NotImplementedException();
+            foreach (var child in _children)
+            {
+                child.Accept(visitor);
+            }
         }
 
         public IEnumerable<ISudokuComponent> GetChildren() => Children;
 
         public bool IsComposite() => true;
-
-        public void AddCell(CellLeaf cellLeaf) => _children.Add(cellLeaf);
+        public Coordinate Coordinate { get; set; }
     }
 }

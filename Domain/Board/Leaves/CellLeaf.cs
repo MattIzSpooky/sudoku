@@ -1,31 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Sudoku.Domain.Visitors;
 
-namespace Sudoku.Domain.Board
+namespace Sudoku.Domain.Board.Leaves
 {
     public class CellLeaf : ISudokuComponent
     {
         public CellValue Value { get; set; }
         
         public bool IsValid { get; set; }
-        public Coordinate Coordinate { get; }
+        public Coordinate Coordinate { get; set; }
         
-        public bool IsLocked { get; }
+        public bool IsLocked { get; init; }
 
-        public CellLeaf(Coordinate coordinate, int value, bool locked = false)
+        public CellLeaf(Coordinate coordinate, int value)
         {
             Value = new CellValue(value);
             Coordinate = coordinate;
             IsValid = true;
-            IsLocked = locked;
         }
 
         public bool IsComposite() => false;
 
-        bool ISudokuComponent.IsValid()
+        public void Accept(ISudokuComponentVisitor visitor)
         {
-            return IsValid;
+            visitor.Visit(this);
         }
 
         public IEnumerable<ISudokuComponent> GetChildren() =>

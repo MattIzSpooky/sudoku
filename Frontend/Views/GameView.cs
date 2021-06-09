@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using Sudoku.Domain.Board;
 using Sudoku.Frontend.Visitors;
 using Sudoku.Mvc.Views.Console;
@@ -7,7 +8,7 @@ namespace Sudoku.Frontend.Views
 {
     public class GameView : ConsoleView
     {
-        public Grid[] Grids { private get; set; }
+        public IReadOnlyList<Field> Grids { private get; set; }
         public Coordinate Cursor { private get; set; }
 
         public GameView() : base(45, 45, "Sudoku")
