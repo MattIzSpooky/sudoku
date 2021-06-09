@@ -15,8 +15,8 @@ namespace Sudoku.Domain.Parsers
         {
             var squareValue = (int) Math.Round(Math.Sqrt(content.Trim().Length));
 
-            var cells = CreateCells(content, squareValue,offsetX, offsetY);
-            var quadrants = InsertOtherLeaves(offsetX, offsetY, ComposeQuadrants(cells, squareValue));
+            var sudokuComponents = CreateCells(content, squareValue,offsetX, offsetY);
+            var quadrants = ComposeQuadrants(sudokuComponents, squareValue);
 
             var field = new Field(quadrants)
             {
@@ -25,11 +25,7 @@ namespace Sudoku.Domain.Parsers
 
             return new[] {field};
         }
-        public static string ShiftString(int index, string t)
-        {
-            return t.Substring(index, t.Length - 1) + t.Substring(0, 1); 
-        }
-        private List<CellLeaf> CreateCells(string content, int squareValue, int offsetX, int offsetY)
+        private List<ISudokuComponent> CreateCells(string content, int squareValue, int offsetX, int offsetY)
         {
             var quadrantHeight = (int) Math.Floor(Math.Sqrt(squareValue));
             var quadrantWidth = squareValue / quadrantHeight;
@@ -51,7 +47,7 @@ namespace Sudoku.Domain.Parsers
 
             var myString = builder.ToString();
             var rowBuilder = new RowBuilder(offsetX, offsetY);
-            var cells = new List<ISudokuComponent>();
+            var sudokuComponents = new List<ISudokuComponent>();
             var counter = myString.Length;
 
             var total = squareValue + rowQuadrantsCount - 1;
@@ -63,19 +59,19 @@ namespace Sudoku.Domain.Parsers
 
                     if (myString[index] == '|')
                     {
-                        cells.Add(new Wall(false){Coordinate = new Coordinate(x, y)});
+                        sudokuComponents.Add(new Wall(false){Coordinate = new Coordinate(x, y)});
                         rowBuilder.BuildWall();
                     }
                     else if (myString[index] == '-')
                     {
-                        cells.Add(new Wall(true){Coordinate = new Coordinate(x, y)});
+                        sudokuComponents.Add(new Wall(true){Coordinate = new Coordinate(x, y)});
                         rowBuilder.BuildWall(true);
                     }
                     else
                     {
                         var cellValue = (int) char.GetNumericValue(myString[index..].First());
                         var cell = new CellLeaf(new Coordinate(x, y), cellValue) {IsLocked = cellValue != 0};
-                        cells.Add(cell);
+                        sudokuComponents.Add(cell);
                         rowBuilder.BuildCell(cell);
                     }
 
@@ -83,10 +79,10 @@ namespace Sudoku.Domain.Parsers
                 }
             }
 
-            return null;
+            return sudokuComponents;
         }
 
-        private List<QuadrantComposite> ComposeQuadrants(List<CellLeaf> cells, int squareValue)
+        private List<QuadrantComposite> ComposeQuadrants(List<ISudokuComponent> components, int squareValue)
         {
             var quadrantHeight = (int) Math.Floor(Math.Sqrt(squareValue));
             var quadrantWidth = squareValue / quadrantHeight;
@@ -100,10 +96,10 @@ namespace Sudoku.Domain.Parsers
                 RowQuadrantsCount = rowQuadrantsCount
             };
 
-            return CreateQuadrants(cells, boardValues);
+            return CreateQuadrants(components, boardValues);
         }
 
-        private List<QuadrantComposite> CreateQuadrants(List<CellLeaf> cells, BoardValues boardValues)
+        private List<QuadrantComposite> CreateQuadrants(List<ISudokuComponent> components, BoardValues boardValues)
         {
             var quadrants = new List<QuadrantComposite>();
 
@@ -117,7 +113,7 @@ namespace Sudoku.Domain.Parsers
                 var minY = maxY - boardValues.QuadrantHeight;
 
                 var quadrant = new QuadrantComposite();
-                foreach (var cell in GetSpecifiedQuadrantCells(cells, minX, maxX, minY, maxY))
+                foreach (var cell in GetSpecifiedQuadrantCells(components, minX, maxX, minY, maxY))
                 {
                     quadrant.AddComponent(cell);
                 }
@@ -140,75 +136,14 @@ namespace Sudoku.Domain.Parsers
             return quadrants;
         }
 
-        private IEnumerable<CellLeaf> GetSpecifiedQuadrantCells(IEnumerable<CellLeaf> cells, int minX, int maxX,
+        private IEnumerable<ISudokuComponent> GetSpecifiedQuadrantCells(IEnumerable<ISudokuComponent> components, 
+            int minX, int maxX,
             int minY,
             int maxY) =>
-            cells.Where(cell => cell.Coordinate.X >= minX &&
-                                cell.Coordinate.X < maxX &&
-                                cell.Coordinate.Y >= minY &&
-                                cell.Coordinate.Y < maxY).ToList();
-
-        private List<QuadrantComposite> InsertOtherLeaves(int offsetX, int offsetY, IReadOnlyList<QuadrantComposite> quadrants)
-        {
-            var rows = new List<Row>();
-            var rowBuilder = new RowBuilder(offsetX, offsetY);
-
-            var cellsInOrder = quadrants
-                .SelectMany(q => q.Children.OfType<CellLeaf>())
-                .OrderBy(c => c.Coordinate.Y)
-                .ThenBy(c => c.Coordinate.X).ToList();
-
-            var totalWidth = cellsInOrder.Max(cellLeaf => cellLeaf.Coordinate.X) + 1;
-
-            var quadrantSize = quadrants[0].Children.Count;
-            var nextHorizontal = Convert.ToInt32(Math.Floor(Math.Sqrt(quadrantSize)));
-            var nextVertical = Convert.ToInt32(Math.Ceiling(Math.Sqrt(quadrantSize)));
-
-            for (var i = 0; i < cellsInOrder.Count; ++i)
-            {
-                if (i > 0 && i % (quadrantSize) == 0)
-                {
-                    rows.Add(rowBuilder.GetResult());
-                    rowBuilder.Reset();
-                }
-
-                var leaf = cellsInOrder[i];
-                var nextLeaf = i + 1 > cellsInOrder.Count - 1 ? null : cellsInOrder[i + 1];
-                var downLeaf = cellsInOrder.FirstOrDefault(cellLeaf => cellLeaf.Coordinate.Y == leaf.Coordinate.Y + 1 
-                                                                       && cellLeaf.Coordinate.X == leaf.Coordinate.X);
-                var quadrant = quadrants.First(q => q.Children.Contains(leaf));
-
-                rowBuilder.BuildCell(leaf);
-
-                if (nextLeaf?.Coordinate.Y == leaf.Coordinate.Y && !quadrant.Children.Contains(nextLeaf))
-                {
-                    rowBuilder.BuildWall();
-                }
-
-                if (nextLeaf?.Coordinate.Y == leaf.Coordinate.Y) continue;
-
-                rowBuilder.InsertRow();
-
-                if ((leaf.Coordinate.Y + 1) % nextHorizontal != 0 || downLeaf == null) continue;
-
-                for (var wall = 0; wall < totalWidth; ++wall)
-                {
-                    rowBuilder.BuildWall(true);
-                    if ((wall + 1) % nextVertical == 0) rowBuilder.BuildEmptySpace();
-                }
-
-                rowBuilder.InsertRow();
-                
-                rows.Add(rowBuilder.GetResult());
-                rowBuilder.Reset();
-            }
-
-            var newQuadrants = new List<QuadrantComposite>();
-
-            var allItems = rows.SelectMany(r => r.Components).ToList();
-            
-            return newQuadrants;
-        }
+            components.Where(cell => cell.Coordinate.X >= minX &&
+                                     cell.Coordinate.X < maxX + 1 &&
+                                     cell.Coordinate.Y >= minY &&
+                                     cell.Coordinate.Y < maxY + 1).ToList();
 
         private struct BoardValues
         {
