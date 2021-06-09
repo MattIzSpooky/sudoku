@@ -119,9 +119,9 @@ namespace Sudoku.Domain.Parsers
                 foreach (var cell in GetSpecifiedQuadrantCells(
                     components, 
                     minX, 
-                    maxX, 
+                    maxX - 1, 
                     minY, 
-                    maxY))
+                    maxY - 1))
                 {
                     quadrant.AddComponent(cell);
                 }
@@ -151,9 +151,9 @@ namespace Sudoku.Domain.Parsers
             int maxY) =>
             components.Where(cell => 
                 cell.Coordinate.X >= minX &&
-                cell.Coordinate.X < maxX &&
+                cell.Coordinate.X <= maxX &&
                 cell.Coordinate.Y >= minY &&
-                cell.Coordinate.Y < maxY)
+                cell.Coordinate.Y <= maxY)
                 .ToList();
 
         private struct BoardValues

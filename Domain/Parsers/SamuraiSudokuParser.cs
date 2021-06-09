@@ -31,7 +31,7 @@ namespace Sudoku.Domain.Parsers
                 .ToArray();
 
 
-            MergeOverflowingQuadrants(grids, amountOfCellsPerSubSudoku);
+            //MergeOverflowingQuadrants(grids, amountOfCellsPerSubSudoku);
 
             return grids;
         }
