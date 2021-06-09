@@ -94,9 +94,11 @@ namespace Sudoku.Domain.Parsers
             var boardValues = new BoardValues
             {
                 SquareValue = squareValue,
-                QuadrantHeight = quadrantHeight + 1 + offsetY,
-                QuadrantWidth = quadrantWidth + 1 + offsetX,
-                RowQuadrantsCount = rowQuadrantsCount
+                QuadrantHeight = quadrantHeight + 1,
+                QuadrantWidth = quadrantWidth + 1,
+                RowQuadrantsCount = rowQuadrantsCount,
+                OffsetX = offsetX,
+                OffsetY = offsetY
             };
 
             return CreateQuadrants(components, boardValues);
@@ -118,10 +120,10 @@ namespace Sudoku.Domain.Parsers
                 var quadrant = new QuadrantComposite();
                 foreach (var cell in GetSpecifiedQuadrantCells(
                     components, 
-                    minX, 
-                    maxX - 1, 
-                    minY, 
-                    maxY - 1))
+                    minX + boardValues.OffsetX, 
+                    maxX + boardValues.OffsetX - 1, 
+                    minY + boardValues.OffsetY, 
+                    maxY + boardValues.OffsetY - 1))
                 {
                     quadrant.AddComponent(cell);
                 }
@@ -162,6 +164,8 @@ namespace Sudoku.Domain.Parsers
             public int QuadrantWidth { get; set; }
             public int QuadrantHeight { get; set; }
             public int RowQuadrantsCount { get; set; }
+            public int OffsetX { get; set; }
+            public int OffsetY { get; set; }
         }
     }
 }

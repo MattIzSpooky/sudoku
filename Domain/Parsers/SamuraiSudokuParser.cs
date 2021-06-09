@@ -30,8 +30,8 @@ namespace Sudoku.Domain.Parsers
                 .SelectMany((subSudokuContent, i) => base.Parse(subSudokuContent, XOffsets[i], YOffsets[i]))
                 .ToArray();
 
-
-            //MergeOverflowingQuadrants(grids, amountOfCellsPerSubSudoku);
+            
+            MergeOverflowingQuadrants(grids, amountOfCellsPerSubSudoku);
 
             return grids;
         }
