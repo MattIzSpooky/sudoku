@@ -71,12 +71,12 @@ namespace Sudoku.Domain.Board
             {
                 cell.IsValid = true;
                     
-                if (cell.IsLocked || cell.Value.Value == 0) continue;
+                if (cell.IsLocked || cell.Value.DefinitiveValue == 0) continue;
 
                 var rowColumn = cells
                     .Where(c => (c.Coordinate.Y == cell.Coordinate.Y || c.Coordinate.X == cell.Coordinate.X) &&
                                 c != cell)
-                    .FirstOrDefault(c => c.Value.Value == cell.Value.Value);
+                    .FirstOrDefault(c => c.Value.DefinitiveValue == cell.Value.DefinitiveValue);
 
                 if (rowColumn != null)
                 {
@@ -87,7 +87,7 @@ namespace Sudoku.Domain.Board
                 var quadrant = Find(c => c.GetChildren().Contains(cell)).First();
 
                 if (quadrant.GetChildren().Cast<CellLeaf>()
-                    .FirstOrDefault(c => c.Value.Value == cell.Value.Value && c != cell) != null)
+                    .FirstOrDefault(c => c.Value.DefinitiveValue == cell.Value.DefinitiveValue && c != cell) != null)
                 {
                     cell.IsValid = false;
                     return false;

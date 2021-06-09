@@ -44,7 +44,7 @@ namespace Sudoku.Domain
                 .FirstOrDefault(g => g.X == _cursor.X && g.Y == _cursor.Y);
             
             if (selectedCell != null && !selectedCell.CellLeaf.IsLocked) 
-                _state?.Handle(selectedCell.CellLeaf, value);
+                _state.Handle(selectedCell.CellLeaf, value);
         }
 
         public void MoveCursor(int x, int y)
@@ -63,12 +63,9 @@ namespace Sudoku.Domain
             return new Coordinate(last.OffsetX + count, last.OffsetY + count);
         }
 
-        public void SwitchState()
-        {
-            _state.ChangeState();
-        }
+        public void SwitchState() => _state.ChangeState();
 
-        public void ValidateNumbers()
+        public void Validate()
         {
             foreach (var field in _fields)
             {
@@ -79,7 +76,7 @@ namespace Sudoku.Domain
         public void TransitionTo(State newState)
         {
             _state = newState;
-            _state.SetGame(this);
+            _state.SetContext(this);
         }
 
         public void Solve()

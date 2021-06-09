@@ -28,7 +28,7 @@ namespace Sudoku.Frontend.Visitors
         public void Visit(Cell cell)
         {
             var cellLeafValue = cell.CellLeaf.Value;
-            var definitiveValue = cellLeafValue.Value;
+            var definitiveValue = cellLeafValue.DefinitiveValue;
             var character = ' ';
             var color = Color.White;
 

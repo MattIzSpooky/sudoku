@@ -1,15 +1,13 @@
-﻿using System.Runtime.InteropServices.ComTypes;
-
-namespace Sudoku.Domain.Board
+﻿namespace Sudoku.Domain.Board
 {
     public class CellValue
     {
-        public int Value {get; set; }
+        public int DefinitiveValue {get; set; }
         public int HelpNumber { get; set; }
 
-        public CellValue(int value)
+        public CellValue(int definitiveValue)
         {
-            Value = value;
+            DefinitiveValue = definitiveValue;
         }
     }   
 }

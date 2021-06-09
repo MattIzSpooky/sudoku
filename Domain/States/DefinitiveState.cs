@@ -6,12 +6,12 @@ namespace Sudoku.Domain.States
     {
         public override void Handle(CellLeaf cellLeaf, int value)
         {
-            cellLeaf.Value.Value = cellLeaf.Value.Value == value ? 0 : value;
+            cellLeaf.Value.DefinitiveValue = cellLeaf.Value.DefinitiveValue == value ? 0 : value;
         }
 
         public override void ChangeState()
         {
-            Game?.TransitionTo(new AuxiliaryState());
+            Context?.TransitionTo(new AuxiliaryState());
         }
     }
 }

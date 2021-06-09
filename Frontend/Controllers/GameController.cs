@@ -62,7 +62,7 @@ namespace Sudoku.Frontend.Controllers
         
         private void ValidateInput()
         {
-            _game.ValidateNumbers();
+            _game.Validate();
             
             Redraw();
         }
