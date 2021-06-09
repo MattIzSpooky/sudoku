@@ -16,7 +16,7 @@ namespace Sudoku.Domain.Parsers
             var squareValue = (int) Math.Round(Math.Sqrt(content.Trim().Length));
 
             var sudokuComponents = CreateCells(content, squareValue,offsetX, offsetY);
-            var quadrants = ComposeQuadrants(sudokuComponents, squareValue);
+            var quadrants = ComposeQuadrants(sudokuComponents, squareValue, offsetX, offsetY);
 
             var field = new Field(quadrants)
             {
@@ -62,18 +62,18 @@ namespace Sudoku.Domain.Parsers
 
                     if (myString[index] == '|')
                     {
-                        sudokuComponents.Add(new Wall(false){Coordinate = new Coordinate(x, y)});
+                        sudokuComponents.Add(new Wall(false){Coordinate = new Coordinate(x + offsetX, y + offsetY)});
                         rowBuilder.BuildWall();
                     }
                     else if (myString[index] == '-')
                     {
-                        sudokuComponents.Add(new Wall(true){Coordinate = new Coordinate(x, y)});
+                        sudokuComponents.Add(new Wall(true){Coordinate = new Coordinate(x + offsetX, y + offsetY)});
                         rowBuilder.BuildWall(true);
                     }
                     else
                     {
                         var cellValue = (int) char.GetNumericValue(myString[index..].First());
-                        var cell = new CellLeaf(new Coordinate(x, y), cellValue) {IsLocked = cellValue != 0};
+                        var cell = new CellLeaf(new Coordinate(x + offsetX, y + offsetY), cellValue) {IsLocked = cellValue != 0};
                         sudokuComponents.Add(cell);
                         rowBuilder.BuildCell(cell);
                     }
@@ -85,7 +85,7 @@ namespace Sudoku.Domain.Parsers
             return sudokuComponents;
         }
 
-        private List<QuadrantComposite> ComposeQuadrants(List<ISudokuComponent> components, int squareValue)
+        private List<QuadrantComposite> ComposeQuadrants(List<ISudokuComponent> components, int squareValue, int offsetX, int offsetY)
         {
             var quadrantHeight = (int) Math.Floor(Math.Sqrt(squareValue));
             var quadrantWidth = squareValue / quadrantHeight;
@@ -94,8 +94,8 @@ namespace Sudoku.Domain.Parsers
             var boardValues = new BoardValues
             {
                 SquareValue = squareValue,
-                QuadrantHeight = quadrantHeight + rowQuadrantsCount - 1,
-                QuadrantWidth = quadrantWidth + rowQuadrantsCount - 1,
+                QuadrantHeight = quadrantHeight + rowQuadrantsCount - 1 + offsetY,
+                QuadrantWidth = quadrantWidth + rowQuadrantsCount - 1 + offsetX,
                 RowQuadrantsCount = rowQuadrantsCount
             };
 
