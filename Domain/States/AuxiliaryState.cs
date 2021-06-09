@@ -1,5 +1,4 @@
-﻿using System;
-using Sudoku.Domain.Board;
+﻿using Sudoku.Domain.Board.Leaves;
 
 namespace Sudoku.Domain.States
 {
@@ -7,7 +6,7 @@ namespace Sudoku.Domain.States
     {
         public override void Handle(CellLeaf cellLeaf, int value)
         {
-            if (cellLeaf.Value.Value > 0)
+            if (cellLeaf.Value.DefinitiveValue > 0)
                 return;
             
             cellLeaf.Value.HelpNumber = cellLeaf.Value.HelpNumber == value ? 0 : value;
@@ -15,12 +14,7 @@ namespace Sudoku.Domain.States
 
         public override void ChangeState()
         {
-            Game?.TransitionTo(new DefinitiveState());
-        }
-
-        public override Grid[]? CreateGrid()
-        {
-            throw new NotImplementedException();
+            Context?.TransitionTo(new DefinitiveState());
         }
     }
 }

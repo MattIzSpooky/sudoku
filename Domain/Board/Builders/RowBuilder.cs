@@ -1,10 +1,13 @@
-﻿using Sudoku.Domain.Board.GridItems;
+﻿
+
+using Sudoku.Domain.Board.Leaves;
+using Sudoku.Domain.Parsers;
 
 namespace Sudoku.Domain.Board.Builders
 {
-    public class GridBuilder : IBuilder<Grid>
+    public class RowBuilder : IBuilder<Row>
     {
-        private Grid _grid = new();
+        private Row _items = new();
 
         private int _x;
         private int _y;
@@ -12,24 +15,20 @@ namespace Sudoku.Domain.Board.Builders
         private readonly int _offsetX;
         private readonly int _offsetY;
 
-        public GridBuilder(int offsetX, int offsetY)
+        public RowBuilder(int offsetX, int offsetY)
         {
             _x = offsetX;
             _y = offsetY;
 
             _offsetX = offsetX;
             _offsetY = offsetY;
-
-            _grid.SetOffsetX(offsetX);
-            _grid.SetOffsetY(offsetY);
         }
         
         public void BuildWall(bool isHorizontal = false)
         {
-            _grid.Add(new Wall(isHorizontal)
+            _items.Add(new Wall(isHorizontal)
             {
-                X = _x,
-                Y = _y
+                Coordinate = new Coordinate(_x, _y)
             });
 
             _x++;
@@ -37,21 +36,18 @@ namespace Sudoku.Domain.Board.Builders
 
         public void BuildCell(CellLeaf cellLeaf)
         {
-            _grid.Add(new Cell(cellLeaf)
-            {
-                X = _x,
-                Y = _y
-            });
+            var clone = cellLeaf.Clone();
+            clone.Coordinate = new Coordinate(_x, _y);
+            _items.Add(clone);
             
             _x++;
         }
         
         public void BuildEmptySpace()
         {
-            _grid.Add(new EmptySpace()
+            _items.Add(new EmptySpace()
             {
-                X = _x,
-                Y = _y
+                Coordinate = new Coordinate(_x, _y)
             });
             
             _x++;
@@ -63,17 +59,17 @@ namespace Sudoku.Domain.Board.Builders
             _y++;
         }
         
-        public Grid GetResult()
+        public Row GetResult()
         {
-            return _grid;
+            return _items;
         }
 
         public void Reset()
         {
-            _grid = new Grid();
+            _items = new Row();
             
-            _x -= _offsetX;
-            _y -= _offsetY;
+            _x = _offsetX;
+            _y = _offsetY;
         }
     }
 }

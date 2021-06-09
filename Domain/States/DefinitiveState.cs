@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using Sudoku.Domain.Board;
-using Sudoku.Domain.Visitors;
+﻿using Sudoku.Domain.Board.Leaves;
 
 namespace Sudoku.Domain.States
 {
@@ -9,17 +6,12 @@ namespace Sudoku.Domain.States
     {
         public override void Handle(CellLeaf cellLeaf, int value)
         {
-            cellLeaf.Value.Value = cellLeaf.Value.Value == value ? 0 : value;
+            cellLeaf.Value.DefinitiveValue = cellLeaf.Value.DefinitiveValue == value ? 0 : value;
         }
 
         public override void ChangeState()
         {
-            Game?.TransitionTo(new AuxiliaryState());
-        }
-
-        public override Grid[]? CreateGrid()
-        {
-            return Game?.Fields.Select(sdk => sdk.Accept(new SudokuVisitor())).ToArray();
+            Context?.TransitionTo(new AuxiliaryState());
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Sudoku.Domain.Selector
             foreach (var path in filePaths)
             {
                 var pos = path.LastIndexOf("/", StringComparison.Ordinal) + 1;
-                
+
                 _sudokuFiles.Add(new SudokuFile()
                 {
                     Name = path[pos..],
@@ -31,10 +31,10 @@ namespace Sudoku.Domain.Selector
 
         private int GetIndexOfSudokuFile(SudokuFile sudokuFile) => _sudokuFiles.FindIndex(a => a.Equals(sudokuFile));
 
-        public void Previous()
+        private void ChangeSelection(int indexDirection)
         {
             var selected = GetSelected();
-            var index = GetIndexOfSudokuFile(selected) - 1;
+            var index = GetIndexOfSudokuFile(selected) + indexDirection;
 
             var nextSudoku = _sudokuFiles.ElementAtOrDefault(index);
             if (nextSudoku == null) return;
@@ -43,21 +43,10 @@ namespace Sudoku.Domain.Selector
             selected.IsSelected = false;
         }
 
-        public void Next()
-        {
-            var selected = GetSelected();
-            var index = GetIndexOfSudokuFile(selected) + 1;
+        public void Previous() => ChangeSelection(-1);
 
-            var nextSudoku = _sudokuFiles.ElementAtOrDefault(index);
-            if (nextSudoku == null) return;
+        public void Next() => ChangeSelection(1);
 
-            nextSudoku.IsSelected = true;
-            selected.IsSelected = false;
-        }
-
-        public SudokuFile GetSelected()
-        {
-            return _sudokuFiles.First(sudokuFile => sudokuFile.IsSelected);
-        }
+        public SudokuFile GetSelected() => _sudokuFiles.First(sudokuFile => sudokuFile.IsSelected);
     }
 }

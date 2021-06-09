@@ -16,7 +16,7 @@ namespace Sudoku.Frontend.Views
         {
             foreach (var sudokuFile in SudokuFiles)
             {
-                var selectedChar = sudokuFile.IsSelected ? 'X' : ' ';
+                var selectedChar = sudokuFile.IsSelected ? '*' : ' ';
                 
                 WriteString($"[{selectedChar}]: {sudokuFile.Name}", Color.Lime);
             }

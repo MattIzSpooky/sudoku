@@ -1,11 +1,11 @@
-﻿using Sudoku.Domain.Board.GridItems;
+﻿using Sudoku.Domain.Board.Leaves;
 
 namespace Sudoku.Domain.Visitors
 {
-    public interface IGridItemVisitor
+    public interface ISudokuComponentVisitor
     {
         public void Visit(Wall wall);
-        public void Visit(Cell cell);
+        public void Visit(CellLeaf cell);
         public void Visit(EmptySpace emptySpace);
     }
 }

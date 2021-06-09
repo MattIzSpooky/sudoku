@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sudoku.Domain.Board.Leaves;
 using Sudoku.Domain.Extensions;
+using Sudoku.Domain.Solvers;
 using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain.Board
@@ -9,13 +11,19 @@ namespace Sudoku.Domain.Board
     public class Field : ISudokuComponent
     {
         private readonly List<QuadrantComposite> _quadrants;
-        private bool _isEditable;
 
-        public int OffsetX { get; }
-        public int OffsetY { get; }
-        public int MaxValue { get; }
+        public int OffsetX { get; set; }
+        public int OffsetY { get; set; }
+        public int MaxValue { get; set; }
+        
+        public ISolverStrategy SolverStrategy { get; set; }
 
         public IReadOnlyList<QuadrantComposite> Quadrants => _quadrants;
+        
+        public Field(List<QuadrantComposite> quadrants)
+        {
+            _quadrants = quadrants;
+        }
 
         public List<CellLeaf> GetOrderedCells()
         {
@@ -26,49 +34,28 @@ namespace Sudoku.Domain.Board
                 .ToList();
         }
 
-        public IEnumerable<ISudokuComponent> Find(Func<ISudokuComponent, bool> finder)
+        private IEnumerable<ISudokuComponent> Find(Func<ISudokuComponent, bool> finder)
         {
             return GetChildren().Descendants(i => i.GetChildren()).Where(finder);
         }
 
-        bool ISudokuComponent.IsEditable
-        {
-            get => _isEditable;
-            set => _isEditable = value;
-        }
-
         public bool IsComposite() => true;
-
-        public bool IsValid()
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<ISudokuComponent> ISudokuComponent.GetChildren()
-        {
-            throw new NotImplementedException();
-        }
+        public Coordinate Coordinate { get; set; }
 
         public IEnumerable<ISudokuComponent> GetChildren()
         {
             return _quadrants;
         }
 
-        public Grid Accept(ISudokuVisitor visitor)
+        public void Accept(ISudokuComponentVisitor visitor)
         {
-            return visitor.Visit(this);
+            foreach (var quadrant in _quadrants)
+            {
+                quadrant.Accept(visitor);
+            }
         }
-        
-        
-        public Field(List<QuadrantComposite> quadrants, int maxValue, int offsetX = 0, int offsetY = 0)
-        {
-            _quadrants = quadrants;
 
-            OffsetX = offsetX;
-            OffsetY = offsetY;
-
-            MaxValue = maxValue;
-        }
+        public void Solve() => SolverStrategy.Solve(this);
         
         public bool Validate()
         {
@@ -78,12 +65,12 @@ namespace Sudoku.Domain.Board
             {
                 cell.IsValid = true;
                     
-                if (cell.IsLocked || cell.Value.Value == 0) continue;
+                if (cell.IsLocked || cell.Value.DefinitiveValue == 0) continue;
 
                 var rowColumn = cells
                     .Where(c => (c.Coordinate.Y == cell.Coordinate.Y || c.Coordinate.X == cell.Coordinate.X) &&
                                 c != cell)
-                    .FirstOrDefault(c => c.Value.Value == cell.Value.Value);
+                    .FirstOrDefault(c => c.Value.DefinitiveValue == cell.Value.DefinitiveValue);
 
                 if (rowColumn != null)
                 {
@@ -94,7 +81,7 @@ namespace Sudoku.Domain.Board
                 var quadrant = Find(c => c.GetChildren().Contains(cell)).First();
 
                 if (quadrant.GetChildren().Cast<CellLeaf>()
-                    .FirstOrDefault(c => c.Value.Value == cell.Value.Value && c != cell) != null)
+                    .FirstOrDefault(c => c.Value.DefinitiveValue == cell.Value.DefinitiveValue && c != cell) != null)
                 {
                     cell.IsValid = false;
                     return false;

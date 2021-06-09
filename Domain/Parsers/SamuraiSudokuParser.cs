@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Sudoku.Domain.Board;
+using Sudoku.Domain.Board.Leaves;
 
 namespace Sudoku.Domain.Parsers
 {
@@ -9,17 +11,15 @@ namespace Sudoku.Domain.Parsers
     {
         private const int AmountOfSubSudoku = 5;
         
-        private static readonly int[] _xOffsets = new int[]
-        {
+        private static readonly int[] XOffsets = {
             0, 16, 8, 0, 16
         };
 
-        private static readonly int[] _yOffsets = new int[]
-        {
+        private static readonly int[] YOffsets = {
             0, 0, 8, 16, 16
         };
 
-        public override Board.Field[] Parse(string content, int offsetX = 0, int offsetY = 0)
+        public override Field[] Parse(string content, int offsetX = 0, int offsetY = 0)
         {
             var cleanedContent = content.Replace(Environment.NewLine, string.Empty).Trim();
             var amountOfCellsPerSubSudoku = cleanedContent.Length / AmountOfSubSudoku;
@@ -27,7 +27,7 @@ namespace Sudoku.Domain.Parsers
             var grids = Enumerable
                 .Range(0, AmountOfSubSudoku)
                 .Select(i => cleanedContent.Substring(i * amountOfCellsPerSubSudoku, amountOfCellsPerSubSudoku))
-                .SelectMany((subSudokuContent, i) => base.Parse(subSudokuContent, _xOffsets[i], _yOffsets[i]))
+                .SelectMany((subSudokuContent, i) => base.Parse(subSudokuContent, XOffsets[i], YOffsets[i]))
                 .ToArray();
 
 
@@ -36,7 +36,7 @@ namespace Sudoku.Domain.Parsers
             return grids;
         }
 
-        private void MergeOverflowingQuadrants(IReadOnlyList<Board.Field> grids, int amountOfCellsPerSubSudoku)
+        private static void MergeOverflowingQuadrants(IReadOnlyList<Field> grids, int amountOfCellsPerSubSudoku)
         {
             const int quadrantFactor = 2;
             
@@ -48,8 +48,8 @@ namespace Sudoku.Domain.Parsers
             {
                 if (i != centerGrid)
                 {
-                    var firstQuadrant = grids[i].Quadrants[leftQuadrant].Children;
-                    var secondQuadrant = grids[centerGrid].Quadrants[centerQuadrant].Children;
+                    var firstQuadrant = grids[i].Quadrants[leftQuadrant].Children.OfType<CellLeaf>().ToImmutableList();
+                    var secondQuadrant = grids[centerGrid].Quadrants[centerQuadrant].Children.OfType<CellLeaf>().ToImmutableList();
 
                     MergeOverflowingCells(firstQuadrant, secondQuadrant);
                 }
