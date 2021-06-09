@@ -94,8 +94,8 @@ namespace Sudoku.Domain.Parsers
             var boardValues = new BoardValues
             {
                 SquareValue = squareValue,
-                QuadrantHeight = quadrantHeight + rowQuadrantsCount - 1 + offsetY,
-                QuadrantWidth = quadrantWidth + rowQuadrantsCount - 1 + offsetX,
+                QuadrantHeight = quadrantHeight + 1 + offsetY,
+                QuadrantWidth = quadrantWidth + 1 + offsetX,
                 RowQuadrantsCount = rowQuadrantsCount
             };
 
