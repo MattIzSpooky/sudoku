@@ -59,7 +59,8 @@ namespace Sudoku.Domain.Board
         
         public bool Validate()
         {
-            var cells = GetChildren().SelectMany(q => q.GetChildren()).Cast<CellLeaf>().ToList();
+            // TODO: Solve with visitor maybe?
+            var cells = GetChildren().SelectMany(q => q.GetChildren().OfType<CellLeaf>()).ToList();
                 
             foreach (var cell in cells)
             {
@@ -80,7 +81,7 @@ namespace Sudoku.Domain.Board
 
                 var quadrant = Find(c => c.GetChildren().Contains(cell)).First();
 
-                if (quadrant.GetChildren().Cast<CellLeaf>()
+                if (quadrant.GetChildren().OfType<CellLeaf>()
                     .FirstOrDefault(c => c.Value.DefinitiveValue == cell.Value.DefinitiveValue && c != cell) != null)
                 {
                     cell.IsValid = false;

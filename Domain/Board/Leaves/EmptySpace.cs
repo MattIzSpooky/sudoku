@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain.Board.Leaves
@@ -13,9 +14,6 @@ namespace Sudoku.Domain.Board.Leaves
             visitor.Visit(this);
         }
 
-        public IEnumerable<ISudokuComponent> GetChildren()
-        {
-            throw new System.NotImplementedException();
-        }
+        public IEnumerable<ISudokuComponent> GetChildren() => new ReadOnlyCollection<ISudokuComponent>(new List<ISudokuComponent>());
     }
 }
