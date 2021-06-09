@@ -91,8 +91,8 @@ namespace Sudoku.Domain.Parsers
             var boardValues = new BoardValues
             {
                 SquareValue = squareValue,
-                QuadrantHeight = quadrantHeight,
-                QuadrantWidth = quadrantWidth,
+                QuadrantHeight = quadrantHeight + rowQuadrantsCount,
+                QuadrantWidth = quadrantWidth + rowQuadrantsCount,
                 RowQuadrantsCount = rowQuadrantsCount
             };
 
@@ -113,7 +113,12 @@ namespace Sudoku.Domain.Parsers
                 var minY = maxY - boardValues.QuadrantHeight;
 
                 var quadrant = new QuadrantComposite();
-                foreach (var cell in GetSpecifiedQuadrantCells(components, minX, maxX, minY, maxY))
+                foreach (var cell in GetSpecifiedQuadrantCells(
+                    components, 
+                    minX, 
+                    maxX, 
+                    minY, 
+                    maxY))
                 {
                     quadrant.AddComponent(cell);
                 }
@@ -137,13 +142,16 @@ namespace Sudoku.Domain.Parsers
         }
 
         private IEnumerable<ISudokuComponent> GetSpecifiedQuadrantCells(IEnumerable<ISudokuComponent> components, 
-            int minX, int maxX,
+            int minX, 
+            int maxX,
             int minY,
             int maxY) =>
-            components.Where(cell => cell.Coordinate.X >= minX &&
-                                     cell.Coordinate.X < maxX + 1 &&
-                                     cell.Coordinate.Y >= minY &&
-                                     cell.Coordinate.Y < maxY + 1).ToList();
+            components.Where(cell => 
+                cell.Coordinate.X >= minX &&
+                cell.Coordinate.X < maxX &&
+                cell.Coordinate.Y >= minY &&
+                cell.Coordinate.Y < maxY)
+                .ToList();
 
         private struct BoardValues
         {
