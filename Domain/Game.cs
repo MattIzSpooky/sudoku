@@ -2,17 +2,16 @@
 using System.Linq;
 using Sudoku.Domain.Board;
 using Sudoku.Domain.Board.GridItems;
-using Sudoku.Domain.Solvers;
 using Sudoku.Domain.States;
+using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain
 {
     public class Game
     {
-        private readonly ISolverStrategy _strategy;
         public Grid[] Grids { get; }
-        public Field[] Fields { get; }
-        private State? _state;
+        private readonly Field[] _fields;
+        private State _state;
         
         private Coordinate _cursor;
         public Coordinate Cursor => _cursor;
@@ -22,15 +21,18 @@ namespace Sudoku.Domain
 
         public Game(Field[] fields)
         {
-            Fields = fields;
-            
-            _strategy = new BackTrackingSolver();
+            _fields = fields;
             TransitionTo(new DefinitiveState());
-            
-            Grids = _state?.CreateGrid() ?? Array.Empty<Grid>();
+
+            Grids = CreateGrid();
             
             _maxCords = GetMaxCoordinates();
-            _maxValue = Fields[0].MaxValue;
+            _maxValue = _fields[0].MaxValue;
+        }
+
+        private Grid[] CreateGrid()
+        {
+            return _fields.Select(sdk => sdk.Accept(new SudokuVisitor())).ToArray();
         }
         
         public void EnterValue(int value)
@@ -63,12 +65,12 @@ namespace Sudoku.Domain
 
         public void SwitchState()
         {
-            _state?.ChangeState();
+            _state.ChangeState();
         }
 
         public void ValidateNumbers()
         {
-            foreach (var field in Fields)
+            foreach (var field in _fields)
             {
                 field.Validate();
             }
@@ -82,9 +84,9 @@ namespace Sudoku.Domain
 
         public void Solve()
         {
-            foreach (var field in Fields)
+            foreach (var field in _fields)
             {
-                _strategy.Solve(field);
+                field.Solve();
             }
         }
     }

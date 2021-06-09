@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Domain.Board;
+using Sudoku.Domain.Solvers;
 
 namespace Sudoku.Domain.Parsers
 {
     public class NormalSudokuParser : ISudokuParser
     {
-        public virtual Board.Field[] Parse(string content, int offsetX = 0, int offsetY = 0)
+        public virtual Field[] Parse(string content, int offsetX = 0, int offsetY = 0)
         {
             var squareValue = (int) Math.Round(Math.Sqrt(content.Trim().Length));
 
             var cells = CreateCells(content, squareValue);
             var quadrants = ComposeQuadrants(cells, squareValue);
 
-            return new Board.Field[] {new(quadrants, squareValue, offsetX, offsetY)};
+            var field =  new Field(quadrants, squareValue, offsetX, offsetY) {SolverStrategy = new BackTrackingSolver()};
+            
+            return new[] {field};
         }
 
         private List<CellLeaf> CreateCells(string content, int squareValue)

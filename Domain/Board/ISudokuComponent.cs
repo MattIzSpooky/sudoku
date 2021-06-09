@@ -8,12 +8,6 @@ namespace Sudoku.Domain.Board
 {
     public interface ISudokuComponent
     {
-        bool IsEditable { get; protected set; }
-
-        void ToggleEditable()
-        {
-            this.IsEditable = !this.IsEditable;
-        }
         bool IsComposite();
         bool IsValid();
         void Accept(IVisitor visitor)

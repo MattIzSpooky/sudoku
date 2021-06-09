@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using Sudoku.Domain.Board;
-using Sudoku.Domain.Visitors;
+﻿using Sudoku.Domain.Board;
 
 namespace Sudoku.Domain.States
 {
@@ -15,11 +12,6 @@ namespace Sudoku.Domain.States
         public override void ChangeState()
         {
             Game?.TransitionTo(new AuxiliaryState());
-        }
-
-        public override Grid[]? CreateGrid()
-        {
-            return Game?.Fields.Select(sdk => sdk.Accept(new SudokuVisitor())).ToArray();
         }
     }
 }

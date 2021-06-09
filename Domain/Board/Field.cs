@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Domain.Extensions;
+using Sudoku.Domain.Solvers;
 using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain.Board
@@ -9,11 +10,12 @@ namespace Sudoku.Domain.Board
     public class Field : ISudokuComponent
     {
         private readonly List<QuadrantComposite> _quadrants;
-        private bool _isEditable;
 
         public int OffsetX { get; }
         public int OffsetY { get; }
         public int MaxValue { get; }
+        
+        public ISolverStrategy SolverStrategy { get; set; }
 
         public IReadOnlyList<QuadrantComposite> Quadrants => _quadrants;
 
@@ -31,20 +33,9 @@ namespace Sudoku.Domain.Board
             return GetChildren().Descendants(i => i.GetChildren()).Where(finder);
         }
 
-        bool ISudokuComponent.IsEditable
-        {
-            get => _isEditable;
-            set => _isEditable = value;
-        }
-
         public bool IsComposite() => true;
 
         public bool IsValid()
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerable<ISudokuComponent> ISudokuComponent.GetChildren()
         {
             throw new NotImplementedException();
         }
@@ -69,6 +60,8 @@ namespace Sudoku.Domain.Board
 
             MaxValue = maxValue;
         }
+
+        public void Solve() => SolverStrategy.Solve(this);
         
         public bool Validate()
         {

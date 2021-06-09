@@ -1,5 +1,4 @@
-﻿using System;
-using Sudoku.Domain.Board;
+﻿using Sudoku.Domain.Board;
 
 namespace Sudoku.Domain.States
 {
@@ -16,11 +15,6 @@ namespace Sudoku.Domain.States
         public override void ChangeState()
         {
             Game?.TransitionTo(new DefinitiveState());
-        }
-
-        public override Grid[]? CreateGrid()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -8,6 +8,5 @@ namespace Sudoku.Domain.States
         public void SetGame(Game game) => Game = game;
         public abstract void Handle(CellLeaf cellLeaf, int value);
         public abstract void ChangeState();
-        public abstract Grid[]? CreateGrid();
     }
 }

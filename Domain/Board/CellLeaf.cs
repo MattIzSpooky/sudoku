@@ -4,20 +4,14 @@ using System.Collections.ObjectModel;
 
 namespace Sudoku.Domain.Board
 {
-    public class CellLeaf : ISudokuComponent, IClone<CellLeaf>
+    public class CellLeaf : ISudokuComponent
     {
         public CellValue Value { get; set; }
         
         public bool IsValid { get; set; }
-        public Coordinate Coordinate { get; set; }
+        public Coordinate Coordinate { get; }
         
-        public bool IsLocked { get; private set; }
-
-        bool ISudokuComponent.IsEditable
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
+        public bool IsLocked { get; }
 
         public CellLeaf(Coordinate coordinate, int value, bool locked = false)
         {
@@ -25,11 +19,6 @@ namespace Sudoku.Domain.Board
             Coordinate = coordinate;
             IsValid = true;
             IsLocked = locked;
-        }
-
-        public CellLeaf Clone()
-        {
-            throw new NotImplementedException();
         }
 
         public bool IsComposite() => false;
