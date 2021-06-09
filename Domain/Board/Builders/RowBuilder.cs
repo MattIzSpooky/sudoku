@@ -1,12 +1,13 @@
 ﻿
 
 using Sudoku.Domain.Board.Leaves;
+using Sudoku.Domain.Parsers;
 
 namespace Sudoku.Domain.Board.Builders
 {
-    public class QuadrantCompositeBuilder : IBuilder<QuadrantComposite>
+    public class RowBuilder : IBuilder<Row>
     {
-        private QuadrantComposite _quadrant = new();
+        private Row _quadrant = new();
 
         private int _x;
         private int _y;
@@ -14,7 +15,7 @@ namespace Sudoku.Domain.Board.Builders
         private readonly int _offsetX;
         private readonly int _offsetY;
 
-        public QuadrantCompositeBuilder(int offsetX, int offsetY)
+        public RowBuilder(int offsetX, int offsetY)
         {
             _x = offsetX;
             _y = offsetY;
@@ -25,7 +26,7 @@ namespace Sudoku.Domain.Board.Builders
         
         public void BuildWall(bool isHorizontal = false)
         {
-            _quadrant.AddComponent(new Wall(isHorizontal)
+            _quadrant.Add(new Wall(isHorizontal)
             {
                 Coordinate = new Coordinate(_x, _y)
             });
@@ -35,14 +36,16 @@ namespace Sudoku.Domain.Board.Builders
 
         public void BuildCell(CellLeaf cellLeaf)
         {
-            _quadrant.AddComponent(cellLeaf);
+            var clone = cellLeaf.Clone();
+            clone.Coordinate = new Coordinate(_x, _y);
+            _quadrant.Add(clone);
             
             _x++;
         }
         
         public void BuildEmptySpace()
         {
-            _quadrant.AddComponent(new EmptySpace()
+            _quadrant.Add(new EmptySpace()
             {
                 Coordinate = new Coordinate(_x, _y)
             });
@@ -56,17 +59,17 @@ namespace Sudoku.Domain.Board.Builders
             _y++;
         }
         
-        public QuadrantComposite GetResult()
+        public Row GetResult()
         {
             return _quadrant;
         }
 
         public void Reset()
         {
-            _quadrant = new QuadrantComposite();
+            _quadrant = new Row();
             
-            _x -= _offsetX;
-            _y -= _offsetY;
+            _x = _offsetX;
+            _y = _offsetY;
         }
     }
 }

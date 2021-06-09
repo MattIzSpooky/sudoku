@@ -1,4 +1,4 @@
-﻿using Sudoku.Domain.Board;
+﻿using Sudoku.Domain.Board.Leaves;
 
 namespace Sudoku.Domain.States
 {

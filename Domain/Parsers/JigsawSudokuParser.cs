@@ -13,10 +13,11 @@ namespace Sudoku.Domain.Parsers
             var items = content.Split('=').Skip(1).ToArray();
             var squareValue = (int) Math.Round(Math.Sqrt(items.Length));
 
-            var field = new Field(CreateCells(squareValue, items), squareValue)
-                {SolverStrategy = new BackTrackingSolver()};
+            // var field = new Field(CreateCells(squareValue, items), squareValue)
+            //     {SolverStrategy = new BackTrackingSolver()};
 
-            return new[] {field};
+            // return new[] {field};
+            return Array.Empty<Field>();
         }
 
         private QuadrantComposite[] CreateQuadrants(int squareValue)
@@ -24,7 +25,7 @@ namespace Sudoku.Domain.Parsers
             var quadrants = new QuadrantComposite[squareValue];
 
             for (var i = 0; i < squareValue; i++)
-                quadrants[i] = new QuadrantComposite(null);
+                quadrants[i] = new QuadrantComposite();
 
             return quadrants;
         }
@@ -42,7 +43,7 @@ namespace Sudoku.Domain.Parsers
                     !int.TryParse(rawCell[1], out var quadrantIndex))
                     break;
 
-                quadrants[quadrantIndex].AddCell(new CellLeaf(new Coordinate(x, y), cellValue));
+                // quadrants[quadrantIndex].AddCell(new CellLeaf(new Coordinate(x, y), cellValue));
 
                 if (x == squareValue)
                 {

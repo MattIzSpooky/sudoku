@@ -33,15 +33,10 @@ namespace Sudoku.Domain.Parsers
         private void RegisterSudokuTypes()
         {
             _sudokuFactory.RegisterType(".4x4", typeof(NormalSudokuParserFactory));
-            _sudokuFactory.RegisterType(".4x4.txt", typeof(NormalSudokuParserFactory));
             _sudokuFactory.RegisterType(".6x6", typeof(NormalSudokuParserFactory));
-            _sudokuFactory.RegisterType(".6x6.txt", typeof(NormalSudokuParserFactory));
             _sudokuFactory.RegisterType(".9x9", typeof(NormalSudokuParserFactory));
-            _sudokuFactory.RegisterType(".9x9.txt", typeof(NormalSudokuParserFactory));
             _sudokuFactory.RegisterType(".jigsaw", typeof(JigsawSudokuParserFactory));
-            _sudokuFactory.RegisterType(".jigsaw.txt", typeof(JigsawSudokuParserFactory));
             _sudokuFactory.RegisterType(".samurai", typeof(SamuraiSudokuParserFactory));
-            _sudokuFactory.RegisterType(".samurai.txt", typeof(SamuraiSudokuParserFactory));
         }
     }
 }

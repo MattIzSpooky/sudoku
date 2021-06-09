@@ -4,7 +4,7 @@ using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain.Board.Leaves
 {
-    public class CellLeaf : ISudokuComponent
+    public class CellLeaf : ISudokuComponent, ICloneable<CellLeaf>
     {
         public CellValue Value { get; set; }
         
@@ -29,5 +29,10 @@ namespace Sudoku.Domain.Board.Leaves
 
         public IEnumerable<ISudokuComponent> GetChildren() =>
             new ReadOnlyCollection<ISudokuComponent>(new List<ISudokuComponent>());
+
+        public CellLeaf Clone()
+        {
+            return new(Coordinate, Value.DefinitiveValue) {IsLocked = IsLocked};
+        }
     }
 }

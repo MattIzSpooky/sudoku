@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Sudoku.Domain.Board;
+using Sudoku.Domain.Board.Leaves;
 
 namespace Sudoku.Domain.Parsers
 {
@@ -46,8 +48,8 @@ namespace Sudoku.Domain.Parsers
             {
                 if (i != centerGrid)
                 {
-                    var firstQuadrant = grids[i].Quadrants[leftQuadrant].Children;
-                    var secondQuadrant = grids[centerGrid].Quadrants[centerQuadrant].Children;
+                    var firstQuadrant = grids[i].Quadrants[leftQuadrant].Children.OfType<CellLeaf>().ToImmutableList();
+                    var secondQuadrant = grids[centerGrid].Quadrants[centerQuadrant].Children.OfType<CellLeaf>().ToImmutableList();
 
                     MergeOverflowingCells(firstQuadrant, secondQuadrant);
                 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Domain.Board;
+using Sudoku.Domain.Board.Leaves;
 using Sudoku.Domain.States;
 
 namespace Sudoku.Domain
