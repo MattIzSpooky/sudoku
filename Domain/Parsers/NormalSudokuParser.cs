@@ -41,7 +41,7 @@ namespace Sudoku.Domain.Parsers
                     builder.Append('|');
                 
                 if (i != 1 && i % cutFactor == 0 && i != content.Length)
-                    for (var j = 1; j <= squareValue + rowQuadrantsCount; j++)
+                    for (var j = 1; j <= squareValue + rowQuadrantsCount - 1; j++)
                         builder.Append('-');
             }
 
