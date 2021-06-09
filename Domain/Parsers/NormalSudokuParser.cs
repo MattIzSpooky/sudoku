@@ -50,10 +50,13 @@ namespace Sudoku.Domain.Parsers
             var sudokuComponents = new List<ISudokuComponent>();
             var counter = myString.Length;
 
-            var total = squareValue + rowQuadrantsCount - 1;
-            for (var y = 0; y < total; y++)
+            var rows = Math.Pow(quadrantWidth * quadrantHeight, 2) / (quadrantWidth * quadrantHeight * rowQuadrantsCount) - 1;
+            
+            var totalY = squareValue + rows;
+            var totalX = myString[..myString.IndexOf("-", StringComparison.Ordinal)].Length / rowQuadrantsCount;
+            for (var y = 0; y < totalY; y++)
             {
-                for (var x = 0; x < total; x++)
+                for (var x = 0; x < totalX; x++)
                 {
                     var index = myString.Length - counter;
 
@@ -91,8 +94,8 @@ namespace Sudoku.Domain.Parsers
             var boardValues = new BoardValues
             {
                 SquareValue = squareValue,
-                QuadrantHeight = quadrantHeight + rowQuadrantsCount,
-                QuadrantWidth = quadrantWidth + rowQuadrantsCount,
+                QuadrantHeight = quadrantHeight + rowQuadrantsCount - 1,
+                QuadrantWidth = quadrantWidth + rowQuadrantsCount - 1,
                 RowQuadrantsCount = rowQuadrantsCount
             };
 
