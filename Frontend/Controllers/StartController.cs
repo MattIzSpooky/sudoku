@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using Sudoku.Domain.Selector;
 using Sudoku.Frontend.Views;
 using Sudoku.Mvc;

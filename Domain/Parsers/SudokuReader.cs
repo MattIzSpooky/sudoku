@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Sudoku.Domain.Board;
 using Sudoku.Domain.Parsers.Factories;
 
 namespace Sudoku.Domain.Parsers
