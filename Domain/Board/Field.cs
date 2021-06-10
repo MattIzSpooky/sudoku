@@ -8,17 +8,27 @@ using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain.Board
 {
-    public class Field : ISudokuComponent
+    public class Field
     {
         private readonly List<QuadrantComposite> _quadrants;
 
         public int OffsetX { get; set; }
         public int OffsetY { get; set; }
-        public int MaxValue { get; set; }
         
         public ISolverStrategy SolverStrategy { get; set; }
 
         public IReadOnlyList<QuadrantComposite> Quadrants => _quadrants;
+
+        public Coordinate GetMaxCoordinates()
+        {
+            var allChildren = _quadrants.SelectMany(q => q.Children).ToList();
+            var maxX = allChildren.Max(c => c.Coordinate.X);
+            var maxY = allChildren.Max(c => c.Coordinate.Y);
+
+            return new Coordinate(maxX, maxY);
+        }
+
+        public int GetMaxValue() => _quadrants[0].Children.OfType<CellLeaf>().Count();
         
         public Field(List<QuadrantComposite> quadrants)
         {
@@ -38,9 +48,6 @@ namespace Sudoku.Domain.Board
         {
             return GetChildren().Descendants(i => i.GetChildren()).Where(finder);
         }
-
-        public bool IsComposite() => true;
-        public Coordinate Coordinate { get; set; }
 
         public IEnumerable<ISudokuComponent> GetChildren()
         {

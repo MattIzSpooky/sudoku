@@ -20,7 +20,7 @@ namespace Sudoku.Domain.Parsers
 
             var field = new Field(quadrants)
             {
-                SolverStrategy = new BackTrackingSolver(), OffsetX = offsetX, OffsetY = offsetY, MaxValue = squareValue
+                SolverStrategy = new BackTrackingSolver(), OffsetX = offsetX, OffsetY = offsetY
             };
 
             return new[] {field};

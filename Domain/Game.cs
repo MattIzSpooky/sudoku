@@ -15,7 +15,7 @@ namespace Sudoku.Domain
         private Coordinate _cursor;
         public Coordinate Cursor => _cursor;
 
-        private readonly Coordinate _maxCords = new(30, 30); // TODO: Should be asked from Field.
+        private readonly Coordinate _maxCords;
         private readonly int _maxValue;
 
         public Game(Field[] fields)
@@ -23,8 +23,11 @@ namespace Sudoku.Domain
             _fields = fields;
             TransitionTo(new DefinitiveState());
 
-            _maxValue = _fields[0].MaxValue;
+            _maxValue = _fields[0].GetMaxValue();
+            _maxCords = GetMaxCoordinates();
         }
+
+        private Coordinate GetMaxCoordinates() => _fields.Last().GetMaxCoordinates();
 
         public void EnterValue(int value)
         {
