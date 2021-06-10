@@ -51,32 +51,34 @@ namespace Sudoku.Domain.Parsers
             var totalY = boardValues.SquareValue + rows;
             var totalX = newContent[..newContent.IndexOf("-", StringComparison.Ordinal)].Length / 
                          boardValues.RowQuadrantsCount;
+
             for (var y = 0; y < totalY; y++)
             {
+                rowBuilder.SetY(y);
+                
                 for (var x = 0; x < totalX; x++)
                 {
                     var index = newContent.Length - counter;
 
                     if (newContent[index] == '|')
                     {
-                        sudokuComponents.Add(new Wall(false){Coordinate = new Coordinate(x + boardValues.OffsetX, y + boardValues.OffsetY)});
                         rowBuilder.BuildWall();
                     }
                     else if (newContent[index] == '-')
                     {
-                        sudokuComponents.Add(new Wall(true){Coordinate = new Coordinate(x + boardValues.OffsetX, y + boardValues.OffsetY)});
                         rowBuilder.BuildWall(true);
                     }
                     else
                     {
                         var cellValue = (int) char.GetNumericValue(newContent[index..].First());
-                        var cell = new CellLeaf(new Coordinate(x + boardValues.OffsetX, y + boardValues.OffsetY), cellValue) {IsLocked = cellValue != 0};
-                        sudokuComponents.Add(cell);
-                        rowBuilder.BuildCell(cell);
+                        rowBuilder.BuildCell(cellValue);
                     }
 
                     counter--;
                 }
+                
+                sudokuComponents.AddRange(rowBuilder.GetResult().Components);
+                rowBuilder.Reset();
             }
 
             return sudokuComponents;
