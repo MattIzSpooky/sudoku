@@ -11,10 +11,6 @@ namespace Sudoku.Domain.Board
     public class Field
     {
         private readonly List<QuadrantComposite> _quadrants;
-
-        public int OffsetX { get; set; }
-        public int OffsetY { get; set; }
-        
         public ISolverStrategy? SolverStrategy { get; set; }
 
         public IReadOnlyList<QuadrantComposite> Quadrants => _quadrants;
@@ -35,24 +31,16 @@ namespace Sudoku.Domain.Board
             _quadrants = quadrants;
         }
 
-        public List<CellLeaf> GetOrderedCells()
+        public IEnumerable<CellLeaf> GetOrderedCells()
         {
             return Find(c => !c.IsComposite() && c is CellLeaf)
                 .Cast<CellLeaf>()
                 .OrderBy(c => c.Coordinate.Y)
-                .ThenBy(c => c.Coordinate.X)
-                .ToList();
+                .ThenBy(c => c.Coordinate.X);
         }
 
-        private IEnumerable<ISudokuComponent> Find(Func<ISudokuComponent, bool> finder)
-        {
-            return GetChildren().Descendants(i => i.GetChildren()).Where(finder);
-        }
-
-        public IEnumerable<ISudokuComponent> GetChildren()
-        {
-            return _quadrants;
-        }
+        private IEnumerable<ISudokuComponent> Find(Func<ISudokuComponent, bool> finder) => _quadrants
+            .Descendants<ISudokuComponent>(i => i.GetChildren()).Where(finder);
 
         public void Accept(ISudokuComponentVisitor visitor)
         {
@@ -66,8 +54,7 @@ namespace Sudoku.Domain.Board
         
         public bool Validate()
         {
-            // TODO: Solve with visitor maybe?
-            var cells = GetChildren().SelectMany(q => q.GetChildren().OfType<CellLeaf>()).ToList();
+            var cells = _quadrants.SelectMany(q => q.Cells).ToList();
                 
             foreach (var cell in cells)
             {

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Sudoku.Domain.Board;
 using Sudoku.Domain.Board.Builders;
-using Sudoku.Domain.Board.Leaves;
 using Sudoku.Domain.Solvers;
 
 namespace Sudoku.Domain.Parsers
@@ -32,7 +31,7 @@ namespace Sudoku.Domain.Parsers
 
             var field = new Field(quadrants)
             {
-                SolverStrategy = new BackTrackingSolver(), OffsetX = offsetX, OffsetY = offsetY
+                SolverStrategy = new BackTrackingSolver()
             };
 
             return new[] {field};

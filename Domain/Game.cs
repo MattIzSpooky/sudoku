@@ -34,9 +34,9 @@ namespace Sudoku.Domain
             if (value > _maxValue) return;
 
             var selectedCell = _fields
-                .SelectMany(g => g.GetChildren())
-                .SelectMany(g => g.GetChildren().OfType<CellLeaf>())
-                .FirstOrDefault(g => g.Coordinate.X == _cursor.X && g.Coordinate.Y == _cursor.Y);
+                .SelectMany(g => g.Quadrants)
+                .Select(quadrant => quadrant.CellByCoordinate(_cursor))
+                .FirstOrDefault(c => c != null);
 
             if (selectedCell is {IsLocked: false})
                 _state.Handle(selectedCell, value);

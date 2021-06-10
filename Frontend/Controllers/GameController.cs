@@ -47,6 +47,7 @@ namespace Sudoku.Frontend.Controllers
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.Spacebar, SwitchState));
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.S, Solve));
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.C, ValidateInput));
+            view.MapInput(new Input<ConsoleKey>(ConsoleKey.Escape, () => Root.OpenController<StartController, StartView, ConsoleKey>()));
             
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.Delete, () => EnterNumber(0)));
             
