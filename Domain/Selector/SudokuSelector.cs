@@ -19,11 +19,7 @@ namespace Sudoku.Domain.Selector
             {
                 var pos = path.LastIndexOf("/", StringComparison.Ordinal) + 1;
 
-                _sudokuFiles.Add(new SudokuFile()
-                {
-                    Name = path[pos..],
-                    Path = path
-                });
+                _sudokuFiles.Add(new SudokuFile(path[pos..], path));
             }
 
             _sudokuFiles[0].IsSelected = true;

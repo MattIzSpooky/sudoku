@@ -8,9 +8,9 @@ namespace Sudoku.Frontend.Views
 {
     public class GameView : ConsoleView
     {
-        public IReadOnlyList<Field> Grids { private get; set; }
+        public IReadOnlyList<Field>? Grids { private get; set; }
         public Coordinate Cursor { private get; set; }
-        public string StateName { private get; set; }
+        public string? StateName { private get; set; }
 
         public GameView(string gameName) : base(45, 45, $"Sudoku: {gameName}")
         {
@@ -18,6 +18,8 @@ namespace Sudoku.Frontend.Views
 
         protected override void FillBuffer()
         {
+            if(Grids == null) return;
+            
             foreach (var grid in Grids)
             {
                 grid.Accept(new RenderVisitor(Buffer));

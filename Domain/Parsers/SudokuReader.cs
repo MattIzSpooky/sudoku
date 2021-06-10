@@ -22,6 +22,9 @@ namespace Sudoku.Domain.Parsers
 
             var content = File.ReadAllText(path);
             var parserFactory = _sudokuFactory.CreateFactory(Path.GetExtension(path));
+            if (parserFactory == null)
+                throw new ArgumentException("File not supported");
+            
             var parser = parserFactory.CreateParser();
             
             var fields = parser.Parse(content);
