@@ -8,7 +8,7 @@ namespace Sudoku.Domain.Solvers
         public bool Solve(Field field)
         {
             var emptyCell = field.GetOrderedCells().FirstOrDefault(c => c.Value.DefinitiveValue == 0 && !c.IsLocked);
-            var maxValue = field.MaxValue;
+            var maxValue = field.GetMaxValue();
 
             if (emptyCell == null) return true;
 

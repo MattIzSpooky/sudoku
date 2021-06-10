@@ -19,17 +19,18 @@ namespace Sudoku.Mvc
     public abstract class Controller<TView, TInput> : Controller
         where TView : View<TInput>
     {
-        public TView View { get; set; }
+        public TView View { get; }
 
-        protected Controller(MvcContext root) : base(root)
+        protected Controller(MvcContext root, TView view) : base(root)
         {
+            View = view;
         }
 
         /// <summary>
         /// A function that is called when OpenController is called.
         /// Should always set the View on Controller.
         /// </summary>
-        public abstract TView CreateView();
+        public abstract void SetupView();
         public override void Dispose() => View.Dispose();
     }
 }

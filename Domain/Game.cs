@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Domain.Board;
-using Sudoku.Domain.Board.Leaves;
 using Sudoku.Domain.States;
 
 namespace Sudoku.Domain
@@ -15,7 +14,7 @@ namespace Sudoku.Domain
         private Coordinate _cursor;
         public Coordinate Cursor => _cursor;
 
-        private readonly Coordinate _maxCords = new(30, 30); // TODO: Should be asked from Field.
+        private readonly Coordinate _maxCords;
         private readonly int _maxValue;
 
         public Game(Field[] fields)
@@ -23,17 +22,20 @@ namespace Sudoku.Domain
             _fields = fields;
             TransitionTo(new DefinitiveState());
 
-            _maxValue = _fields[0].MaxValue;
+            _maxValue = _fields[0].GetMaxValue();
+            _maxCords = GetMaxCoordinates();
         }
+
+        private Coordinate GetMaxCoordinates() => _fields.Last().GetMaxCoordinates();
 
         public void EnterValue(int value)
         {
             if (value > _maxValue) return;
 
             var selectedCell = _fields
-                .SelectMany(g => g.GetChildren())
-                .SelectMany(g => g.GetChildren().OfType<CellLeaf>())
-                .FirstOrDefault(g => g.Coordinate.X == _cursor.X && g.Coordinate.Y == _cursor.Y);
+                .SelectMany(g => g.Quadrants)
+                .Select(quadrant => quadrant.CellByCoordinate(_cursor))
+                .FirstOrDefault(c => c != null);
 
             if (selectedCell is {IsLocked: false})
                 _state.Handle(selectedCell, value);
@@ -47,6 +49,8 @@ namespace Sudoku.Domain
 
             _cursor = newCords;
         }
+
+        public string GetStateName() => _state.GetName();
 
         public void SwitchState() => _state.ChangeState();
 

@@ -13,5 +13,6 @@ namespace Sudoku.Domain.States
         {
             Context?.TransitionTo(new AuxiliaryState());
         }
+        public override string GetName() => "Definitive";
     }
 }

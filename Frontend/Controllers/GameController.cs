@@ -13,44 +13,40 @@ namespace Sudoku.Frontend.Controllers
     {
         private readonly Game _game;
 
-        public GameController(MvcContext root, SudokuFile sudokuFile) : base(root)
+        public GameController(MvcContext root, Game game, string gameName) : base(root, new GameView(gameName))
         {
-            var reader = new SudokuReader();
-
-            // Try catch handle
-            _game = reader.Read(sudokuFile.Path);
+            _game = game;
         }
 
-        public override GameView CreateView()
+        public override void SetupView()
         {
-            var view = new GameView {Grids = _game.Fields, Cursor = _game.Cursor};
-
             // Map arrow keys
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.UpArrow, () => Move(0, -1)));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.LeftArrow, () => Move(-1, 0)));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.RightArrow, () => Move(1, 0)));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.DownArrow, () => Move(0, 1)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.UpArrow, () => Move(0, -1)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.LeftArrow, () => Move(-1, 0)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.RightArrow, () => Move(1, 0)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.DownArrow, () => Move(0, 1)));
             
             // Map digit keys
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D0, () => EnterNumber(0)));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D1, () => EnterNumber(1)));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D2, () => EnterNumber(2)));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D3, () => EnterNumber(3)));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D4, () => EnterNumber(4)));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D5, () => EnterNumber(5)));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D6, () => EnterNumber(6)));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D7, () => EnterNumber(7)));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D8, () => EnterNumber(8)));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.D9, () => EnterNumber(9)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.D0, () => EnterNumber(0)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.D1, () => EnterNumber(1)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.D2, () => EnterNumber(2)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.D3, () => EnterNumber(3)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.D4, () => EnterNumber(4)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.D5, () => EnterNumber(5)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.D6, () => EnterNumber(6)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.D7, () => EnterNumber(7)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.D8, () => EnterNumber(8)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.D9, () => EnterNumber(9)));
 
             // Other keys
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.Spacebar, SwitchState));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.S, Solve));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.C, ValidateInput));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.Spacebar, SwitchState));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.S, Solve));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.C, ValidateInput));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.Escape, () => Root.OpenController<StartController, StartView, ConsoleKey>()));
             
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.Delete, () => EnterNumber(0)));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.Delete, () => EnterNumber(0)));
             
-            return view;
+            Redraw();
         }
 
         private void Solve()
@@ -91,6 +87,7 @@ namespace Sudoku.Frontend.Controllers
         {
             View.Grids = _game.Fields;
             View.Cursor = _game.Cursor;
+            View.StateName = _game.GetStateName();
         }
     }
 }

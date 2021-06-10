@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO;
+using Sudoku.Domain.Parsers;
 using Sudoku.Domain.Selector;
 using Sudoku.Frontend.Views;
 using Sudoku.Mvc;
@@ -12,25 +12,23 @@ namespace Sudoku.Frontend.Controllers
     {
         private readonly SudokuSelector _selector = new();
 
-        public StartController(MvcContext root) : base(root)
+        public StartController(MvcContext root) : base(root, new StartView())
         {
         }
 
-        public override StartView CreateView()
+        public override void SetupView()
         {
             _selector.ReadFromDisk();
 
-            var view = new StartView {SudokuFiles = _selector.SudokuFiles};
-
             // Map inputs
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.DownArrow, Next));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.UpArrow, Previous));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.DownArrow, Next));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.UpArrow, Previous));
 
             // Map others
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.Spacebar, Start));
-            view.MapInput(new Input<ConsoleKey>(ConsoleKey.Escape, Quit));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.Spacebar, Start));
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.Escape, Back));
 
-            return view;
+            Redraw();
         }
 
         private void Next()
@@ -47,12 +45,22 @@ namespace Sudoku.Frontend.Controllers
             Redraw();
         }
 
-        private void Redraw()
+        private void Redraw() => View.SudokuFiles = _selector.SudokuFiles;
+
+        private void Start()
         {
-            View.SudokuFiles = _selector.SudokuFiles;
+            var selected = _selector.GetSelected();
+            try
+            {
+                var game = new SudokuReader().Read(selected.Path);
+                Root.OpenController<GameController, GameView, ConsoleKey>(game, selected.Name);
+            }
+            catch (Exception e)
+            {
+                View.Error = e.Message;
+            }
         }
 
-        private void Start() => Root.OpenController<GameController, GameView, ConsoleKey>(_selector.GetSelected());
-        private void Quit() => Root.Stop();
+        private void Back() => Root.Stop();
     }
 }

@@ -8,44 +8,39 @@ using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain.Board
 {
-    public class Field : ISudokuComponent
+    public class Field
     {
         private readonly List<QuadrantComposite> _quadrants;
-
-        public int OffsetX { get; set; }
-        public int OffsetY { get; set; }
-        public int MaxValue { get; set; }
-        
-        public ISolverStrategy SolverStrategy { get; set; }
+        public ISolverStrategy? SolverStrategy { get; set; }
 
         public IReadOnlyList<QuadrantComposite> Quadrants => _quadrants;
+
+        public Coordinate GetMaxCoordinates()
+        {
+            var allChildren = _quadrants.SelectMany(q => q.Children).ToList();
+            var maxX = allChildren.Max(c => c.Coordinate.X);
+            var maxY = allChildren.Max(c => c.Coordinate.Y);
+
+            return new Coordinate(maxX, maxY);
+        }
+
+        public int GetMaxValue() => _quadrants[0].Children.OfType<CellLeaf>().Count();
         
         public Field(List<QuadrantComposite> quadrants)
         {
             _quadrants = quadrants;
         }
 
-        public List<CellLeaf> GetOrderedCells()
+        public IEnumerable<CellLeaf> GetOrderedCells()
         {
             return Find(c => !c.IsComposite() && c is CellLeaf)
                 .Cast<CellLeaf>()
                 .OrderBy(c => c.Coordinate.Y)
-                .ThenBy(c => c.Coordinate.X)
-                .ToList();
+                .ThenBy(c => c.Coordinate.X);
         }
 
-        private IEnumerable<ISudokuComponent> Find(Func<ISudokuComponent, bool> finder)
-        {
-            return GetChildren().Descendants(i => i.GetChildren()).Where(finder);
-        }
-
-        public bool IsComposite() => true;
-        public Coordinate Coordinate { get; set; }
-
-        public IEnumerable<ISudokuComponent> GetChildren()
-        {
-            return _quadrants;
-        }
+        private IEnumerable<ISudokuComponent> Find(Func<ISudokuComponent, bool> finder) => _quadrants
+            .Descendants<ISudokuComponent>(i => i.GetChildren()).Where(finder);
 
         public void Accept(ISudokuComponentVisitor visitor)
         {
@@ -55,11 +50,11 @@ namespace Sudoku.Domain.Board
             }
         }
 
-        public void Solve() => SolverStrategy.Solve(this);
+        public void Solve() => SolverStrategy?.Solve(this);
         
         public bool Validate()
         {
-            var cells = GetChildren().SelectMany(q => q.GetChildren()).Cast<CellLeaf>().ToList();
+            var cells = _quadrants.SelectMany(q => q.Cells).ToList();
                 
             foreach (var cell in cells)
             {
@@ -67,28 +62,30 @@ namespace Sudoku.Domain.Board
                     
                 if (cell.IsLocked || cell.Value.DefinitiveValue == 0) continue;
 
-                var rowColumn = cells
-                    .Where(c => (c.Coordinate.Y == cell.Coordinate.Y || c.Coordinate.X == cell.Coordinate.X) &&
-                                c != cell)
-                    .FirstOrDefault(c => c.Value.DefinitiveValue == cell.Value.DefinitiveValue);
+                if (ValidateRowColumn(cells, cell) != null) return false;
 
-                if (rowColumn != null)
-                {
-                    cell.IsValid = false;
-                    return false;
-                }
+                var quadrant = Find(c => c.GetChildren().Contains(cell)).Cast<QuadrantComposite>().First();
 
-                var quadrant = Find(c => c.GetChildren().Contains(cell)).First();
+                if (quadrant.Validate(cell)) continue;
 
-                if (quadrant.GetChildren().Cast<CellLeaf>()
-                    .FirstOrDefault(c => c.Value.DefinitiveValue == cell.Value.DefinitiveValue && c != cell) != null)
-                {
-                    cell.IsValid = false;
-                    return false;
-                }
+                cell.IsValid = false;
+                return false;
             }
 
             return true;
+        }
+
+        private static CellLeaf? ValidateRowColumn(IEnumerable<CellLeaf> cells, CellLeaf cell)
+        {
+            var rowColumn = cells
+                .Where(c => (c.Coordinate.Y == cell.Coordinate.Y || c.Coordinate.X == cell.Coordinate.X) &&
+                            c != cell)
+                .FirstOrDefault(c => c.Value.DefinitiveValue == cell.Value.DefinitiveValue);
+
+            if (rowColumn == null) return null;
+            
+            cell.IsValid = false;
+            return cell;
         }
     }
 }

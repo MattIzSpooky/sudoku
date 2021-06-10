@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Sudoku.Domain.Board
+﻿namespace Sudoku.Domain.Board
 {
     public readonly struct Coordinate
     {
