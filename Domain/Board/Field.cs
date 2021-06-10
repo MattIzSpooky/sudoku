@@ -15,7 +15,7 @@ namespace Sudoku.Domain.Board
         public int OffsetX { get; set; }
         public int OffsetY { get; set; }
         
-        public ISolverStrategy SolverStrategy { get; set; }
+        public ISolverStrategy? SolverStrategy { get; set; }
 
         public IReadOnlyList<QuadrantComposite> Quadrants => _quadrants;
 
@@ -62,7 +62,7 @@ namespace Sudoku.Domain.Board
             }
         }
 
-        public void Solve() => SolverStrategy.Solve(this);
+        public void Solve() => SolverStrategy?.Solve(this);
         
         public bool Validate()
         {
