@@ -12,6 +12,7 @@ namespace Sudoku.Frontend.Controllers
     public class GameController : Controller<GameView, ConsoleKey>
     {
         private readonly Game _game;
+        private readonly string _gameName;
 
         public GameController(MvcContext root, SudokuFile sudokuFile) : base(root)
         {
@@ -19,11 +20,12 @@ namespace Sudoku.Frontend.Controllers
 
             // Try catch handle
             _game = reader.Read(sudokuFile.Path);
+            _gameName = sudokuFile.Name;
         }
 
         public override GameView CreateView()
         {
-            var view = new GameView {Grids = _game.Fields, Cursor = _game.Cursor, StateName = _game.GetStateName()};
+            var view = new GameView(_gameName) {Grids = _game.Fields, Cursor = _game.Cursor, StateName = _game.GetStateName()};
 
             // Map arrow keys
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.UpArrow, () => Move(0, -1)));

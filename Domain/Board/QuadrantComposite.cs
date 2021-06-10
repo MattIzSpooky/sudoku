@@ -37,7 +37,7 @@ namespace Sudoku.Domain.Board
         public bool Validate()
         {
             return Cells
-                .GroupBy(x => x.Value.DefinitiveValue)
+                .GroupBy(x => x.Value)
                 .All(g => g.Count() == 1);
         }
     }

@@ -12,7 +12,7 @@ namespace Sudoku.Frontend.Views
         public Coordinate Cursor { private get; set; }
         public string StateName { private get; set; }
 
-        public GameView() : base(45, 45, "Sudoku")
+        public GameView(string gameName) : base(45, 45, $"Sudoku: {gameName}")
         {
         }
 
