@@ -15,11 +15,11 @@ namespace Sudoku.Frontend.Visitors
             _buffer = buffer;
         }
         
-        public void Visit(Wall wall)
+        public void Visit(WallLeaf wallLeaf)
         {
-            _buffer[wall.Coordinate.Y][wall.Coordinate.X] = new ColoredChar()
+            _buffer[wallLeaf.Coordinate.Y][wallLeaf.Coordinate.X] = new ColoredChar()
             {
-                Character = wall.Horizontal ? '-' : '|'
+                Character = wallLeaf.Horizontal ? '-' : '|'
             };
         }
 
@@ -46,14 +46,6 @@ namespace Sudoku.Frontend.Visitors
             {
                 Character = character,
                 Color = color
-            };
-        }
-
-        public void Visit(EmptySpace emptySpace)
-        {
-            _buffer[emptySpace.Coordinate.Y][emptySpace.Coordinate.X] = new ColoredChar()
-            {
-                Character = ' '
             };
         }
     }

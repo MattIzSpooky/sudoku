@@ -1,7 +1,7 @@
-﻿using Sudoku.Domain.Board.Leaves;
-using Sudoku.Domain.Parsers;
+﻿using Sudoku.Domain.Board;
+using Sudoku.Domain.Board.Leaves;
 
-namespace Sudoku.Domain.Board.Builders
+namespace Sudoku.Domain.Parsers.Builders
 {
     public class RowBuilder : IBuilder<Row>
     {
@@ -24,10 +24,7 @@ namespace Sudoku.Domain.Board.Builders
 
         public void BuildWall(bool isHorizontal = false)
         {
-            _row.Add(new Wall(isHorizontal)
-            {
-                Coordinate = new Coordinate(_x, _y)
-            });
+            _row.Add(new WallLeaf(isHorizontal, new Coordinate(_x, _y)));
 
             _x++;
         }
@@ -39,25 +36,12 @@ namespace Sudoku.Domain.Board.Builders
             _x++;
         }
 
-        public void BuildEmptySpace()
-        {
-            _row.Add(new EmptySpace()
-            {
-                Coordinate = new Coordinate(_x, _y)
-            });
-
-            _x++;
-        }
-
         public void SetY(int y)
         {
             _y = _offsetY + y;
         }
 
-        public Row GetResult()
-        {
-            return _row;
-        }
+        public Row GetResult() => _row;
 
         public void Reset()
         {

@@ -13,12 +13,9 @@ namespace Sudoku.Frontend.Controllers
     {
         private readonly Game _game;
 
-        public GameController(MvcContext root, SudokuFile sudokuFile) : base(root, new GameView(sudokuFile.Name))
+        public GameController(MvcContext root, Game game, string gameName) : base(root, new GameView(gameName))
         {
-            var reader = new SudokuReader();
-
-            // Try catch handle
-            _game = reader.Read(sudokuFile.Path);
+            _game = game;
         }
 
         public override void SetupView()

@@ -1,4 +1,5 @@
 ﻿using System;
+using Sudoku.Domain.Parsers;
 using Sudoku.Domain.Selector;
 using Sudoku.Frontend.Views;
 using Sudoku.Mvc;
@@ -25,8 +26,8 @@ namespace Sudoku.Frontend.Controllers
 
             // Map others
             View.MapInput(new Input<ConsoleKey>(ConsoleKey.Spacebar, Start));
-            View.MapInput(new Input<ConsoleKey>(ConsoleKey.Escape, Quit));
-            
+            View.MapInput(new Input<ConsoleKey>(ConsoleKey.Escape, Back));
+
             Redraw();
         }
 
@@ -44,12 +45,22 @@ namespace Sudoku.Frontend.Controllers
             Redraw();
         }
 
-        private void Redraw()
+        private void Redraw() => View.SudokuFiles = _selector.SudokuFiles;
+
+        private void Start()
         {
-            View.SudokuFiles = _selector.SudokuFiles;
+            var selected = _selector.GetSelected();
+            try
+            {
+                var game = new SudokuReader().Read(selected.Path);
+                Root.OpenController<GameController, GameView, ConsoleKey>(game, selected.Name);
+            }
+            catch (Exception e)
+            {
+                View.Error = e.Message;
+            }
         }
 
-        private void Start() => Root.OpenController<GameController, GameView, ConsoleKey>(_selector.GetSelected());
-        private void Quit() => Root.Stop();
+        private void Back() => Root.Stop();
     }
 }

@@ -4,10 +4,19 @@ using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain.Board.Leaves
 {
-    public class EmptySpace : ISudokuComponent
+    public class WallLeaf : ISudokuComponent
     {
+        public bool Horizontal { get; }
+        public Coordinate Coordinate { get; }
+
+        public WallLeaf(bool horizontal, Coordinate coordinate)
+        {
+            Horizontal = horizontal;
+            Coordinate = coordinate;
+        }
+
         public bool IsComposite() => false;
-        public Coordinate Coordinate { get; set; }
+      
 
         public void Accept(ISudokuComponentVisitor visitor)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sudoku.Domain.Board;
-using Sudoku.Domain.Board.Builders;
+using Sudoku.Domain.Parsers.Builders;
 using Sudoku.Domain.Solvers;
 
 namespace Sudoku.Domain.Parsers

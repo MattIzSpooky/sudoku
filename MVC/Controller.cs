@@ -19,7 +19,7 @@ namespace Sudoku.Mvc
     public abstract class Controller<TView, TInput> : Controller
         where TView : View<TInput>
     {
-        public TView View { get; set; }
+        public TView View { get; }
 
         protected Controller(MvcContext root, TView view) : base(root)
         {

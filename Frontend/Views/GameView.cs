@@ -34,9 +34,9 @@ namespace Sudoku.Frontend.Views
             StringCursor++;
             
             WriteString("Controls", Color.White);
-            WriteString("Space bar -> Switch between modes", Color.White);
-            WriteString("S -> Let computer solve the Sudoku", Color.White);
-            WriteString("C -> Validate the puzzle", Color.White);
+            WriteString("Space bar = Switch between modes", Color.White);
+            WriteString("S = Let computer solve the Sudoku", Color.White);
+            WriteString("C = Validate the puzzle", Color.White);
         }
     }
 }
