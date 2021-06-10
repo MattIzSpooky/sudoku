@@ -64,11 +64,10 @@ namespace Sudoku.Domain.Board
 
                 if (ValidateRowColumn(cells, cell) != null) return false;
 
-                var quadrant = Find(c => c.GetChildren().Contains(cell)).OfType<QuadrantComposite>().First();
-                
-                if (quadrant.Validate()) 
-                    continue;
-                
+                var quadrant = Find(c => c.GetChildren().Contains(cell)).Cast<QuadrantComposite>().First();
+
+                if (quadrant.Validate(cell)) continue;
+
                 cell.IsValid = false;
                 return false;
             }

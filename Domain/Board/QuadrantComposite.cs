@@ -34,11 +34,7 @@ namespace Sudoku.Domain.Board
         public CellLeaf? CellByCoordinate(Coordinate coordinate) =>
             Cells.FirstOrDefault(g => g.Coordinate.X == coordinate.X && g.Coordinate.Y == coordinate.Y);
 
-        public bool Validate()
-        {
-            return Cells
-                .GroupBy(x => x.Value)
-                .All(g => g.Count() == 1);
-        }
+        public bool Validate(CellLeaf cell) => Cells
+            .FirstOrDefault(c => c.Value.DefinitiveValue == cell.Value.DefinitiveValue && c != cell) == null;
     }
 }

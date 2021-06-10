@@ -7,7 +7,7 @@ namespace Sudoku
 {
     public static class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             Console.WindowWidth = 100;
             Console.WindowHeight = 50;

@@ -10,14 +10,14 @@ namespace Sudoku.Mvc.Contexts
     /// </summary>
     public class MvcContext : IDisposable
     {
-        private Controller _controller;
-        private IView _view;
+        private Controller? _controller;
+        private IView? _view;
         private bool _running = true;
 
         public void Run()
         {
             Console.Clear(); // Clear the screen before running.
-            _view.Draw(); 
+            _view?.Draw(); 
             
             Update();
         }
@@ -26,8 +26,8 @@ namespace Sudoku.Mvc.Contexts
         {
             while (_running)
             {
-                _view.KeyDown();
-                _view.Draw();
+                _view?.KeyDown();
+                _view?.Draw();
             }
         }
 
@@ -49,7 +49,7 @@ namespace Sudoku.Mvc.Contexts
 
             var ctrArgs = new[] {this}.Concat(args).ToArray();
 
-            var controller = (TController) Activator.CreateInstance(typeof(TController), ctrArgs);
+            var controller = (TController?) Activator.CreateInstance(typeof(TController), ctrArgs);
 
             if (controller == null) throw new NullReferenceException("Controller cannot be null. Programming mistake?");
             
@@ -61,6 +61,6 @@ namespace Sudoku.Mvc.Contexts
 
         public void Stop() => _running = false;
 
-        public void Dispose() => _controller.Dispose();
+        public void Dispose() => _controller?.Dispose();
     }
 }
