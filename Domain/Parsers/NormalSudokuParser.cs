@@ -60,19 +60,7 @@ namespace Sudoku.Domain.Parsers
                 {
                     var index = newContent.Length - counter;
 
-                    if (newContent[index] == '|')
-                    {
-                        rowBuilder.BuildWall();
-                    }
-                    else if (newContent[index] == '-')
-                    {
-                        rowBuilder.BuildWall(true);
-                    }
-                    else
-                    {
-                        var cellValue = (int) char.GetNumericValue(newContent[index..].First());
-                        rowBuilder.BuildCell(cellValue);
-                    }
+                    CreateTile(newContent, index, rowBuilder);
 
                     counter--;
                 }
@@ -82,6 +70,16 @@ namespace Sudoku.Domain.Parsers
             }
 
             return sudokuComponents;
+        }
+
+        private static void CreateTile(string newContent, int index, RowBuilder rowBuilder)
+        {
+            if (newContent[index] == '|')
+                rowBuilder.BuildWall();
+            else if (newContent[index] == '-')
+                rowBuilder.BuildWall(true);
+            else
+                rowBuilder.BuildCell((int) char.GetNumericValue(newContent[index..].First()));
         }
 
         private static string BuildContentWithWalls(string content, BoardValues boardValues)
