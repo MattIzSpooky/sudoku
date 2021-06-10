@@ -37,9 +37,6 @@ namespace Sudoku.Frontend.Views
             WriteString("Space bar -> Switch between modes", Color.White);
             WriteString("S -> Let computer solve the Sudoku", Color.White);
             WriteString("C -> Validate the puzzle", Color.White);
-
-            WriteString($"Cursor PositionX: {Cursor.X}", Color.Gold);
-            WriteString($"Cursor PositionY: {Cursor.Y}", Color.Gold);
         }
     }
 }
