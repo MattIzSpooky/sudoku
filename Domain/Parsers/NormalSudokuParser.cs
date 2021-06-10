@@ -102,7 +102,7 @@ namespace Sudoku.Domain.Parsers
             return builder.ToString();
         }
 
-        private List<QuadrantComposite> CreateQuadrants(List<ISudokuComponent> components, BoardValues boardValues)
+        private static List<QuadrantComposite> CreateQuadrants(IReadOnlyCollection<ISudokuComponent> components, BoardValues boardValues)
         {
             var quadrants = new List<QuadrantComposite>();
             
@@ -118,18 +118,15 @@ namespace Sudoku.Domain.Parsers
                 var minX = maxX - boardValues.QuadrantWidth;
                 var minY = maxY - boardValues.QuadrantHeight;
 
-                var quadrant = new QuadrantComposite();
-                foreach (var cell in GetSpecifiedQuadrantCells(
-                    components, 
-                    minX + boardValues.OffsetX, 
-                    maxX + boardValues.OffsetX - 1, 
-                    minY + boardValues.OffsetY, 
-                    maxY + boardValues.OffsetY - 1))
+                var range = new QuadrantRange
                 {
-                    quadrant.AddComponent(cell);
-                }
+                    MinX = minX + boardValues.OffsetX, 
+                    MaxX = maxX + boardValues.OffsetX - 1, 
+                    MinY = minY + boardValues.OffsetY, 
+                    MaxY = maxY + boardValues.OffsetY - 1
+                };
 
-                quadrants.Add(quadrant);
+                quadrants.Add(FillQuadrant(components, range));
 
                 quadrantCounter++;
 
@@ -147,26 +144,39 @@ namespace Sudoku.Domain.Parsers
             return quadrants;
         }
 
-        private IEnumerable<ISudokuComponent> GetSpecifiedQuadrantCells(IEnumerable<ISudokuComponent> components, 
-            int minX, 
-            int maxX,
-            int minY,
-            int maxY) =>
+        private static QuadrantComposite FillQuadrant(IEnumerable<ISudokuComponent> components, QuadrantRange range)
+        {
+            var quadrant = new QuadrantComposite();
+            
+            foreach (var cell in GetSpecifiedQuadrantCells(components, range))
+                quadrant.AddComponent(cell);
+
+            return quadrant;
+        }
+
+        private static IEnumerable<ISudokuComponent> GetSpecifiedQuadrantCells(IEnumerable<ISudokuComponent> components, QuadrantRange range) =>
             components.Where(cell => 
-                cell.Coordinate.X >= minX &&
-                cell.Coordinate.X <= maxX &&
-                cell.Coordinate.Y >= minY &&
-                cell.Coordinate.Y <= maxY)
-                .ToList();
+                cell.Coordinate.X >= range.MinX &&
+                cell.Coordinate.X <= range.MaxX &&
+                cell.Coordinate.Y >= range.MinY &&
+                cell.Coordinate.Y <= range.MaxY).ToList();
 
         private struct BoardValues
         {
-            public int SquareValue { get; set; }
+            public int SquareValue { get; init; }
             public int QuadrantWidth { get; set; }
             public int QuadrantHeight { get; set; }
-            public int RowQuadrantsCount { get; set; }
-            public int OffsetX { get; set; }
-            public int OffsetY { get; set; }
+            public int RowQuadrantsCount { get; init; }
+            public int OffsetX { get; init; }
+            public int OffsetY { get; init; }
+        }
+
+        private struct QuadrantRange
+        {
+            public int MinX { get; init; }
+            public int MinY { get; init; }
+            public int MaxX { get; init; }
+            public int MaxY { get; init; }
         }
     }
 }
