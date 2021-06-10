@@ -51,6 +51,8 @@ namespace Sudoku.Domain
             _cursor = newCords;
         }
 
+        public string GetStateName() => _state.GetName();
+
         public void SwitchState() => _state.ChangeState();
 
         public void Validate()

@@ -10,6 +10,7 @@ namespace Sudoku.Frontend.Views
     {
         public IReadOnlyList<Field> Grids { private get; set; }
         public Coordinate Cursor { private get; set; }
+        public string StateName { private get; set; }
 
         public GameView() : base(45, 45, "Sudoku")
         {
@@ -26,6 +27,10 @@ namespace Sudoku.Frontend.Views
 
             StringCursor = Height - 15;
 
+            WriteString($"State: {StateName}", Color.Chartreuse);
+            
+            StringCursor++;
+            
             WriteString("Controls", Color.White);
             WriteString("Space bar -> Switch between modes", Color.White);
             WriteString("S -> Let computer solve the Sudoku", Color.White);

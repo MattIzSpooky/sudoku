@@ -23,7 +23,7 @@ namespace Sudoku.Frontend.Controllers
 
         public override GameView CreateView()
         {
-            var view = new GameView {Grids = _game.Fields, Cursor = _game.Cursor};
+            var view = new GameView {Grids = _game.Fields, Cursor = _game.Cursor, StateName = _game.GetStateName()};
 
             // Map arrow keys
             view.MapInput(new Input<ConsoleKey>(ConsoleKey.UpArrow, () => Move(0, -1)));
@@ -91,6 +91,7 @@ namespace Sudoku.Frontend.Controllers
         {
             View.Grids = _game.Fields;
             View.Cursor = _game.Cursor;
+            View.StateName = _game.GetStateName();
         }
     }
 }
