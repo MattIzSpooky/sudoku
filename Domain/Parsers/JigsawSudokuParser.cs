@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Domain.Board;
+using Sudoku.Domain.Board.Leaves;
 using Sudoku.Domain.Solvers;
 
 namespace Sudoku.Domain.Parsers
@@ -13,14 +14,13 @@ namespace Sudoku.Domain.Parsers
             var items = content.Split('=').Skip(1).ToArray();
             var squareValue = (int) Math.Round(Math.Sqrt(items.Length));
 
-            // var field = new Field(CreateCells(squareValue, items), squareValue)
-            //     {SolverStrategy = new BackTrackingSolver()};
+            var field = new Field(CreateCells(squareValue, items))
+                {SolverStrategy = new BackTrackingSolver()};
 
-            // return new[] {field};
-            return Array.Empty<Field>();
+            return new[] {field};
         }
 
-        private QuadrantComposite[] CreateQuadrants(int squareValue)
+        private static QuadrantComposite[] CreateQuadrants(int squareValue)
         {
             var quadrants = new QuadrantComposite[squareValue];
 
@@ -30,7 +30,7 @@ namespace Sudoku.Domain.Parsers
             return quadrants;
         }
 
-        private List<QuadrantComposite> CreateCells(int squareValue, IEnumerable<string> items)
+        private static List<QuadrantComposite> CreateCells(int squareValue, IEnumerable<string> items)
         {
             var quadrants = CreateQuadrants(squareValue);
 
@@ -43,7 +43,7 @@ namespace Sudoku.Domain.Parsers
                     !int.TryParse(rawCell[1], out var quadrantIndex))
                     break;
 
-                // quadrants[quadrantIndex].AddCell(new CellLeaf(new Coordinate(x, y), cellValue));
+                quadrants[quadrantIndex].AddComponent(new CellLeaf(new Coordinate(x, y), cellValue));
 
                 if (x == squareValue)
                 {
