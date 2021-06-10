@@ -53,7 +53,7 @@ namespace Sudoku.Mvc.Contexts
 
             if (controller == null) throw new NullReferenceException("Controller cannot be null. Programming mistake?");
             
-            controller.View = controller.CreateView();
+            controller.SetupView();
             
             _view = controller.View;
             _controller = controller;
