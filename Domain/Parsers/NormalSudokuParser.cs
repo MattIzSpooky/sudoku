@@ -94,9 +94,11 @@ namespace Sudoku.Domain.Parsers
                 if (i != 1 && i % boardValues.QuadrantWidth == 0 && i % boardValues.SquareValue != 0 && i % cutFactor != 0)
                     builder.Append('|');
 
-                if (i != 1 && i % cutFactor == 0 && i != content.Length)
-                    for (var j = 1; j <= boardValues.SquareValue + boardValues.RowQuadrantsCount - 1; j++)
-                        builder.Append('-');
+                if (i == 1 || i % cutFactor != 0 || i == content.Length) 
+                    continue;
+                
+                for (var j = 1; j <= boardValues.SquareValue + boardValues.RowQuadrantsCount - 1; j++)
+                    builder.Append('-');
             }
             
             return builder.ToString();
