@@ -14,9 +14,21 @@ namespace Sudoku.Domain.Parsers
         public virtual Field[] Parse(string content, int offsetX = 0, int offsetY = 0)
         {
             var squareValue = (int) Math.Round(Math.Sqrt(content.Trim().Length));
+            var quadrantHeight = (int) Math.Floor(Math.Sqrt(squareValue));
+            var quadrantWidth = squareValue / quadrantHeight;
+           
+            var boardValues = new BoardValues
+            {
+                SquareValue = squareValue,
+                QuadrantHeight = quadrantHeight,
+                QuadrantWidth = quadrantWidth,
+                RowQuadrantsCount = squareValue / quadrantWidth,
+                OffsetX = offsetX,
+                OffsetY = offsetY
+            };
 
-            var sudokuComponents = CreateCells(content, squareValue,offsetX, offsetY);
-            var quadrants = ComposeQuadrants(sudokuComponents, squareValue, offsetX, offsetY);
+            var sudokuComponents = CreateCells(content, boardValues);
+            var quadrants = CreateQuadrants(sudokuComponents, boardValues);
 
             var field = new Field(quadrants)
             {
@@ -25,55 +37,40 @@ namespace Sudoku.Domain.Parsers
 
             return new[] {field};
         }
-        private List<ISudokuComponent> CreateCells(string content, int squareValue, int offsetX, int offsetY)
+        private static List<ISudokuComponent> CreateCells(string content, BoardValues boardValues)
         {
-            var quadrantHeight = (int) Math.Floor(Math.Sqrt(squareValue));
-            var quadrantWidth = squareValue / quadrantHeight;
-            var rowQuadrantsCount = squareValue / quadrantWidth;
-            var cutFactor = squareValue * rowQuadrantsCount;
-            
-            StringBuilder builder = new StringBuilder();
-            for (var i = 1; i <= content.Length; i++)
-            {
-                builder.Append(content[i - 1]);
-                
-                if (i != 1 && i % quadrantWidth == 0 && i % squareValue != 0 && i % cutFactor != 0)
-                    builder.Append('|');
-                
-                if (i != 1 && i % cutFactor == 0 && i != content.Length)
-                    for (var j = 1; j <= squareValue + rowQuadrantsCount - 1; j++)
-                        builder.Append('-');
-            }
-
-            var myString = builder.ToString();
-            var rowBuilder = new RowBuilder(offsetX, offsetY);
             var sudokuComponents = new List<ISudokuComponent>();
-            var counter = myString.Length;
-
-            var rows = Math.Pow(quadrantWidth * quadrantHeight, 2) / (quadrantWidth * quadrantHeight * rowQuadrantsCount) - 1;
             
-            var totalY = squareValue + rows;
-            var totalX = myString[..myString.IndexOf("-", StringComparison.Ordinal)].Length / rowQuadrantsCount;
+            var newContent = BuildContentWithWalls(content, boardValues);
+            var rowBuilder = new RowBuilder(boardValues.OffsetX, boardValues.OffsetY);
+            
+            var rows = Math.Pow(boardValues.QuadrantWidth * boardValues.QuadrantHeight, 2) / 
+                (boardValues.QuadrantWidth * boardValues.QuadrantHeight * boardValues.RowQuadrantsCount) - 1;
+            
+            var counter = newContent.Length;
+            var totalY = boardValues.SquareValue + rows;
+            var totalX = newContent[..newContent.IndexOf("-", StringComparison.Ordinal)].Length / 
+                         boardValues.RowQuadrantsCount;
             for (var y = 0; y < totalY; y++)
             {
                 for (var x = 0; x < totalX; x++)
                 {
-                    var index = myString.Length - counter;
+                    var index = newContent.Length - counter;
 
-                    if (myString[index] == '|')
+                    if (newContent[index] == '|')
                     {
-                        sudokuComponents.Add(new Wall(false){Coordinate = new Coordinate(x + offsetX, y + offsetY)});
+                        sudokuComponents.Add(new Wall(false){Coordinate = new Coordinate(x + boardValues.OffsetX, y + boardValues.OffsetY)});
                         rowBuilder.BuildWall();
                     }
-                    else if (myString[index] == '-')
+                    else if (newContent[index] == '-')
                     {
-                        sudokuComponents.Add(new Wall(true){Coordinate = new Coordinate(x + offsetX, y + offsetY)});
+                        sudokuComponents.Add(new Wall(true){Coordinate = new Coordinate(x + boardValues.OffsetX, y + boardValues.OffsetY)});
                         rowBuilder.BuildWall(true);
                     }
                     else
                     {
-                        var cellValue = (int) char.GetNumericValue(myString[index..].First());
-                        var cell = new CellLeaf(new Coordinate(x + offsetX, y + offsetY), cellValue) {IsLocked = cellValue != 0};
+                        var cellValue = (int) char.GetNumericValue(newContent[index..].First());
+                        var cell = new CellLeaf(new Coordinate(x + boardValues.OffsetX, y + boardValues.OffsetY), cellValue) {IsLocked = cellValue != 0};
                         sudokuComponents.Add(cell);
                         rowBuilder.BuildCell(cell);
                     }
@@ -85,28 +82,32 @@ namespace Sudoku.Domain.Parsers
             return sudokuComponents;
         }
 
-        private List<QuadrantComposite> ComposeQuadrants(List<ISudokuComponent> components, int squareValue, int offsetX, int offsetY)
+        private static string BuildContentWithWalls(string content, BoardValues boardValues)
         {
-            var quadrantHeight = (int) Math.Floor(Math.Sqrt(squareValue));
-            var quadrantWidth = squareValue / quadrantHeight;
-            var rowQuadrantsCount = squareValue / quadrantWidth;
-
-            var boardValues = new BoardValues
+            var cutFactor = boardValues.SquareValue * boardValues.RowQuadrantsCount;
+            
+            StringBuilder builder = new();
+            for (var i = 1; i <= content.Length; i++)
             {
-                SquareValue = squareValue,
-                QuadrantHeight = quadrantHeight + 1,
-                QuadrantWidth = quadrantWidth + 1,
-                RowQuadrantsCount = rowQuadrantsCount,
-                OffsetX = offsetX,
-                OffsetY = offsetY
-            };
+                builder.Append(content[i - 1]);
 
-            return CreateQuadrants(components, boardValues);
+                if (i != 1 && i % boardValues.QuadrantWidth == 0 && i % boardValues.SquareValue != 0 && i % cutFactor != 0)
+                    builder.Append('|');
+
+                if (i != 1 && i % cutFactor == 0 && i != content.Length)
+                    for (var j = 1; j <= boardValues.SquareValue + boardValues.RowQuadrantsCount - 1; j++)
+                        builder.Append('-');
+            }
+            
+            return builder.ToString();
         }
 
         private List<QuadrantComposite> CreateQuadrants(List<ISudokuComponent> components, BoardValues boardValues)
         {
             var quadrants = new List<QuadrantComposite>();
+            
+            boardValues.QuadrantWidth += 1;
+            boardValues.QuadrantHeight += 1;
 
             var quadrantCounter = 0;
             var maxX = boardValues.QuadrantWidth;
