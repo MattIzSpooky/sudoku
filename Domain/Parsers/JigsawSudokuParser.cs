@@ -14,7 +14,7 @@ namespace Sudoku.Domain.Parsers
             var items = content.Split('=').Skip(1).ToArray();
             var squareValue = (int) Math.Round(Math.Sqrt(items.Length));
 
-            var field = new Field(CreateCells(squareValue, items))
+            var field = new Field(FillQuadrants(squareValue, items))
                 {SolverStrategy = new BackTrackingSolver()};
 
             return new[] {field};
@@ -30,7 +30,7 @@ namespace Sudoku.Domain.Parsers
             return quadrants;
         }
 
-        private static List<QuadrantComposite> CreateCells(int squareValue, IEnumerable<string> items)
+        private static List<QuadrantComposite> FillQuadrants(int squareValue, IEnumerable<string> items)
         {
             var quadrants = CreateQuadrants(squareValue);
 
