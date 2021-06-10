@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Sudoku.Domain.Board.Leaves;
 using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain.Board
@@ -25,5 +27,12 @@ namespace Sudoku.Domain.Board
 
         public bool IsComposite() => true;
         public Coordinate Coordinate { get; set; }
+
+        public bool Validate()
+        {
+            return GetChildren().OfType<CellLeaf>()
+                .GroupBy(x => x.Value)
+                .All(g => g.Count() == 1);
+        }
     }
 }

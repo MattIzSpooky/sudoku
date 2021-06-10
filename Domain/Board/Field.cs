@@ -75,28 +75,31 @@ namespace Sudoku.Domain.Board
                     
                 if (cell.IsLocked || cell.Value.DefinitiveValue == 0) continue;
 
-                var rowColumn = cells
-                    .Where(c => (c.Coordinate.Y == cell.Coordinate.Y || c.Coordinate.X == cell.Coordinate.X) &&
-                                c != cell)
-                    .FirstOrDefault(c => c.Value.DefinitiveValue == cell.Value.DefinitiveValue);
+                if (ValidateRowColumn(cells, cell) != null) return false;
 
-                if (rowColumn != null)
-                {
-                    cell.IsValid = false;
-                    return false;
-                }
-
-                var quadrant = Find(c => c.GetChildren().Contains(cell)).First();
-
-                if (quadrant.GetChildren().OfType<CellLeaf>()
-                    .FirstOrDefault(c => c.Value.DefinitiveValue == cell.Value.DefinitiveValue && c != cell) != null)
-                {
-                    cell.IsValid = false;
-                    return false;
-                }
+                var quadrant = Find(c => c.GetChildren().Contains(cell)).OfType<QuadrantComposite>().First();
+                
+                if (quadrant.Validate()) 
+                    continue;
+                
+                cell.IsValid = false;
+                return false;
             }
 
             return true;
+        }
+
+        private static CellLeaf? ValidateRowColumn(IEnumerable<CellLeaf> cells, CellLeaf cell)
+        {
+            var rowColumn = cells
+                .Where(c => (c.Coordinate.Y == cell.Coordinate.Y || c.Coordinate.X == cell.Coordinate.X) &&
+                            c != cell)
+                .FirstOrDefault(c => c.Value.DefinitiveValue == cell.Value.DefinitiveValue);
+
+            if (rowColumn == null) return null;
+            
+            cell.IsValid = false;
+            return cell;
         }
     }
 }
