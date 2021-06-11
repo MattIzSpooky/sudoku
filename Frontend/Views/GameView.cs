@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using Sudoku.Domain.Board;
-using Sudoku.Frontend.Visitors;
-using Sudoku.Mvc.Views.Console;
+using Domain.Board;
+using Frontend.Visitors;
+using MVC.Views.Console;
 
-namespace Sudoku.Frontend.Views
+namespace Frontend.Views
 {
     public class GameView : ConsoleView
     {

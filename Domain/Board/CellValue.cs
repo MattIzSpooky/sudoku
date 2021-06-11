@@ -1,4 +1,4 @@
-﻿namespace Sudoku.Domain.Board
+﻿namespace Domain.Board
 {
     public class CellValue
     {

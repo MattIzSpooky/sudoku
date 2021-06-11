@@ -1,4 +1,4 @@
-﻿namespace Sudoku.Domain.Selector
+﻿namespace Domain.Selector
 {
     public class SudokuFile
     {

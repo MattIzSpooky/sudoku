@@ -1,6 +1,6 @@
-﻿using Sudoku.Domain.Board.Leaves;
+﻿using Domain.Board.Leaves;
 
-namespace Sudoku.Domain.States
+namespace Domain.States
 {
     public class AuxiliaryState : State
     {

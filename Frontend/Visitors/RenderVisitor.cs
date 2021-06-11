@@ -1,10 +1,10 @@
 ﻿using System.Drawing;
-using Sudoku.Domain.Board;
-using Sudoku.Domain.Board.Leaves;
-using Sudoku.Domain.Visitors;
-using Sudoku.Mvc.Views.Console;
+using Domain.Board;
+using Domain.Board.Leaves;
+using Domain.Visitors;
+using MVC.Views.Console;
 
-namespace Sudoku.Frontend.Visitors
+namespace Frontend.Visitors
 {
     public class RenderVisitor : ISudokuComponentVisitor
     {

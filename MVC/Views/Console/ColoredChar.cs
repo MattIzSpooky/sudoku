@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Sudoku.Mvc.Views.Console
+namespace MVC.Views.Console
 {
     public struct ColoredChar
     {

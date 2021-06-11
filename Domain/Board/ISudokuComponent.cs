@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Sudoku.Domain.Visitors;
+using Domain.Visitors;
 
-namespace Sudoku.Domain.Board
+namespace Domain.Board
 {
     public interface ISudokuComponent
     {

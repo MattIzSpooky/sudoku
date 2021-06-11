@@ -1,4 +1,4 @@
-﻿namespace Sudoku.Domain.Parsers.Factories
+﻿namespace Domain.Parsers.Factories
 {
     public class SamuraiSudokuParserFactory : ISudokuParserFactory
     {

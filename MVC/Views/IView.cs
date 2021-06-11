@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sudoku.Mvc.Views
+namespace MVC.Views
 {
     public interface IView : IDisposable
     {

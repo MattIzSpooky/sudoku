@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Sudoku.Domain.Board;
+using Domain.Board;
 
-namespace Sudoku.Domain.Parsers.Builders
+namespace Domain.Parsers.Builders
 {
     public class Row
     {

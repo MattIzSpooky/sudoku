@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Sudoku.Domain.Selector
+namespace Domain.Selector
 {
     public class SudokuSelector
     {
@@ -13,7 +13,7 @@ namespace Sudoku.Domain.Selector
 
         public void ReadFromDisk()
         {
-            var filePaths = Directory.GetFiles(@"./Frontend/Levels");
+            var filePaths = Directory.GetFiles(@"./Levels");
 
             foreach (var path in filePaths)
             {

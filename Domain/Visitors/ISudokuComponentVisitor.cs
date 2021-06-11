@@ -1,7 +1,7 @@
-﻿using Sudoku.Domain.Board;
-using Sudoku.Domain.Board.Leaves;
+﻿using Domain.Board;
+using Domain.Board.Leaves;
 
-namespace Sudoku.Domain.Visitors
+namespace Domain.Visitors
 {
     public interface ISudokuComponentVisitor
     {

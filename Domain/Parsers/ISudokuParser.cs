@@ -1,6 +1,6 @@
-﻿using Sudoku.Domain.Board;
+﻿using Domain.Board;
 
-namespace Sudoku.Domain.Parsers
+namespace Domain.Parsers
 {
     public interface ISudokuParser
     {

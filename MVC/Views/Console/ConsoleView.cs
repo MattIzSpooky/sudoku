@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using SysConsole = Colorful.Console;
 
-namespace Sudoku.Mvc.Views.Console
+namespace MVC.Views.Console
 {
     /// <summary>
     /// An abstract view implementation targeting the console.

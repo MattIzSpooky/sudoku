@@ -1,6 +1,6 @@
-﻿using Sudoku.Domain.Board;
+﻿using Domain.Board;
 
-namespace Sudoku.Domain.Solvers
+namespace Domain.Solvers
 {
     public interface ISolverStrategy
     {

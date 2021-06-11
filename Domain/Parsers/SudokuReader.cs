@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using Sudoku.Domain.Parsers.Factories;
+using Domain.Parsers.Factories;
 
-namespace Sudoku.Domain.Parsers
+namespace Domain.Parsers
 {
     public class SudokuReader
     {
