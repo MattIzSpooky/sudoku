@@ -13,7 +13,7 @@ namespace Domain.Selector
 
         public void ReadFromDisk()
         {
-            var filePaths = Directory.GetFiles(@"./Frontend/Levels");
+            var filePaths = Directory.GetFiles(@"./Levels");
 
             foreach (var path in filePaths)
             {
