@@ -1,0 +1,400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Comment CommentText="StartController calls the SudokuReader&#xD;&#xA;">
+    <Position X="24.008" Y="9.191" Height="0.75" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Main inits MvcContext and calls openController&#xD;&#xA;">
+    <Position X="14.601" Y="18.939" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="Sudoku.Domain.Parsers.Builders.Row">
+    <Position X="22.75" Y="3.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAIIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Parsers\Builders\Row.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="_components" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Sudoku.Domain.Parsers.Builders.RowBuilder" BaseTypeListCollapsed="true">
+    <Position X="27.75" Y="2.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEUICAQABAIAAAEAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Domain\Parsers\Builders\RowBuilder.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_row" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Domain.Parsers.Factories.JigsawSudokuParserFactory" BaseTypeListCollapsed="true">
+    <Position X="37.75" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Parsers\Factories\JigsawSudokuParserFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Domain.Parsers.Factories.NormalSudokuParserFactory" BaseTypeListCollapsed="true">
+    <Position X="31.5" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Parsers\Factories\NormalSudokuParserFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Domain.Parsers.Factories.SamuraiSudokuParserFactory" BaseTypeListCollapsed="true">
+    <Position X="34.5" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Parsers\Factories\SamuraiSudokuParserFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Domain.Parsers.Factories.SudokuFactory">
+    <Position X="27.75" Y="7.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AACIAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Parsers\Factories\SudokuFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sudoku.Domain.Parsers.JigsawSudokuParser" BaseTypeListCollapsed="true">
+    <Position X="36.25" Y="4" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAACAAAA=</HashCode>
+      <FileName>Domain\Parsers\JigsawSudokuParser.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Domain.Parsers.NormalSudokuParser">
+    <Position X="32" Y="6" Width="8.5" />
+    <NestedTypes>
+      <Struct Name="Sudoku.Domain.Parsers.NormalSudokuParser.BoardValues">
+        <TypeIdentifier>
+          <NewMemberFileName>Domain\Parsers\NormalSudokuParser.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="Sudoku.Domain.Parsers.NormalSudokuParser.QuadrantRange" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Domain\Parsers\NormalSudokuParser.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAgQAAAAAAAAAAAAAABAAAAAAEAABAAAIAAACAAAAA=</HashCode>
+      <FileName>Domain\Parsers\NormalSudokuParser.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Domain.Parsers.SamuraiSudokuParser">
+    <Position X="33" Y="10.25" Width="6.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAMAAAAAQAAAAAAAAAAIAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Domain\Parsers\SamuraiSudokuParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sudoku.Domain.Parsers.SudokuReader">
+    <Position X="23.75" Y="7.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAkAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Parsers\SudokuReader.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_sudokuFactory" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Sudoku.Domain.Board.Leaves.CellLeaf" BaseTypeListCollapsed="true">
+    <Position X="11" Y="3.25" Width="3.5" />
+    <AssociationLine Name="Value" Type="Sudoku.Domain.Board.CellValue" FixedFromPoint="true">
+      <Path>
+        <Point X="12.625" Y="3.25" />
+        <Point X="12.625" Y="2.247" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AIAACAAAAAAABAAAAAgAAAAAAACAQAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Domain\Board\Leaves\CellLeaf.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Value" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Domain.Board.Leaves.WallLeaf" BaseTypeListCollapsed="true">
+    <Position X="15" Y="3.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAABABAAAAAAAAAAAAACAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Board\Leaves\WallLeaf.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Domain.Board.CellValue">
+    <Position X="11.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQAAAAAA=</HashCode>
+      <FileName>Domain\Board\CellValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sudoku.Domain.Board.Field">
+    <Position X="1.75" Y="2" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAACAABAAAAgAgAgoAAAAIAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Domain\Board\Field.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="SolverStrategy" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_quadrants" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Sudoku.Domain.Board.QuadrantComposite" BaseTypeListCollapsed="true">
+    <Position X="7" Y="2" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AIAQAAAAAACIBAAAAAoEAAAAAAGAQAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Board\QuadrantComposite.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Domain.Solvers.BackTrackingSolver" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Solvers\BackTrackingSolver.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Domain.States.AuxiliaryState">
+    <Position X="8.5" Y="10" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAIAAAAAAAAABAA=</HashCode>
+      <FileName>Domain\States\AuxiliaryState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sudoku.Domain.States.DefinitiveState">
+    <Position X="4.25" Y="9.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAIAAAAAAAAABAA=</HashCode>
+      <FileName>Domain\States\DefinitiveState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sudoku.Domain.States.State">
+    <Position X="6" Y="12.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgIABAAAAAAAAAAAAAAAAAIAAAAAAAAABAA=</HashCode>
+      <FileName>Domain\States\State.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sudoku.Domain.Selector.SudokuFile">
+    <Position X="15" Y="10" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAIAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Selector\SudokuFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sudoku.Domain.Selector.SudokuSelector">
+    <Position X="19" Y="10" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAhAACAAAAAgAIACAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Domain\Selector\SudokuSelector.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="_sudokuFiles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Sudoku.Domain.Game">
+    <Position X="0.5" Y="8" Width="2.75" />
+    <AssociationLine Name="_state" Type="Sudoku.Domain.States.State" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.25" Y="10.625" />
+        <Point X="3.375" Y="10.625" />
+        <Point X="3.375" Y="13.816" />
+        <Point X="6" Y="13.816" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAQCAAAAAIACACACoAAAgAABAAAAAACAEgQA=</HashCode>
+      <FileName>Domain\Game.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_state" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_fields" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Sudoku.Frontend.Visitors.RenderVisitor" BaseTypeListCollapsed="true">
+    <Position X="15" Y="7.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Frontend\Visitors\RenderVisitor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Frontend.Controllers.GameController">
+    <Position X="13.5" Y="13.5" Width="4.5" />
+    <AssociationLine Name="_game" Type="Sudoku.Domain.Game" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.5" Y="15.762" />
+        <Point X="1.807" Y="15.762" />
+        <Point X="1.807" Y="12.122" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAKAAAAAAIAAAAIAAAAABAAAAACAQ=</HashCode>
+      <FileName>Frontend\Controllers\GameController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_game" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Sudoku.Frontend.Controllers.StartController">
+    <Position X="23.75" Y="10" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>A0AAAAAAACAAAgAAAAAAAAAAAAAAIAAAAABAAAAAAAA=</HashCode>
+      <FileName>Frontend\Controllers\StartController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_selector" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Sudoku.Frontend.Views.GameView">
+    <Position X="22.75" Y="16.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAIAAAAQAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Frontend\Views\GameView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sudoku.Frontend.Views.StartView">
+    <Position X="26.75" Y="12" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAIAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Frontend\Views\StartView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sudoku.Mvc.Contexts.MvcContext" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="17.5" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAABAAICAAAEAAAQI=</HashCode>
+      <FileName>MVC\Contexts\MvcContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Mvc.Views.Console.ConsoleView">
+    <Position X="27.25" Y="15.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAIggAAAhAAAAAAAAAEIQBAAAAAAAAAQAA=</HashCode>
+      <FileName>MVC\Views\Console\ConsoleView.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Buffer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Sudoku.Mvc.Views.Input&lt;T&gt;">
+    <Position X="32" Y="20.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>MVC\Views\Input.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sudoku.Mvc.Views.View&lt;T&gt;">
+    <Position X="28" Y="20.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABCAAgkAAAAAAAEAEEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVC\Views\View.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="Inputs" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Mvc.Controller">
+    <Position X="23.25" Y="13.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVC\Controller.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Mvc.Controller&lt;TView, TInput&gt;">
+    <Position X="19.25" Y="13.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVC\Controller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sudoku.Program">
+    <Position X="13.75" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Sudoku.Domain.Board.Coordinate">
+    <Position X="20" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Domain\Board\Coordinate.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Sudoku.Mvc.Views.Console.ColoredChar">
+    <Position X="31.75" Y="16.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAACAA=</HashCode>
+      <FileName>MVC\Views\Console\ColoredChar.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Sudoku.Domain.Parsers.Builders.IBuilder&lt;T&gt;">
+    <Position X="27.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Domain\Parsers\Builders\IBuider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Sudoku.Domain.Parsers.Factories.ISudokuParserFactory">
+    <Position X="34.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Parsers\Factories\ISudokuParserFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Sudoku.Domain.Parsers.ISudokuParser">
+    <Position X="31.25" Y="4.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Parsers\ISudokuParser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Sudoku.Domain.Board.ISudokuComponent">
+    <Position X="23.25" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAABAAAAAAAAAAAAACAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Board\ISudokuComponent.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Coordinate" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="Sudoku.Domain.Solvers.ISolverStrategy">
+    <Position X="5.25" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Solvers\ISolverStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Sudoku.Domain.Visitors.ISudokuComponentVisitor">
+    <Position X="18.75" Y="6" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Visitors\ISudokuComponentVisitor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Sudoku.Mvc.Views.IView">
+    <Position X="25.75" Y="20.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVC\Views\IView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
