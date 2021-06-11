@@ -20,10 +20,7 @@ namespace Sudoku.Domain.Board
 
         public void Accept(ISudokuComponentVisitor visitor)
         {
-            foreach (var child in _children)
-            {
-                child.Accept(visitor);
-            }
+            visitor.Visit(this);
         }
 
         public IEnumerable<ISudokuComponent> GetChildren() => Children;

@@ -4,7 +4,6 @@ using System.Linq;
 using Sudoku.Domain.Board.Leaves;
 using Sudoku.Domain.Extensions;
 using Sudoku.Domain.Solvers;
-using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain.Board
 {
@@ -41,14 +40,6 @@ namespace Sudoku.Domain.Board
 
         private IEnumerable<ISudokuComponent> Find(Func<ISudokuComponent, bool> finder) => _quadrants
             .Descendants<ISudokuComponent>(i => i.GetChildren()).Where(finder);
-
-        public void Accept(ISudokuComponentVisitor visitor)
-        {
-            foreach (var quadrant in _quadrants)
-            {
-                quadrant.Accept(visitor);
-            }
-        }
 
         public void Solve() => SolverStrategy?.Solve(this);
         

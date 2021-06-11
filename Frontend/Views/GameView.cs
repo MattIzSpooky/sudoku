@@ -22,7 +22,10 @@ namespace Sudoku.Frontend.Views
             
             foreach (var grid in Grids)
             {
-                grid.Accept(new RenderVisitor(Buffer));
+                foreach (var quadrant in grid.Quadrants)
+                {
+                    quadrant.Accept(new RenderVisitor(Buffer));
+                }
             }
 
             Buffer[Cursor.Y][Cursor.X] = CreateChar('X', Color.Lime);

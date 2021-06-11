@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Sudoku.Domain.Board;
 using Sudoku.Domain.Board.Leaves;
 using Sudoku.Domain.Visitors;
 using Sudoku.Mvc.Views.Console;
@@ -25,9 +26,10 @@ namespace Sudoku.Frontend.Visitors
 
         public void Visit(CellLeaf cell)
         {
+            char character;
             var cellLeafValue = cell.Value;
             var definitiveValue = cellLeafValue.DefinitiveValue;
-            var character = ' ';
+            
             var color = Color.White;
 
             if (definitiveValue == 0 && cellLeafValue.HelpNumber > 0)
@@ -47,6 +49,14 @@ namespace Sudoku.Frontend.Visitors
                 Character = character,
                 Color = color
             };
+        }
+
+        public void Visit(QuadrantComposite quadrantComposite)
+        {
+            foreach (var child in quadrantComposite.Children)
+            {
+                child.Accept(this);
+            }
         }
     }
 }
