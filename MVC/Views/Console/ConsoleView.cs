@@ -32,7 +32,7 @@ namespace Sudoku.Mvc.Views.Console
         /// <summary>
         /// Clears the Buffer and resets the StringCursor.
         /// </summary>
-        protected void ClearBuffer()
+        private void ClearBuffer()
         {
             StringCursor = 0;
             
@@ -58,7 +58,7 @@ namespace Sudoku.Mvc.Views.Console
             return new ColoredChar {Character = character, Color = color};
         }
 
-        protected void WriteBuffer()
+        private void WriteBuffer()
         {
             SysConsole.SetCursorPosition(0, 0);
             SysConsole.CursorVisible = false;
