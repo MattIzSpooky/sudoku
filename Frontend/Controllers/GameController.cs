@@ -1,7 +1,5 @@
 ﻿using System;
 using Sudoku.Domain;
-using Sudoku.Domain.Parsers;
-using Sudoku.Domain.Selector;
 using Sudoku.Frontend.Views;
 using Sudoku.Mvc;
 using Sudoku.Mvc.Contexts;

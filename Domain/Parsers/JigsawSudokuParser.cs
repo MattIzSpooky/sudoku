@@ -43,7 +43,10 @@ namespace Sudoku.Domain.Parsers
                     !int.TryParse(rawCell[1], out var quadrantIndex))
                     break;
 
-                quadrants[quadrantIndex].AddComponent(new CellLeaf(new Coordinate(x, y), cellValue));
+                quadrants[quadrantIndex].AddComponent(new CellLeaf(new Coordinate(x, y), cellValue)
+                {
+                    IsLocked = cellValue != 0
+                });
 
                 if (x == squareValue)
                 {

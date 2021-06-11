@@ -12,7 +12,7 @@ namespace Sudoku.Frontend.Views
         public Coordinate Cursor { private get; set; }
         public string? StateName { private get; set; }
 
-        public GameView(string gameName) : base(45, 45, $"Sudoku: {gameName}")
+        public GameView(string gameName) : base(55, 45, $"Sudoku: {gameName}")
         {
         }
 
@@ -22,7 +22,10 @@ namespace Sudoku.Frontend.Views
             
             foreach (var grid in Grids)
             {
-                grid.Accept(new RenderVisitor(Buffer));
+                foreach (var quadrant in grid.Quadrants)
+                {
+                    quadrant.Accept(new RenderVisitor(Buffer));
+                }
             }
 
             Buffer[Cursor.Y][Cursor.X] = CreateChar('X', Color.Lime);
@@ -30,13 +33,17 @@ namespace Sudoku.Frontend.Views
             StringCursor = Height - 15;
 
             WriteString($"State: {StateName}", Color.Chartreuse);
-            
+            WriteString("Entering the same digit removes the value", Color.Purple);
+
             StringCursor++;
             
-            WriteString("Controls", Color.White);
-            WriteString("Space bar = Switch between modes", Color.White);
-            WriteString("S = Let computer solve the Sudoku", Color.White);
-            WriteString("C = Validate the puzzle", Color.White);
+            WriteString("[Space bar]: Switch between modes", Color.White);
+            WriteString("[S]: Let computer solve the Sudoku", Color.White);
+            WriteString("[C]: Validate the puzzle", Color.White);
+            WriteString("[1-9]: Place digit", Color.White);
+            WriteString("[0] & [DELETE]: = Remove digit", Color.White);
+            WriteString("[UP, LEFT, BOTTOM, DOWN Arrows]: Moving the cursor", Color.White);
+            WriteString("[ESC]: Go back to start", Color.White);
         }
     }
 }
