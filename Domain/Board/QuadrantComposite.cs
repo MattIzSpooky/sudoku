@@ -33,7 +33,7 @@ namespace Sudoku.Domain.Board
         public CellLeaf? CellByCoordinate(Coordinate coordinate) =>
             Cells.FirstOrDefault(g => g.Coordinate.X == coordinate.X && g.Coordinate.Y == coordinate.Y);
 
-        public bool BelongsTo(CellLeaf cellLeaf) => Cells.Any(c => c == cellLeaf);
+        public bool BelongsTo(ISudokuComponent component) => Children.Any(c => c == component);
         
         public void Validate()
         {
