@@ -16,7 +16,9 @@ namespace Sudoku.Domain.Solvers
             {
                 emptyCell.Value.DefinitiveValue = i;
 
-                if (field.Validate() && Solve(field)) return true;
+                field.Validate();
+                
+                if (field.IsValid() && Solve(field)) return true;
 
                 emptyCell.Value.DefinitiveValue = 0;
             }

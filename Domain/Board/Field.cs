@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Domain.Board.Leaves;
-using Sudoku.Domain.Extensions;
 using Sudoku.Domain.Solvers;
 
 namespace Sudoku.Domain.Board
@@ -32,51 +30,40 @@ namespace Sudoku.Domain.Board
 
         public IEnumerable<CellLeaf> GetOrderedCells()
         {
-            return Find(c => !c.IsComposite() && c is CellLeaf)
-                .Cast<CellLeaf>()
+            return _quadrants.SelectMany(q => q.Cells)
                 .OrderBy(c => c.Coordinate.Y)
                 .ThenBy(c => c.Coordinate.X);
         }
 
-        private IEnumerable<ISudokuComponent> Find(Func<ISudokuComponent, bool> finder) => _quadrants
-            .Descendants<ISudokuComponent>(i => i.GetChildren()).Where(finder);
-
         public void Solve() => SolverStrategy?.Solve(this);
+
+        public bool IsValid() => _quadrants.All(q => q.IsValid());
         
-        public bool Validate()
+        public void Validate()
         {
             var cells = _quadrants.SelectMany(q => q.Cells).ToList();
                 
             foreach (var cell in cells)
             {
                 cell.IsValid = true;
-                    
+
                 if (cell.IsLocked || cell.Value.DefinitiveValue == 0) continue;
 
-                if (ValidateRowColumn(cells, cell) != null) return false;
+                ValidateRowColumn(cells, cell);
 
-                var quadrant = Find(c => c.GetChildren().Contains(cell)).Cast<QuadrantComposite>().First();
-
-                if (quadrant.Validate(cell)) continue;
-
-                cell.IsValid = false;
-                return false;
+                _quadrants.First(q => q.BelongsTo(cell)).Validate();
             }
-
-            return true;
         }
 
-        private static CellLeaf? ValidateRowColumn(IEnumerable<CellLeaf> cells, CellLeaf cell)
+        private static void ValidateRowColumn(IEnumerable<CellLeaf> cells, CellLeaf cell)
         {
             var rowColumn = cells
-                .Where(c => (c.Coordinate.Y == cell.Coordinate.Y || c.Coordinate.X == cell.Coordinate.X) &&
-                            c != cell)
+                .Where(c => (c.Coordinate.Y == cell.Coordinate.Y || c.Coordinate.X == cell.Coordinate.X) && c != cell)
                 .FirstOrDefault(c => c.Value.DefinitiveValue == cell.Value.DefinitiveValue);
 
-            if (rowColumn == null) return null;
+            if (rowColumn == null) return;
             
             cell.IsValid = false;
-            return cell;
         }
     }
 }

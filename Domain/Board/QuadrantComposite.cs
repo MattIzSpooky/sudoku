@@ -25,13 +25,29 @@ namespace Sudoku.Domain.Board
 
         public IEnumerable<ISudokuComponent> GetChildren() => Children;
 
+        public bool IsValid() => Cells.All(c => c.IsValid);
+
         public bool IsComposite() => true;
         public Coordinate Coordinate { get; set; }
 
         public CellLeaf? CellByCoordinate(Coordinate coordinate) =>
             Cells.FirstOrDefault(g => g.Coordinate.X == coordinate.X && g.Coordinate.Y == coordinate.Y);
 
-        public bool Validate(CellLeaf cell) => Cells
-            .FirstOrDefault(c => c.Value.DefinitiveValue == cell.Value.DefinitiveValue && c != cell) == null;
+        public bool BelongsTo(CellLeaf cellLeaf) => Cells.Any(c => c == cellLeaf);
+        
+        public void Validate()
+        {
+            var duplicates = Cells
+                .Where(c => c.Value.DefinitiveValue != 0)
+                .GroupBy(c => c.Value.DefinitiveValue)
+                .Where(g => g.Count() > 1)
+                .SelectMany(y => y)
+                .Where(cell => !cell.IsLocked);
+
+            foreach (var cell in duplicates)
+            {
+                cell.IsValid = false;
+            }
+        }
     }
 }
