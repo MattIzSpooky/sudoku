@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sudoku.Mvc.Views
+namespace MVC.Views
 {
     /// <summary>
     /// An object that contains a map between an input type (char, int, string, etc.) to a function somewhere.

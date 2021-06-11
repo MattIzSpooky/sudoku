@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Sudoku.Domain.Visitors;
+using Domain.Visitors;
 
-namespace Sudoku.Domain.Board.Leaves
+namespace Domain.Board.Leaves
 {
     public class WallLeaf : ISudokuComponent
     {

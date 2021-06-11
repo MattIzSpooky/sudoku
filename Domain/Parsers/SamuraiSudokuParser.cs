@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using Sudoku.Domain.Board;
-using Sudoku.Domain.Board.Leaves;
+using Domain.Board;
+using Domain.Board.Leaves;
 
-namespace Sudoku.Domain.Parsers
+namespace Domain.Parsers
 {
     public class SamuraiSudokuParser : NormalSudokuParser
     {

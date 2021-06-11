@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Sudoku.Domain.Board;
-using Sudoku.Domain.Parsers.Builders;
-using Sudoku.Domain.Solvers;
+using Domain.Board;
+using Domain.Parsers.Builders;
+using Domain.Solvers;
 
-namespace Sudoku.Domain.Parsers
+namespace Domain.Parsers
 {
     public class NormalSudokuParser : ISudokuParser
     {

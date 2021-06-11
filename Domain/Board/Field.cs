@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Sudoku.Domain.Board.Leaves;
-using Sudoku.Domain.Solvers;
+using Domain.Board.Leaves;
+using Domain.Solvers;
 
-namespace Sudoku.Domain.Board
+namespace Domain.Board
 {
     public class Field
     {

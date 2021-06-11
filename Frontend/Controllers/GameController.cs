@@ -1,11 +1,11 @@
 ﻿using System;
-using Sudoku.Domain;
-using Sudoku.Frontend.Views;
-using Sudoku.Mvc;
-using Sudoku.Mvc.Contexts;
-using Sudoku.Mvc.Views;
+using Domain;
+using Frontend.Views;
+using MVC;
+using MVC.Contexts;
+using MVC.Views;
 
-namespace Sudoku.Frontend.Controllers
+namespace Frontend.Controllers
 {
     public class GameController : Controller<GameView, ConsoleKey>
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Sudoku.Domain.Selector
+namespace Domain.Selector
 {
     public class SudokuSelector
     {

@@ -1,7 +1,7 @@
-﻿using Sudoku.Domain.Board;
-using System.Linq;
+﻿using System.Linq;
+using Domain.Board;
 
-namespace Sudoku.Domain.Solvers
+namespace Domain.Solvers
 {
     public class BackTrackingSolver : ISolverStrategy
     {

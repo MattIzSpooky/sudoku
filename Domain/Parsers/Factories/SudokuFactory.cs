@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Sudoku.Domain.Parsers.Factories
+namespace Domain.Parsers.Factories
 {
     public class SudokuFactory
     {

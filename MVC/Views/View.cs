@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Sudoku.Mvc.Views
+namespace MVC.Views
 {
     public abstract class View<T> : IView
     {

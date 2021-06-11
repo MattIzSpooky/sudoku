@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sudoku.Domain.Board;
-using Sudoku.Domain.Board.Leaves;
-using Sudoku.Domain.Solvers;
+using Domain.Board;
+using Domain.Board.Leaves;
+using Domain.Solvers;
 
-namespace Sudoku.Domain.Parsers
+namespace Domain.Parsers
 {
     public class JigsawSudokuParser : ISudokuParser
     {

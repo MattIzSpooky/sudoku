@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Sudoku.Domain.Board;
-using Sudoku.Domain.States;
+using Domain.Board;
+using Domain.States;
 
-namespace Sudoku.Domain
+namespace Domain
 {
     public class Game
     {

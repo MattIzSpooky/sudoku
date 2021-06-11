@@ -1,4 +1,4 @@
-﻿namespace Sudoku.Domain.Parsers.Builders
+﻿namespace Domain.Parsers.Builders
 {
     public interface IBuilder<out T>
     {

@@ -1,12 +1,12 @@
 ﻿using System;
-using Sudoku.Domain.Parsers;
-using Sudoku.Domain.Selector;
-using Sudoku.Frontend.Views;
-using Sudoku.Mvc;
-using Sudoku.Mvc.Contexts;
-using Sudoku.Mvc.Views;
+using Domain.Parsers;
+using Domain.Selector;
+using Frontend.Views;
+using MVC;
+using MVC.Contexts;
+using MVC.Views;
 
-namespace Sudoku.Frontend.Controllers
+namespace Frontend.Controllers
 {
     public class StartController : Controller<StartView, ConsoleKey>
     {

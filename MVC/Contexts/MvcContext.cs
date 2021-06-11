@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Sudoku.Mvc.Views;
+using MVC.Views;
 
-namespace Sudoku.Mvc.Contexts
+namespace MVC.Contexts
 {
     /// <summary>
     /// The framework context.

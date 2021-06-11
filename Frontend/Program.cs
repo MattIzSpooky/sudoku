@@ -1,9 +1,9 @@
 ﻿using System;
-using Sudoku.Frontend.Controllers;
-using Sudoku.Frontend.Views;
-using Sudoku.Mvc.Contexts;
+using Frontend.Controllers;
+using Frontend.Views;
+using MVC.Contexts;
 
-namespace Sudoku
+namespace Frontend
 {
     public static class Program
     {

@@ -12,44 +12,179 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Domain\Board\Leaves\CellLeaf.cs">
+      <Link>Domain1\Board\Leaves\CellLeaf.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Board\Leaves\WallLeaf.cs">
+      <Link>Domain1\Board\Leaves\WallLeaf.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Board\Field.cs">
+      <Link>Domain1\Board\Field.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Board\CellValue.cs">
+      <Link>Domain1\Board\CellValue.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Board\Coordinate.cs">
+      <Link>Domain1\Board\Coordinate.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Board\ISudokuComponent.cs">
+      <Link>Domain1\Board\ISudokuComponent.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Board\QuadrantComposite.cs">
+      <Link>Domain1\Board\QuadrantComposite.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Parsers\Builders\Row.cs">
+      <Link>Domain1\Parsers\Builders\Row.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Parsers\Builders\IBuider.cs">
+      <Link>Domain1\Parsers\Builders\IBuider.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Parsers\Builders\RowBuilder.cs">
+      <Link>Domain1\Parsers\Builders\RowBuilder.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Parsers\Factories\SudokuFactory.cs">
+      <Link>Domain1\Parsers\Factories\SudokuFactory.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Parsers\Factories\ISudokuParserFactory.cs">
+      <Link>Domain1\Parsers\Factories\ISudokuParserFactory.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Parsers\Factories\JigsawSudokuParserFactory.cs">
+      <Link>Domain1\Parsers\Factories\JigsawSudokuParserFactory.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Parsers\Factories\NormalSudokuParserFactory.cs">
+      <Link>Domain1\Parsers\Factories\NormalSudokuParserFactory.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Parsers\Factories\SamuraiSudokuParserFactory.cs">
+      <Link>Domain1\Parsers\Factories\SamuraiSudokuParserFactory.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Parsers\SudokuReader.cs">
+      <Link>Domain1\Parsers\SudokuReader.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Parsers\ISudokuParser.cs">
+      <Link>Domain1\Parsers\ISudokuParser.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Parsers\JigsawSudokuParser.cs">
+      <Link>Domain1\Parsers\JigsawSudokuParser.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Parsers\NormalSudokuParser.cs">
+      <Link>Domain1\Parsers\NormalSudokuParser.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Parsers\SamuraiSudokuParser.cs">
+      <Link>Domain1\Parsers\SamuraiSudokuParser.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Selector\SudokuFile.cs">
+      <Link>Domain1\Selector\SudokuFile.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Selector\SudokuSelector.cs">
+      <Link>Domain1\Selector\SudokuSelector.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Solvers\ISolverStrategy.cs">
+      <Link>Domain1\Solvers\ISolverStrategy.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Solvers\BackTrackingSolver.cs">
+      <Link>Domain1\Solvers\BackTrackingSolver.cs</Link>
+    </Compile>
+    <Compile Update="Domain\States\State.cs">
+      <Link>Domain1\States\State.cs</Link>
+    </Compile>
+    <Compile Update="Domain\States\AuxiliaryState.cs">
+      <Link>Domain1\States\AuxiliaryState.cs</Link>
+    </Compile>
+    <Compile Update="Domain\States\DefinitiveState.cs">
+      <Link>Domain1\States\DefinitiveState.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Visitors\ISudokuComponentVisitor.cs">
+      <Link>Domain1\Visitors\ISudokuComponentVisitor.cs</Link>
+    </Compile>
+    <Compile Update="Domain\Game.cs">
+      <Link>Domain1\Game.cs</Link>
+    </Compile>
+    <Compile Update="MVC\Class1.cs">
+      <Link>MVC1\Class1.cs</Link>
+    </Compile>
+    <Compile Update="MVC\Contexts\MvcContext.cs">
+      <Link>MVC1\Contexts\MvcContext.cs</Link>
+    </Compile>
+    <Compile Update="MVC\Views\Console\ColoredChar.cs">
+      <Link>MVC1\Views\Console\ColoredChar.cs</Link>
+    </Compile>
+    <Compile Update="MVC\Views\Console\ConsoleView.cs">
+      <Link>MVC1\Views\Console\ConsoleView.cs</Link>
+    </Compile>
+    <Compile Update="MVC\Views\View.cs">
+      <Link>MVC1\Views\View.cs</Link>
+    </Compile>
+    <Compile Update="MVC\Views\Input.cs">
+      <Link>MVC1\Views\Input.cs</Link>
+    </Compile>
+    <Compile Update="MVC\Views\IView.cs">
+      <Link>MVC1\Views\IView.cs</Link>
+    </Compile>
+    <Compile Update="MVC\Controller.cs">
+      <Link>MVC1\Controller.cs</Link>
+    </Compile>
+    <Compile Update="Frontend\Views\GameView.cs">
+      <Link>Fronten\Views\GameView.cs</Link>
+    </Compile>
+    <Compile Update="Frontend\Views\StartView.cs">
+      <Link>Fronten\Views\StartView.cs</Link>
+    </Compile>
+    <Compile Update="Frontend\Visitors\RenderVisitor.cs">
+      <Link>Fronten\Visitors\RenderVisitor.cs</Link>
+    </Compile>
+    <Compile Update="Frontend\Program.cs">
+      <Link>Fronten\Program.cs</Link>
+    </Compile>
+    <Compile Update="Frontend\Controllers\GameController.cs">
+      <Link>Fronten\Controllers\GameController.cs</Link>
+    </Compile>
+    <Compile Update="Frontend\Controllers\StartController.cs">
+      <Link>Fronten\Controllers\StartController.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Frontend\Levels\puzzle.4x4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>Fronten\Levels\puzzle.4x4</Link>
     </None>
     <None Update="Frontend\Levels\puzzle.6x6">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>Fronten\Levels\puzzle.6x6</Link>
     </None>
     <None Update="Frontend\Levels\puzzle.9x9">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Frontend\Levels\puzzle.jigsaw">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Frontend\Levels\puzzle.samurai">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>Fronten\Levels\puzzle.9x9</Link>
     </None>
     <None Update="Frontend\Levels\puzzle2.4x4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>Fronten\Levels\puzzle2.4x4</Link>
     </None>
     <None Update="Frontend\Levels\puzzle2.9x9">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Frontend\Levels\puzzle2.jigsaw">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Frontend\Levels\puzzle2.samurai">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>Fronten\Levels\puzzle2.9x9</Link>
     </None>
     <None Update="Frontend\Levels\puzzle3.4x4">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>Fronten\Levels\puzzle3.4x4</Link>
     </None>
     <None Update="Frontend\Levels\puzzle3.9x9">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>Fronten\Levels\puzzle3.9x9</Link>
+    </None>
+    <None Update="Frontend\Levels\puzzle.jigsaw">
+      <Link>Fronten\Levels\puzzle.jigsaw</Link>
+    </None>
+    <None Update="Frontend\Levels\puzzle.samurai">
+      <Link>Fronten\Levels\puzzle.samurai</Link>
+    </None>
+    <None Update="Frontend\Levels\puzzle2.jigsaw">
+      <Link>Fronten\Levels\puzzle2.jigsaw</Link>
     </None>
     <None Update="Frontend\Levels\puzzle3.jigsaw">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>Fronten\Levels\puzzle3.jigsaw</Link>
+    </None>
+    <None Update="Frontend\Levels\puzzle2.samurai">
+      <Link>Fronten\Levels\puzzle2.samurai</Link>
     </None>
     <None Update="Frontend\Levels\puzzle3.samurai">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>Fronten\Levels\puzzle3.samurai</Link>
+    </None>
+    <None Update="Frontend\README.md">
+      <Link>Fronten\README.md</Link>
     </None>
   </ItemGroup>
 

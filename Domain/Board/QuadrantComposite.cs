@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using Sudoku.Domain.Board.Leaves;
-using Sudoku.Domain.Visitors;
+using Domain.Board.Leaves;
+using Domain.Visitors;
 
-namespace Sudoku.Domain.Board
+namespace Domain.Board
 {
     public class QuadrantComposite : ISudokuComponent
     {

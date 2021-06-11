@@ -1,8 +1,8 @@
 ﻿using System;
-using Sudoku.Mvc.Contexts;
-using Sudoku.Mvc.Views;
+using MVC.Contexts;
+using MVC.Views;
 
-namespace Sudoku.Mvc
+namespace MVC
 {
     public abstract class Controller : IDisposable
     {

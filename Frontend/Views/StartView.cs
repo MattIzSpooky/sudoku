@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using Sudoku.Domain.Selector;
-using Sudoku.Mvc.Views.Console;
+using Domain.Selector;
+using MVC.Views.Console;
 
-namespace Sudoku.Frontend.Views
+namespace Frontend.Views
 {
     public class StartView : ConsoleView
     {
