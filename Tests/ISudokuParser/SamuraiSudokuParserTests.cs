@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Domain.Board;
-using Domain.Board.Leaves;
 using Domain.Parsers;
-using Microsoft.VisualBasic;
 using NUnit.Framework;
 
 namespace Tests.ISudokuParser

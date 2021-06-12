@@ -1,5 +1,4 @@
 ﻿using System;
-using Domain.Parsers;
 using Domain.Selector;
 using Frontend.Views;
 using MVC;
