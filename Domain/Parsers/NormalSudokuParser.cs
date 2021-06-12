@@ -127,7 +127,7 @@ namespace Domain.Parsers
                     MaxY = maxY + boardValues.OffsetY - 1
                 };
 
-                quadrants.Add(FillQuadrant(components, range));
+                quadrants.Add(range.CreateQuadrant(components));
 
                 quadrantCounter++;
 
@@ -143,16 +143,6 @@ namespace Domain.Parsers
             }
 
             return quadrants;
-        }
-
-        private static QuadrantComposite FillQuadrant(IEnumerable<ISudokuComponent> components, QuadrantRange range)
-        {
-            var quadrant = new QuadrantComposite();
-
-            foreach (var cell in range.GetSpecifiedQuadrantCells(components))
-                quadrant.AddComponent(cell);
-
-            return quadrant;
         }
 
         private struct BoardValues
@@ -178,7 +168,17 @@ namespace Domain.Parsers
             public int MaxX { get; init; }
             public int MaxY { get; init; }
 
-            public IEnumerable<ISudokuComponent> GetSpecifiedQuadrantCells(IEnumerable<ISudokuComponent> components) =>
+            public QuadrantComposite CreateQuadrant(IEnumerable<ISudokuComponent> components)
+            {
+                var quadrant = new QuadrantComposite();
+
+                foreach (var cell in GetSpecifiedQuadrantCells(components))
+                    quadrant.AddComponent(cell);
+
+                return quadrant;
+            }
+
+            private IEnumerable<ISudokuComponent> GetSpecifiedQuadrantCells(IEnumerable<ISudokuComponent> components) =>
                 components.Where(cell =>
                     cell.Coordinate.X >= MinX &&
                     cell.Coordinate.X <= MaxX &&
