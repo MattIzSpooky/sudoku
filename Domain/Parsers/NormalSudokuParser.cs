@@ -183,7 +183,7 @@ namespace Domain.Parsers
                     cell.Coordinate.X >= MinX &&
                     cell.Coordinate.X <= MaxX &&
                     cell.Coordinate.Y >= MinY &&
-                    cell.Coordinate.Y <= MaxY).ToList();
+                    cell.Coordinate.Y <= MaxY);
         }
     }
 }
