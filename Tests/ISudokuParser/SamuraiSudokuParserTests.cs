@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Domain.Board;
 using Domain.Board.Leaves;
 using Domain.Parsers;
+using Microsoft.VisualBasic;
 using NUnit.Framework;
 
 namespace Tests.ISudokuParser
@@ -59,6 +61,8 @@ namespace Tests.ISudokuParser
             var centerGrid = _fields.Length / quadrantFactor;
             var leftQuadrant = 8;
 
+            var areSameList = new List<bool>();
+            
             for (var i = 0; i < _fields.Length; i++)
             {
                 if (i != centerGrid)
@@ -71,13 +75,15 @@ namespace Tests.ISudokuParser
                         var cellFirstField = firstFieldLastQuadrant.Cells[j];
                         var cellCenterField = centerFieldLastQuadrant.Cells[j];
                 
-                        Assert.AreSame(cellFirstField.Value, cellCenterField.Value);
+                        areSameList.Add(ReferenceEquals(cellFirstField.Value, cellCenterField.Value));
                     }
                 }
 
 
                 leftQuadrant -= quadrantFactor;
                 centerQuadrant += quadrantFactor;
+
+                Assert.True(areSameList.All(b => b));
             }
         }
     }
