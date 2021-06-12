@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Domain.Selector;
+﻿using Domain.Selector;
 using NUnit.Framework;
 
 namespace Tests
