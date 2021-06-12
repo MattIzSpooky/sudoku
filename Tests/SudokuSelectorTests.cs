@@ -70,5 +70,14 @@ namespace Tests
             
             Assert.AreSame(_sudokuSelector.SudokuFiles[0], _sudokuSelector.GetSelected());
         }
+
+        [Test]
+        public void Read_AlwaysReturnsGame()
+        {
+            var selected = _sudokuSelector.GetSelected();
+            var game = selected.Read();
+            
+            Assert.NotNull(game);
+        }
     }
 }
