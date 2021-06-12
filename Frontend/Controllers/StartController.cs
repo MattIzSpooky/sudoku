@@ -49,11 +49,10 @@ namespace Frontend.Controllers
 
         private void Start()
         {
-            var selected = _selector.GetSelected();
             try
             {
-                var game = new SudokuReader().Read(selected.Path);
-                Root.OpenController<GameController, GameView, ConsoleKey>(game, selected.Name);
+                var selected = _selector.GetSelected();
+                Root.OpenController<GameController, GameView, ConsoleKey>(selected.Read(), selected.Name);
             }
             catch (Exception e)
             {

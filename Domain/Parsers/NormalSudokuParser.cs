@@ -15,7 +15,7 @@ namespace Domain.Parsers
             var squareValue = (int) Math.Round(Math.Sqrt(content.Trim().Length));
             var quadrantHeight = (int) Math.Floor(Math.Sqrt(squareValue));
             var quadrantWidth = squareValue / quadrantHeight;
-           
+
             var boardValues = new BoardValues
             {
                 SquareValue = squareValue,
@@ -36,25 +36,23 @@ namespace Domain.Parsers
 
             return new[] {field};
         }
+
         private static List<ISudokuComponent> CreateCells(string content, BoardValues boardValues)
         {
             var sudokuComponents = new List<ISudokuComponent>();
-            
+
             var newContent = BuildContentWithWalls(content, boardValues);
             var rowBuilder = new RowBuilder(boardValues.OffsetX, boardValues.OffsetY);
-            
-            var rows = Math.Pow(boardValues.QuadrantWidth * boardValues.QuadrantHeight, 2) / 
-                (boardValues.QuadrantWidth * boardValues.QuadrantHeight * boardValues.RowQuadrantsCount) - 1;
-            
+
             var counter = newContent.Length;
-            var totalY = boardValues.SquareValue + rows;
-            var totalX = newContent[..newContent.IndexOf("-", StringComparison.Ordinal)].Length / 
+            var totalY = boardValues.SquareValue + boardValues.CalculateRows();
+            var totalX = newContent[..newContent.IndexOf("-", StringComparison.Ordinal)].Length /
                          boardValues.RowQuadrantsCount;
 
             for (var y = 0; y < totalY; y++)
             {
                 rowBuilder.SetY(y);
-                
+
                 for (var x = 0; x < totalX; x++)
                 {
                     var index = newContent.Length - counter;
@@ -63,7 +61,7 @@ namespace Domain.Parsers
 
                     counter--;
                 }
-                
+
                 sudokuComponents.AddRange(rowBuilder.GetResult().Components);
                 rowBuilder.Reset();
             }
@@ -84,29 +82,31 @@ namespace Domain.Parsers
         private static string BuildContentWithWalls(string content, BoardValues boardValues)
         {
             var cutFactor = boardValues.SquareValue * boardValues.RowQuadrantsCount;
-            
+
             StringBuilder builder = new();
             for (var i = 1; i <= content.Length; i++)
             {
                 builder.Append(content[i - 1]);
 
-                if (i != 1 && i % boardValues.QuadrantWidth == 0 && i % boardValues.SquareValue != 0 && i % cutFactor != 0)
+                if (i != 1 && i % boardValues.QuadrantWidth == 0 && i % boardValues.SquareValue != 0 &&
+                    i % cutFactor != 0)
                     builder.Append('|');
 
-                if (i == 1 || i % cutFactor != 0 || i == content.Length) 
+                if (i == 1 || i % cutFactor != 0 || i == content.Length)
                     continue;
-                
+
                 for (var j = 1; j <= boardValues.SquareValue + boardValues.RowQuadrantsCount - 1; j++)
                     builder.Append('-');
             }
-            
+
             return builder.ToString();
         }
 
-        private static List<QuadrantComposite> CreateQuadrants(IReadOnlyCollection<ISudokuComponent> components, BoardValues boardValues)
+        private static List<QuadrantComposite> CreateQuadrants(IReadOnlyCollection<ISudokuComponent> components,
+            BoardValues boardValues)
         {
             var quadrants = new List<QuadrantComposite>();
-            
+
             boardValues.QuadrantWidth += 1;
             boardValues.QuadrantHeight += 1;
 
@@ -121,13 +121,13 @@ namespace Domain.Parsers
 
                 var range = new QuadrantRange
                 {
-                    MinX = minX + boardValues.OffsetX, 
-                    MaxX = maxX + boardValues.OffsetX - 1, 
-                    MinY = minY + boardValues.OffsetY, 
+                    MinX = minX + boardValues.OffsetX,
+                    MaxX = maxX + boardValues.OffsetX - 1,
+                    MinY = minY + boardValues.OffsetY,
                     MaxY = maxY + boardValues.OffsetY - 1
                 };
 
-                quadrants.Add(FillQuadrant(components, range));
+                quadrants.Add(range.CreateQuadrant(components));
 
                 quadrantCounter++;
 
@@ -145,23 +145,6 @@ namespace Domain.Parsers
             return quadrants;
         }
 
-        private static QuadrantComposite FillQuadrant(IEnumerable<ISudokuComponent> components, QuadrantRange range)
-        {
-            var quadrant = new QuadrantComposite();
-            
-            foreach (var cell in GetSpecifiedQuadrantCells(components, range))
-                quadrant.AddComponent(cell);
-
-            return quadrant;
-        }
-
-        private static IEnumerable<ISudokuComponent> GetSpecifiedQuadrantCells(IEnumerable<ISudokuComponent> components, QuadrantRange range) =>
-            components.Where(cell => 
-                cell.Coordinate.X >= range.MinX &&
-                cell.Coordinate.X <= range.MaxX &&
-                cell.Coordinate.Y >= range.MinY &&
-                cell.Coordinate.Y <= range.MaxY).ToList();
-
         private struct BoardValues
         {
             public int SquareValue { get; init; }
@@ -170,14 +153,37 @@ namespace Domain.Parsers
             public int RowQuadrantsCount { get; init; }
             public int OffsetX { get; init; }
             public int OffsetY { get; init; }
+
+            public int CalculateRows()
+            {
+                return (int) Math.Pow(QuadrantWidth * QuadrantHeight, 2) /
+                    (QuadrantWidth * QuadrantHeight * RowQuadrantsCount) - 1;
+            }
         }
 
-        private struct QuadrantRange
+        private class QuadrantRange
         {
             public int MinX { get; init; }
             public int MinY { get; init; }
             public int MaxX { get; init; }
             public int MaxY { get; init; }
+
+            public QuadrantComposite CreateQuadrant(IEnumerable<ISudokuComponent> components)
+            {
+                var quadrant = new QuadrantComposite();
+
+                foreach (var cell in GetSpecifiedQuadrantCells(components))
+                    quadrant.AddComponent(cell);
+
+                return quadrant;
+            }
+
+            private IEnumerable<ISudokuComponent> GetSpecifiedQuadrantCells(IEnumerable<ISudokuComponent> components) =>
+                components.Where(cell =>
+                    cell.Coordinate.X >= MinX &&
+                    cell.Coordinate.X <= MaxX &&
+                    cell.Coordinate.Y >= MinY &&
+                    cell.Coordinate.Y <= MaxY);
         }
     }
 }
