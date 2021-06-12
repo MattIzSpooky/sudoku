@@ -2,6 +2,7 @@
 using Domain;
 using Domain.Board;
 using Domain.Board.Leaves;
+using Domain.Solvers;
 
 namespace Tests
 {
@@ -51,7 +52,7 @@ namespace Tests
                 quadrants.Add(fourthQuadrant);
 
 
-                return new Game(new[] {new Field(quadrants)});
+                return new Game(new[] {new Field(quadrants){SolverStrategy = new BackTrackingSolver()}});
             }
         }
     }
