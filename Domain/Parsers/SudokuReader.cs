@@ -18,7 +18,7 @@ namespace Domain.Parsers
                 throw new ArgumentException("Path was null or empty.");
             
             if(!File.Exists(path))
-                throw new ArgumentException("File doesn't exists");
+                throw new FileNotFoundException("File doesn't exists");
 
             var content = File.ReadAllText(path);
             var parserFactory = _sudokuFactory.CreateFactory(Path.GetExtension(path));
